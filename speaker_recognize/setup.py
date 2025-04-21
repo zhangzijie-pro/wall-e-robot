@@ -17,6 +17,8 @@ setup(
         'soundfile>=0.12.1',
         'tqdm>=4.66.0',
         'torchvision>=0.16.0',
+        'pydub>=0.25.0',
+        'redis'
     ],
-    python_requires='>=3.8',
+    python_requires='>=3.10',
 )
