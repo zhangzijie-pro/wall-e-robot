@@ -1,3 +1,4 @@
+import logging.config
 import os
 import random
 import torch
@@ -12,9 +13,19 @@ import logging
 import torchaudio
 import torchaudio.transforms as T
 import time
+import json
 
 current_dir = os.path.dirname(__file__)
 voice_path = os.path.abspath(os.path.join(current_dir ,'..','..', 'voice'))
+
+logger = logging.getLogger(__name__)
+logger.setLevel(level=logging.INFO)
+handler = logging.FileHandler("embedding.log")
+handler.setLevel(logging.INFO)
+formatter = logging.Formatter('%(asctime)s-%(name)s-%(levelname)s -%(message)s')
+handler.setFormatter(formatter)
+
+logger.addHandler(handler)
 
 class Data_Preprocessing:
     """
@@ -84,7 +95,7 @@ class TripDataSet(Dataset):
 
 
     def __len__(self):
-        return 1000  # 随便一个大数
+        return 1000
 
     def __getitem__(self, idx):
         anchor_spk = random.choice(self.speakers)
@@ -97,7 +108,6 @@ class TripDataSet(Dataset):
         positive = self.extract_mel_feature(positive_path)
         negative = self.extract_mel_feature(negative_path)
 
-        # pad 成相同长度
         anchor = self._pad_feature(anchor)
         positive = self._pad_feature(positive)
         negative = self._pad_feature(negative)
@@ -105,17 +115,22 @@ class TripDataSet(Dataset):
         return torch.tensor(anchor), torch.tensor(positive), torch.tensor(negative)
 
 class Config:
+    """
+    Config example :
+    time logging train device ...
+    """
     def __init__(self):
         self.__start_time = time.time()
         self.hours = 0
         self.minute = 0
         self.second = 0
+        self.min_memory=1024*1024
 
     def get_spend_time(self):
         """ 
-        获取花费时间
+        get spend time (hours, minutes, sec)
         """
-        self.second = int(time.time().self.start_time)+1
+        self.second = int(time.time()-self.__start_time)+1
         
         if self.second > 60:
             self.minute = self.second/60
@@ -125,6 +140,42 @@ class Config:
                 self.minute = self.minute-(self.hours*60)
 
         return (self.hours,self.minute,self.second)
+
+    def device(self):
+        """
+        select free device
+        """
+        if torch.cuda.is_available():
+            selected_gpu = 0
+            max_free_memory = -1
+            for i in range(torch.cuda.device_count()):
+                props = torch.cuda.get_device_properties(i)
+                free_memory = props.total_memory - torch.cuda.memory_reserved(i)
+                if max_free_memory < free_memory:
+                    selected_gpu = i
+                    max_free_memory = free_memory
+            free_memory_mb = max_free_memory / (1024 * 1024)
+            if free_memory_mb < self.min_memory:
+                logging.warning(
+                    f"⚠️ GPU {selected_gpu} has {round(free_memory_mb, 2)} MB memory left. Switching to CPU."
+                )
+                device = torch.device("cpu")
+            else:
+                device = torch.device(f"cuda:{selected_gpu}")
+
+        return device
+
+    def custom_logging(default_path="logging.json", default_level=logging.INFO, env_key="LOG_CFG"):
+        path = default_path
+        value = os.getenv(env_key, None)
+        if value:
+            path = value
+        if os.path.exists(path):
+            with open(path, "r") as f:
+                config = json.load(f)
+                logging.config.dictConfig(config)
+        else:
+            logging.basicConfig(level=default_level)
 
 class SpeakerNet(nn.Module):
     """
@@ -164,9 +215,22 @@ def model_train(
     resnet_model=1,
     lr=0.001,
     batch_size = 16, 
-    epochs = 100
+    epochs = 100,
+    device = "cpu"
     ):
-
+    """
+    Train Model
+    Args:
+        resnet_model: 1: embedding model / 0:classify model
+        lr: optimizer learn rate
+        batch_size: default=16
+        epochs: training num
+        device: "cpu" or "gpu"
+    Example of device in Config:
+    .. code-block:: python
+        config = Config()
+        device = config.device()
+    """
     config_time = Config()
     if resnet_model:
         model =TrckNet()
@@ -180,18 +244,19 @@ def model_train(
     dataset = TripDataSet(voice_path)
     dataloader = DataLoader(dataset, batch_size=batch_size, shuffle=True)
 
-    print("Total training samples:", len(dataset))
-    print(f"{len(dataset)/batch_size}/epoch")
+    logger.info("Total training samples:", len(dataset))
+    logger.info(f"{len(dataset)/batch_size}/epoch")
+    # print("Total training samples:", len(dataset))
+    # print(f"{len(dataset)/batch_size}/epoch")
 
 
     for epoch in range(epochs):
-        model.train()
+        model.to(device).train()
         total_loss = 0
         for batch_idx, (anchor, positive, negative) in enumerate(dataloader):
-            anchor = anchor.unsqueeze(1)
-            positive = positive.unsqueeze(1)
-            negative = negative.unsqueeze(1)
-
+            anchor = anchor.to(torch.device(device)).unsqueeze(1)
+            positive = positive.to(torch.device(device)).unsqueeze(1)
+            negative = negative.to(torch.device(device)).unsqueeze(1)
             emb_anchor = model(anchor)
             emb_positive = model(positive)
             emb_negative = model(negative)
@@ -204,8 +269,6 @@ def model_train(
             print(f"Epoch {epoch}, Batch {batch_idx}, Loss: {loss.item():.4f}")
 
     (hours, minutes, sec) = config_time.get_spend_time()
-    print(f"spend {hours} hours {minutes} min {sec} s")
+    # print(f"🟢 spend {hours}hours-{minutes}minutes-{sec}second")
+    logger.info(f"🟢 spend {hours}hours-{minutes}minutes-{sec}second")
     torch.save(model.state_dict(), 'tvector_model.pth')
-
-
-model_train()
