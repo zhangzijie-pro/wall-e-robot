@@ -7,21 +7,73 @@ import torch.nn.functional as F
 from embedding import TrckNet
 import os
 from embedding import logger
+import base64
+import io
+import soundfile as sf
 
-class User_DB:
+class User_Voice_DB:
+    """
+    Build User Voice DB
+    there will get voice mel feature and user db
+    """
     def __init__(self):
         self.db = {}
         self.embs = []
 
-    def extract_mel(self, file_path, sr=16000, n_mels=128, n_fft=512, hop_length=160, win_length=400):
-        y, _ = librosa.load(file_path, sr=sr)
-        mel = librosa.feature.melspectrogram(y=y, sr=sr, n_mels=n_mels,
+    def extract_mel(self, data, sr=16000, n_mels=128, n_fft=512, hop_length=160, win_length=400):
+        # y, _ = librosa.load(data, sr=sr)
+        mel = librosa.feature.melspectrogram(y=data, sr=sr, n_mels=n_mels,
                                              n_fft=n_fft, hop_length=hop_length, win_length=win_length)
         log_mel = librosa.power_to_db(mel)
         return log_mel
 
-    def preprocess(self,file_path):
-        mel = self.extract_mel(file_path)  # [n_mels, time]
+    def _load_audio(self,data, sr=16000, input_type="file"):
+        if input_type == "file":
+            y, _ = librosa.load(data,sr=sr)
+        elif input_type == 'stream':
+            y = data.astype(np.float32)
+        elif input_type == "base64":
+            audio_bytes = base64.b64decode(data)
+            audio_np, _ = sf.read(io.BytesIO(audio_bytes),dtype="float32")
+            y = audio_np
+        elif input_type == "pcm":
+            y = data.astype(np.float32)
+        else:
+            logger.error("%s not Support to know"%input_type)
+        
+        return y
+        
+
+    def preprocess(self,data,input_type="file"):
+        """
+        input_type
+        - 'file'：路径字符串
+        - 'stream': numpy array(如Vosk队列中获取的)
+        - 'base64': base64编码字符串
+        - 'pcm': ESP32发送的PCM numpy数组
+
+        Example file data (wav)
+        .. code-block:: python
+            data = r"voice_path"
+            mel = preprocess(data, input_type="file")
+            
+        Example stream data 
+        .. code-block:: python
+            mel = preprocess(stream_data, input_type="steam")
+
+        Example base64 soundfile
+        .. code-block:: python
+            with open("sample.wav", "rb") as f:
+                b64_audio = base64.b64encode(f.read()).decode("utf-8")
+
+            mel = preprocess(b64_audio, input_type="base64")
+          
+        Example pcm data (hardware i2s)
+        .. code-block:: python
+            mel = preprocess(i2s_pcm_array, input_type="pcm")
+        """
+        y = self._load_audio(data, input_type=input_type)
+        mel = self.extract_mel(data=y)  # [n_mels, time]
         mel = torch.tensor(mel).unsqueeze(0)  # [1, n_mels, T]
         mel = torch.nn.functional.interpolate(mel.unsqueeze(0), size=(128, 128), mode='bilinear')  # [1, 1, 128, 128]
         return mel.squeeze(0)
@@ -66,12 +118,15 @@ class User_DB:
                 self.db[speaker] = speaker_embedding
         return self.db
     
+    def __data_db__(self):
+        return self.db
 
 class DB_Action:
     """
-    DB local save
+    DB local save and Get
     Args:
-        save_format: "pickle" / "json" / "redis"
+        save_format: "pickle", "json", "redis"
+        "redis": redis-host, port, <password>
     """
     def __init__(self,save_format="pkl",host='localhost', port=6379, password=""):
         self.save_format = save_format
@@ -143,8 +198,8 @@ class DB_Action:
                 emb_str = json.dumps(embedding.tolist())
                 self.r.set(key, emb_str)
         except redis.RedisError as e:
-            logger.error()
-            raise RuntimeError(f"Failed to save to Redis: {e}")
+            logger.error(e)
+            # raise RuntimeError(f"Failed to save to Redis: {e}")
         finally:
             self.r.close()
 
@@ -202,6 +257,7 @@ class Model_Detect:
     ⚠️ The threshold must be less than 1
 
     """
+    
     def __init__(self, model:TrckNet, model_path, db={}, threshold=0.8):
         self.model_path = model_path
         assert not os.path.exists(model_path), f"Model Path {model_path} not exist"
@@ -210,10 +266,11 @@ class Model_Detect:
         assert threshold<1, f"threshold must <=1"
         self.model = model
         model.load_state_dict(torch.load(self.model_path, map_location='cpu')) 
+        model.eval()
 
     def identify_speaker(self, wav_path=""):
         assert (wav_path.endswith(".wav") and os.path.exists(wav_path)), f"{wav_path} format error or don't exist"
-        mel = User_DB().preprocess(wav_path)
+        mel = User_Voice_DB().preprocess(wav_path)
         with torch.no_grad():
             emb = self.model(mel.unsqueeze(0))  # [1, 128] Get wav feature
         score = []
