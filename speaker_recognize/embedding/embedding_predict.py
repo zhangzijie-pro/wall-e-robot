@@ -71,6 +71,9 @@ class User_Voice_DB:
         Example pcm data (hardware i2s)
         .. code-block:: python
             mel = preprocess(i2s_pcm_array, input_type="pcm")
+
+        Returns:
+            mel feature
         """
         y = self._load_audio(data, input_type=input_type)
         mel = self.extract_mel(data=y)  # [n_mels, time]
@@ -101,7 +104,10 @@ class User_Voice_DB:
             
             data = User_DB().build_voice_db(voice_path, model)
             with open('data.json', 'wb') as file:
-                json.dump(data, file)       
+                json.dump(data, file) 
+
+        Returns:
+            db(dict)     
         """
         for speaker in os.listdir(voice_path):
             speaker_dir = os.path.join(voice_path, speaker)
@@ -124,6 +130,7 @@ class User_Voice_DB:
 class DB_Action:
     """
     DB local save and Get
+    
     Args:
         save_format: "pickle", "json", "redis"
         "redis": redis-host, port, <password>
@@ -142,15 +149,19 @@ class DB_Action:
         support Json Pkl Redis
         
         Args:
-            data: dict
-            save_path: you can input path or file_path (json/pkl)
-            Example: "./" or "./data.pkl"
+            - data: dict
+            - save_path: you can input path or file_path (json/pkl)
+            - Example: "./" or "./data.pkl"
 
         Example save to pkl:
+
         .. code-block:: python
             data = {"name":"-0.231,0.310004,-0.14"}
             save_path = "./"
             DB_Action(save_format="pkl").save(data, save_path)
+        
+        Returns:
+            None
         """
         import os
         if save_path.endswith(".pkl") or save_path.endswith(".json"):
@@ -213,6 +224,9 @@ class DB_Action:
             db_act = DB_Action(save_format="pkl")
             db_act.save(data, save_path)
             data = db_act.Get_DB()
+
+        Returns:
+            db(dict)
         """
         assert not os.path.exists(self.__save_path), f"Can't found File to Read"
         if self.save_format=="pkl":
@@ -268,9 +282,23 @@ class Model_Detect:
         model.load_state_dict(torch.load(self.model_path, map_location='cpu')) 
         model.eval()
 
-    def identify_speaker(self, wav_path=""):
-        assert (wav_path.endswith(".wav") and os.path.exists(wav_path)), f"{wav_path} format error or don't exist"
-        mel = User_Voice_DB().preprocess(wav_path)
+    def identify_speaker(self, data, type="file"):
+        """
+        identify speaker
+
+        Args:
+            data: input data example file or stream data
+            input_type:
+                - 'file'：路径字符串
+                - 'stream': numpy array(如Vosk队列中获取的)
+                - 'base64': base64编码字符串
+                - 'pcm': ESP32发送的PCM numpy数组
+        
+        Returns:
+            speaker name or label
+        """
+        # assert (wav_path.endswith(".wav") and os.path.exists(wav_path)), f"{wav_path} format error or don't exist"
+        mel = User_Voice_DB().preprocess(data, input_type=type)
         with torch.no_grad():
             emb = self.model(mel.unsqueeze(0))  # [1, 128] Get wav feature
         score = []
