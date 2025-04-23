@@ -20,7 +20,7 @@ voice_path = os.path.abspath(os.path.join(current_dir ,'..','..', 'voice'))
 
 logger = logging.getLogger(__name__)
 logger.setLevel(level=logging.INFO)
-handler = logging.FileHandler("embedding.log")
+handler = logging.FileHandler("speaker_embedding.log")
 handler.setLevel(logging.INFO)
 formatter = logging.Formatter('%(asctime)s-%(name)s-%(levelname)s -%(message)s')
 handler.setFormatter(formatter)
@@ -58,6 +58,8 @@ class Data_Preprocessing:
             
             self.voice.append(file_names)
 
+    
+
 class TripDataSet(Dataset):
     """
     数据集
@@ -76,7 +78,7 @@ class TripDataSet(Dataset):
 
     def _pad_feature(self, feat, max_len=300):
         """
-        统一长度
+        统一数据长度
         """
         if feat.shape[0] > max_len:
             feat = feat[:max_len]
@@ -166,6 +168,9 @@ class Config:
         return device
 
     def custom_logging(default_path="logging.json", default_level=logging.INFO, env_key="LOG_CFG"):
+        """
+        自定义日志内容
+        """
         path = default_path
         value = os.getenv(env_key, None)
         if value:
@@ -198,7 +203,7 @@ class SpeakerNet(nn.Module):
 
 class TrckNet(nn.Module):
     """
-    声纹识别分类模型
+    声纹识别向量模型
     resnet
     """
     def __init__(self, embeding_num=128):
@@ -215,7 +220,7 @@ def model_train(
     resnet_model=1,
     lr=0.001,
     batch_size = 16, 
-    epochs = 100,
+    epochs = 10,
     device = "cpu"
     ):
     """
@@ -225,11 +230,13 @@ def model_train(
         lr: optimizer learn rate
         batch_size: default=16
         epochs: training num
-        device: "cpu" or "gpu"
+        device: "cpu" or gpu_num
+        
     Example of device in Config:
     .. code-block:: python
         config = Config()
-        device = config.device()
+        device = config.device()  # get train device
+        model_train(device=device)
     """
     config_time = Config()
     if resnet_model:
