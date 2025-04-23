@@ -18,7 +18,8 @@ setup(
         'tqdm>=4.66.0',
         'torchvision>=0.16.0',
         'pydub>=0.25.0',
-        'redis'
+        'redis',
+        'MNN'        
     ],
     python_requires='>=3.10',
 )
