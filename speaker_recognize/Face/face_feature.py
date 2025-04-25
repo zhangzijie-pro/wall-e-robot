@@ -11,7 +11,7 @@ import os
 import random
 
 current_dir = os.path.dirname(__file__)
-face_dataset = os.path.abspath(os.path.join(current_dir,"..","face_pic"))
+face_dataset = os.path.abspath(os.path.join(current_dir,"..","..","Dataset"))
 
 class Data_Preprocessing:
     """

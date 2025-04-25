@@ -26,7 +26,7 @@ formatter = logging.Formatter('%(asctime)s-%(name)s-%(levelname)s -%(message)s')
 handler.setFormatter(formatter)
 
 logger.addHandler(handler)
-
+ 
 class Data_Preprocessing:
     """
     预处理数据
@@ -199,7 +199,7 @@ class SpeakerNet(nn.Module):
         x = self.pool(x) # 提取主要特征输出为4D张量
         x = x.view(x.size(0),-1)  # 展平为2D张量
         embedding = F.normalize(self.fc1(x), p=2, dim=1)  # (B, 128), L2归一化
-        return 
+        return embedding
 
 class TrckNet(nn.Module):
     """
