@@ -2,7 +2,7 @@ import torch
 import MNN
 
 class export_Model:
-    def __init__(self, model, file_name, save_pth=0):
+    def __init__(self,model=None,model_path="", save_pth=0):
         """
         Args:
             model: Torch.nn
@@ -10,11 +10,13 @@ class export_Model:
             save_pth: E.g 1? 0  
         """
         self.model = model
-        if file_name.spilt('.')[1] != ".pth":
-            self.file_name = file_name.spilt('.')[0]+".pth"
-        self.file_name = file_name
+        self.model_path = model_path
+
+        self.file_name = model_path.split("\\")[-1]  
+        if self.file_name.split('.')[-1] != "pth":
+            self.file_name = self.file_name.split('.')[0]+".pth"
         self.model_type = "pth"
-        if save_pth==1:torch.save(model, file_name)
+        if save_pth==1:torch.save(model, self.file_name)
 
     def onnx(self,dummy_input, inp_name, oup_name,opset_version=11):
         """
@@ -38,9 +40,9 @@ class export_Model:
         self.oup_name = oup_name
         self.opset_version = opset_version
 
-        self.model.load_state_dict(torch.load(self.file_name, map_location='cpu'))
+        self.model.load_state_dict(torch.load(self.model_path, map_location='cpu'))
         self.model.eval()
-        self.file_name = self.file_name.spilt(".")[0]+"onnx"
+        self.file_name = self.file_name.split(".")[0]+".onnx"
         torch.onnx.export(
             self.model,
             self.dummy_input,
@@ -53,6 +55,8 @@ class export_Model:
 
         self.model_type = "ONNX"
 
+        return self
+
     def tflittle(self):
 
         self.model_type = "TFLITE"
@@ -61,7 +65,7 @@ class export_Model:
 
         self.model_type = "TF"
 
-    def turn_mnn(self,fp16=0 ,bizcode="mobilenet", optim=0):
+    def turn_mnn(self,fp16=0, optim=0,bizcode="mobilenet"):
         """
         MNN Doc
             https://mnn-docs.readthedocs.io/en/latest/tools/convert.html
@@ -75,12 +79,16 @@ class export_Model:
                         - 1:优化后模型尽可能小
                         - 2:优化后模型尽可能快
         """
-        fp="--fp16" if fp16==1 else fp=""
+        if fp16==1:fp="--fp16"
         __command = "mnnconvert -f {model_type} --modelFile {model_path} --MNNModel {model_export_name} --bizCode {bizcode} {fp}  --optimizePrefer {optim}".format(
             model_type=self.model_type,
             model_path=self.file_name,
-            model_export_name=self.file_name.spilt(".")[0]+".mnn",
-            bizcode = self.bizcode,
+            model_export_name=self.file_name.split(".")[0]+".mnn",
+            bizcode = bizcode,
             fp=fp,
-            optim = self.optim
+            optim = optim
         )
+        import subprocess
+        subprocess.run(__command, shell=True, check=True)
+
+        
