@@ -1,5 +1,78 @@
 import torch
-import MNN
+from log import logger
+import time
+import json
+import logging.config
+import os
+from log import logger
+import onnx
+from onnx_tf.backend import prepare
+
+class Config:
+    """
+    Config example :
+    time logging train device ...
+    """
+    def __init__(self):
+        self.__start_time = time.time()
+        self.hours = 0
+        self.minute = 0
+        self.second = 0
+        self.min_memory=1024*1024
+
+    def get_spend_time(self):
+        """ 
+        get spend time (hours, minutes, sec)
+        """
+        self.second = int(time.time()-self.__start_time)+1
+        
+        if self.second > 60:
+            self.minute = self.second/60
+            self.second = self.second-(self.minute*60)
+            if self.minute>60:
+                self.hours = self.minute/60
+                self.minute = self.minute-(self.hours*60)
+
+        return (self.hours,self.minute,self.second)
+
+    def device(self):
+        """
+        select free device
+        """
+        if torch.cuda.is_available():
+            selected_gpu = 0
+            max_free_memory = -1
+            for i in range(torch.cuda.device_count()):
+                props = torch.cuda.get_device_properties(i)
+                free_memory = props.total_memory - torch.cuda.memory_reserved(i)
+                if max_free_memory < free_memory:
+                    selected_gpu = i
+                    max_free_memory = free_memory
+            free_memory_mb = max_free_memory / (1024 * 1024)
+            if free_memory_mb < self.min_memory:
+                logging.warning(
+                    f"⚠️ GPU {selected_gpu} has {round(free_memory_mb, 2)} MB memory left. Switching to CPU."
+                )
+                device = torch.device("cpu")
+            else:
+                device = torch.device(f"cuda:{selected_gpu}")
+
+        return device
+
+    def custom_logging(default_path="logging.json", default_level=logging.INFO, env_key="LOG_CFG"):
+        """
+        自定义日志内容
+        """
+        path = default_path
+        value = os.getenv(env_key, None)
+        if value:
+            path = value
+        if os.path.exists(path):
+            with open(path, "r") as f:
+                config = json.load(f)
+                logging.config.dictConfig(config)
+        else:
+            logging.basicConfig(level=default_level)
 
 class export_Model:
     def __init__(self,model=None,model_path="", save_pth=0):
@@ -43,10 +116,12 @@ class export_Model:
         self.model.load_state_dict(torch.load(self.model_path, map_location='cpu'))
         self.model.eval()
         self.file_name = self.file_name.split(".")[0]+".onnx"
+        self.model_path = self.model_path.split(".")[0]+".onnx"
+
         torch.onnx.export(
             self.model,
             self.dummy_input,
-            self.file_name,
+            self.model_path,
             input_names=[self.input_name],
             output_names=[self.oup_name],
             dynamic_axes={self.input_name: {0: "batch_size"}, self.oup_name: {0: "batch_size"}},
@@ -54,16 +129,10 @@ class export_Model:
         )
 
         self.model_type = "ONNX"
+        logger.info("Onnx Convert successfully")
 
         return self
 
-    def tflittle(self):
-
-        self.model_type = "TFLITE"
-
-    def tf(self):
-
-        self.model_type = "TF"
 
     def turn_mnn(self,fp16=0, optim=0,bizcode="mobilenet"):
         """
@@ -78,6 +147,13 @@ class export_Model:
                         - 0:正常优化
                         - 1:优化后模型尽可能小
                         - 2:优化后模型尽可能快
+        
+        Usage:
+        .. code-block:: python
+            import MNN
+            interpreter = MNN.Interpreter(model_path)
+            session = interpreter.createSession()
+            input_tensor = interpreter.getSessionInput(session)
         """
         if fp16==1:fp="--fp16"
         __command = "mnnconvert -f {model_type} --modelFile {model_path} --MNNModel {model_export_name} --bizCode {bizcode} {fp}  --optimizePrefer {optim}".format(

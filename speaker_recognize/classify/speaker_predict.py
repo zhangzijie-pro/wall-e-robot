@@ -3,7 +3,7 @@ import torch
 import torch.nn.functional as F
 import librosa
 import numpy as np
-from speaker_recongize import SpeakerNet
+from embedding.embedding import SpeakerNet
 os.path.curdir = os.path.dirname(os.path.abspath(__file__))
 now_path = os.path.join(os.path.curdir)
 

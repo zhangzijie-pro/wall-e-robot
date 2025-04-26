@@ -1,4 +1,3 @@
-import logging.config
 import os
 import random
 import torch
@@ -9,23 +8,13 @@ from torch.utils.data import Dataset, DataLoader
 import torch.optim as optim
 import numpy as np
 import torchvision.models as models
-import logging
-import torchaudio
 import torchaudio.transforms as T
-import time
-import json
+from log import logger
+from config import Config
+
 
 current_dir = os.path.dirname(__file__)
 voice_path = os.path.abspath(os.path.join(current_dir ,'..','..', 'voice'))
-
-logger = logging.getLogger(__name__)
-logger.setLevel(level=logging.INFO)
-handler = logging.FileHandler("speaker_embedding.log")
-handler.setLevel(logging.INFO)
-formatter = logging.Formatter('%(asctime)s-%(name)s-%(levelname)s -%(message)s')
-handler.setFormatter(formatter)
-
-logger.addHandler(handler)
  
 class Data_Preprocessing:
     """
@@ -115,72 +104,7 @@ class TripDataSet(Dataset):
         negative = self._pad_feature(negative)
 
         return torch.tensor(anchor), torch.tensor(positive), torch.tensor(negative)
-
-class Config:
-    """
-    Config example :
-    time logging train device ...
-    """
-    def __init__(self):
-        self.__start_time = time.time()
-        self.hours = 0
-        self.minute = 0
-        self.second = 0
-        self.min_memory=1024*1024
-
-    def get_spend_time(self):
-        """ 
-        get spend time (hours, minutes, sec)
-        """
-        self.second = int(time.time()-self.__start_time)+1
-        
-        if self.second > 60:
-            self.minute = self.second/60
-            self.second = self.second-(self.minute*60)
-            if self.minute>60:
-                self.hours = self.minute/60
-                self.minute = self.minute-(self.hours*60)
-
-        return (self.hours,self.minute,self.second)
-
-    def device(self):
-        """
-        select free device
-        """
-        if torch.cuda.is_available():
-            selected_gpu = 0
-            max_free_memory = -1
-            for i in range(torch.cuda.device_count()):
-                props = torch.cuda.get_device_properties(i)
-                free_memory = props.total_memory - torch.cuda.memory_reserved(i)
-                if max_free_memory < free_memory:
-                    selected_gpu = i
-                    max_free_memory = free_memory
-            free_memory_mb = max_free_memory / (1024 * 1024)
-            if free_memory_mb < self.min_memory:
-                logging.warning(
-                    f"⚠️ GPU {selected_gpu} has {round(free_memory_mb, 2)} MB memory left. Switching to CPU."
-                )
-                device = torch.device("cpu")
-            else:
-                device = torch.device(f"cuda:{selected_gpu}")
-
-        return device
-
-    def custom_logging(default_path="logging.json", default_level=logging.INFO, env_key="LOG_CFG"):
-        """
-        自定义日志内容
-        """
-        path = default_path
-        value = os.getenv(env_key, None)
-        if value:
-            path = value
-        if os.path.exists(path):
-            with open(path, "r") as f:
-                config = json.load(f)
-                logging.config.dictConfig(config)
-        else:
-            logging.basicConfig(level=default_level)
+ 
 
 class SpeakerNet(nn.Module):
     """

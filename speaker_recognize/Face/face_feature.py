@@ -3,12 +3,12 @@ import cv2
 from PIL import Image
 from torch.utils.data import Dataset, DataLoader
 import torchvision.transforms as transforms
-
 import numpy as np
 import torch.nn.functional as F
 import torch.nn as nn
 import os
 import random
+from config import Config
 
 current_dir = os.path.dirname(__file__)
 face_dataset = os.path.abspath(os.path.join(current_dir,"..","..","Dataset"))
@@ -23,6 +23,9 @@ class Data_Preprocessing:
         self.image_Preprocess()
     
     def image_Preprocess(self):
+        """
+        
+        """
         for dir in os.listdir(self.dataset_path):
 
             dir_path = os.path.join(self.dataset_path, dir)

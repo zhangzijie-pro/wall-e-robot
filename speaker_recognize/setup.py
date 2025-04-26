@@ -19,7 +19,8 @@ setup(
         'torchvision>=0.16.0',
         'pydub>=0.25.0',
         'redis',
-        'MNN'        
+        'MNN',
+        "onnx"
     ],
     python_requires='>=3.10',
 )
