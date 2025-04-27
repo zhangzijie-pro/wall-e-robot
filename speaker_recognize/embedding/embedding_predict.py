@@ -271,18 +271,19 @@ class Model_Detect:
     ⚠️ The threshold must be less than 1
 
     """
-    
-    def __init__(self, model:TrckNet, model_path, db={}, threshold=0.8):
+    def __init__(self, model_path, db={}, threshold=0.8):
+        assert os.path.exists(model_path), f"Model Path {model_path} not exist"
         self.model_path = model_path
-        assert not os.path.exists(model_path), f"Model Path {model_path} not exist"
         self.db = db
-        self.threshold= threshold
-        assert threshold<1, f"threshold must <=1"
-        self.model = model
-        model.load_state_dict(torch.load(self.model_path, map_location='cpu')) 
-        model.eval()
+        self.threshold = threshold
+        assert threshold < 1, "threshold must be less than 1"
+        
+        # Load MNN model
+        self.interpreter = MNN.Interpreter(model_path)
+        self.session = self.interpreter.createSession()
+        self.input_tensor = self.interpreter.getSessionInput(self.session)
 
-    def identify_speaker(self, data, type="file"):
+    def identify_speaker(self, data, input_type="file"):
         """
         identify speaker
 
@@ -297,20 +298,44 @@ class Model_Detect:
         Returns:
             speaker name or label
         """
-        # assert (wav_path.endswith(".wav") and os.path.exists(wav_path)), f"{wav_path} format error or don't exist"
-        mel = User_Voice_DB().preprocess(data, input_type=type)
-        with torch.no_grad():
-            emb = self.model(mel.unsqueeze(0))  # [1, 128] Get wav feature
+        # Step 1: Preprocess
+        mel = User_Voice_DB().preprocess(data, input_type=input_type)  # [dim, time]
+        
+        # Step 2: MNN 推理
+        emb = self.__infer(mel)  # emb shape: [128]
+
         score = []
         name = []
         for label, feature_vector in self.db.items():
-            sim = self.__cosine_similarity(a=emb,b=feature_vector)
-            if sim>self.threshold:
-                score.append(sim) 
+            sim = self.__cosine_similarity(a=emb, b=feature_vector)
+            if sim > self.threshold:
+                score.append(sim)
                 name.append(label)
                 logger.info(f"✅ sound like is {name}, score get {sim:.4f}")
         
+        if not score:
+            logger.warning("⚠️ No matching speaker found")
+            return None
+        
         return name[self.__get_max(score)] 
+
+    def __infer(self, mel):
+        """
+        Use MNN model to infer embedding
+        """
+        mel = mel.unsqueeze(0)  # [1, dim, time]
+        mel = mel.numpy()
+
+        # Prepare input
+        mel = np.expand_dims(mel, 0) if mel.ndim == 3 else mel  # (batch, channel, dim, time)
+        tmp_input = MNN.Tensor(self.input_tensor.getShape(), MNN.Halide_Type_Float, mel, MNN.Tensor_DimensionType_Caffe)
+        self.input_tensor.copyFrom(tmp_input)
+        
+        self.interpreter.runSession(self.session)
+        
+        output = self.interpreter.getSessionOutput(self.session)
+        output_np = np.array(output.getData(), dtype=np.float32)
+        return torch.from_numpy(output_np)  # 转回 torch tensor，方便后续余弦相似度计算 
  
     def __get_max(self, data):
         """
@@ -323,3 +348,4 @@ class Model_Detect:
 
     def __cosine_similarity(self,a, b):
         return F.cosine_similarity(a, b).item()
+
