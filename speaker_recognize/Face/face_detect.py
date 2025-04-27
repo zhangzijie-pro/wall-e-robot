@@ -167,10 +167,40 @@ def crop_save_boxes(image_ori, boxes, save_dir):
             continue
 
         cropped = image_ori[y1:y2, x1:x2]
-        
-        save_path = os.path.join(save_dir, f"crop_{i:03d}.png")
-        cv2.imwrite(save_path, cropped)
+        print("cropped:",cropped)
 
+        save_path = os.path.join(save_dir, f"crop_{i:03d}.png")
+        img = cv2.resize(cropped,(125,125))
+        cv2.imwrite(save_path, img)
+
+def Get_crop_Tensor(image_ori, boxes):
+    """
+    得到裁剪内容的张量信息
+    """
+    if image_ori is None:
+        return
+    if boxes.shape[0] == 0 or boxes is None:
+        return
+    
+
+    image_crops = []
+    h,w = image_ori[:2]
+    for i in range(boxes.shape[0]):
+        box = boxes[i, :]
+        x1,y1,x2,y2 = map(int, box)
+        x1 = max(0,x1)
+        y1 = max(0,y1)
+        x2 = min(w,x2)
+        y2 = min(h,y2)
+
+        if x2<=x1 or y2<=y1:
+            continue
+    
+        cropped = image_ori[y1:y2, x1:x2]
+        cropped_tensor = torch.tensor(cropped)
+        image_crops.append(cropped_tensor)
+    
+    return image_crops
 def inference(
     input_img_path,
     save_path,
