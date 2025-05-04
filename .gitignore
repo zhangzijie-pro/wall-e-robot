@@ -174,3 +174,6 @@ cython_debug/
 .pypirc
 STT/stt
 STT/stt2
+
+CMakeFiles/
+CMakeCache.txt
