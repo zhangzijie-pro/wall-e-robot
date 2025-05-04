@@ -5,11 +5,14 @@ from PIL import Image
 from torchvision import transforms
 import MNN
 import cv2
+import json
 import time
 
 current_dir = os.path.dirname(__file__)
 face_pth = os.path.abspath(os.path.join(current_dir,"..","..","model","facenet_fp16.mnn"))
-img = os.path.abspath(os.path.join(current_dir,"..","..","Dataset","face_dataset","Colin_Powell","Colin_Powell_0002.jpg"))
+dataset = os.path.abspath(os.path.join(current_dir,"..","..","Dataset","face_dataset")) # ,"Colin_Powell","Colin_Powell_0002.jpg"
+img = os.path.abspath(os.path.join(current_dir,"..","..","Dataset","face_dataset","Colin_Powell","Colin_Powell_0008.jpg")) # 
+
 
 def extract_embedding(image_path, model_path, input_size=(125, 125)):
     if not os.path.exists(image_path):
@@ -41,6 +44,60 @@ def extract_embedding(image_path, model_path, input_size=(125, 125)):
     print(f"推理时间: {round(time.time() - start_time, 4)} 秒")
     return embedding
 
-embedding = extract_embedding(img, face_pth)
-print(embedding.shape)
-print(embedding)
+# embedding = extract_embedding(img, face_pth)
+# print(embedding.shape)
+# print(embedding)
+
+
+def build_face_database(image_dir, model_path, json_path, input_size=(125, 125)):
+    face_db = {}
+
+    for person_name in os.listdir(image_dir):
+        person_path = os.path.join(image_dir, person_name)
+        if not os.path.isdir(person_path):
+            continue
+
+        face_db[person_name] = []
+        for img_file in os.listdir(person_path):
+            img_path = os.path.join(person_path, img_file)
+            try:
+                embedding = extract_embedding(img_path, model_path, input_size)
+                face_db[person_name].append(embedding.tolist())
+            except Exception as e:
+                print(f"Failed to process {img_path}: {e}")
+
+    with open(json_path, 'w') as f:
+        json.dump(face_db, f, indent=2)
+    print(f"人脸库已保存到 {json_path}")
+
+from scipy.spatial.distance import cosine
+
+def recognize_face(image_path, model_path, db_path, input_size=(125, 125), threshold=0.5):
+    with open(db_path, 'r') as f:
+        face_db = json.load(f)
+
+    query_embedding = extract_embedding(image_path, model_path, input_size)
+
+    best_match = None
+    best_score = 1.0  # 越小越相似
+
+    for name, embeddings in face_db.items():
+        for emb in embeddings:
+            score = cosine(query_embedding, np.array(emb))
+            if score < best_score:
+                best_score = score
+                best_match = name
+
+    if best_score < threshold:
+        print(f"识别结果: {best_match}（相似度: {round(1 - best_score, 4)}）")
+        return best_match, best_score
+    else:
+        print(f"未识别（最接近：{best_match}, 相似度: {round(1 - best_score, 4)}）")
+        return None, best_score
+
+# 构建人脸库
+# build_face_database(dataset, face_pth, "face_db.json")
+
+recognize_face(img, face_pth, "face_db.json")
+
+

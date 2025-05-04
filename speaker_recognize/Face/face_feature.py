@@ -8,7 +8,6 @@ import torch.nn.functional as F
 import torch.nn as nn
 import os
 import random
-from config import Config
 
 current_dir = os.path.dirname(__file__)
 face_dataset = os.path.abspath(os.path.join(current_dir,"..","..","Dataset"))
