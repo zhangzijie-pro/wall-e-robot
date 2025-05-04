@@ -6,7 +6,6 @@ import logging.config
 import os
 from log import logger
 import onnx
-from onnx_tf.backend import prepare
 
 class Config:
     """
