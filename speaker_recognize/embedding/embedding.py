@@ -14,8 +14,8 @@ from config import Config
 
 
 current_dir = os.path.dirname(__file__)
-voice_path = os.path.abspath(os.path.join(current_dir ,'..','..', 'voice'))
- 
+voice_path = os.path.abspath(os.path.join(current_dir ,'..','..', 'Dataset','voice'))
+
 class Data_Preprocessing:
     """
     预处理数据
@@ -125,20 +125,36 @@ class SpeakerNet(nn.Module):
         embedding = F.normalize(self.fc1(x), p=2, dim=1)  # (B, 128), L2归一化
         return embedding
 
+class StatsPool(nn.Module):
+    """统计池化层"""
+    def forward(self, x):
+        # x: [B, C, T, F] -> reshape to [B, C, T*F]
+        x = x.view(x.size(0), x.size(1), -1)
+        mean = x.mean(dim=2)
+        std = x.std(dim=2)
+        return torch.cat((mean, std), dim=1)  # 输出: [B, 2C]
+
 class TrckNet(nn.Module):
     """
-    声纹识别向量模型
-    resnet
+    改进版 ResNet 声纹识别模型，带统计池化
     """
     def __init__(self, embeding_num=128):
-        super().__init__()
-        self.resnet = models.resnet18(weights=None)
-        self.resnet.conv1 = nn.Conv2d(1, 64, kernel_size=7, stride=2, padding=3, bias=False)
-        self.resnet.fc = nn.Linear(self.resnet.fc.in_features, embeding_num)
+        super(TrckNet, self).__init__()
+        self.backbone = models.resnet18(weights=None)
+        self.backbone.conv1 = nn.Conv2d(1, 64, kernel_size=7, stride=2, padding=3, bias=False)
+        self.backbone.fc = nn.Identity()  # 去掉原来的全连接层
+
+        self.pool = StatsPool()
+        self.bn = nn.BatchNorm1d(512 * 2)
+        self.fc = nn.Linear(512 * 2, embeding_num)
 
     def forward(self, x):
-        x = self.resnet(x)
-        return F.normalize(x, p=2, dim=1)
+        # 输入: [B, 1, T, F]
+        features = self.backbone(x)               # 输出: [B, 512, H, W]
+        pooled = self.pool(features)              # 输出: [B, 1024]
+        pooled = self.bn(pooled)
+        emb = self.fc(pooled)                     # 输出: [B, embeding_num]
+        return F.normalize(emb, p=2, dim=1)       # 单位化
 
 def model_train(
     resnet_model=1,
@@ -203,3 +219,6 @@ def model_train(
     # print(f"🟢 spend {hours}hours-{minutes}minutes-{sec}second")
     logger.info(f"🟢 spend {hours}hours-{minutes}minutes-{sec}second")
     torch.save(model.state_dict(), 'tvector_model.pth')
+
+
+model_train(epochs=100)

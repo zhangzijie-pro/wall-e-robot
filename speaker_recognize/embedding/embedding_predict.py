@@ -4,7 +4,7 @@ import librosa
 import numpy as np
 from torchvision import transforms
 import torch.nn.functional as F
-from embedding import TrckNet
+from embedding import TrckNet,voice_path
 import os
 from embedding import logger
 import base64
@@ -81,6 +81,7 @@ class User_Voice_DB:
         mel = torch.nn.functional.interpolate(mel.unsqueeze(0), size=(128, 128), mode='bilinear')  # [1, 1, 128, 128]
         return mel.squeeze(0)
 
+
     def build_voice_db(self, voice_path, model):
         """
         Get DB -> {speaker: feature vector, ...}
@@ -112,17 +113,20 @@ class User_Voice_DB:
         for speaker in os.listdir(voice_path):
             speaker_dir = os.path.join(voice_path, speaker)
             if not os.path.isdir(speaker_dir): continue
+
+            embeddings = []
             for file in os.listdir(speaker_dir):
                 if file.endswith(".wav"):
                     audio_path = os.path.join(speaker_dir, file)
                     mel = self.preprocess(audio_path)
                     with torch.no_grad():
-                        emb = model(mel.unsqueeze(0))
-                        self.embs.append(emb.squeeze(0))
-            if self.embs:
-                speaker_embedding = torch.stack(self.embs).mean(dim=0)
-                self.db[speaker] = speaker_embedding
+                        emb = model(mel.unsqueeze(0))  # [1, 128]
+                        embeddings.append(emb.squeeze(0))  # [128]
+
+            if embeddings:
+                self.db[speaker] = embeddings  # List[Tensor]
         return self.db
+    
     
     def __data_db__(self):
         return self.db
@@ -170,6 +174,7 @@ class DB_Action:
             assert os.path.isdir(save_path), f"Directory {save_path} does not exist or This is not Dir"
             self.__save_path = os.path.join(save_path, f"data.{self.save_format}")
 
+
         if self.save_format=="pkl":
             self.__save_pickle(data)
         elif self.save_format=="json":
@@ -179,18 +184,25 @@ class DB_Action:
         else:
             logger.error("Unsupported save format:%s"%self.save_format)
             raise ValueError(f"Unsupported save format: {self.save_format}")
+        logger.info(f"Save {self.save_format} to {self.__save_path}")
 
     def __save_pickle(self, data):
         """Save data as a pickle file."""
         import pickle
-        data_serializable = {label: embedding.tolist() for label, embedding in data.items()}
+        data_serializable = {
+            label: [tensor.tolist() for tensor in embeddings]
+            for label, embeddings in data.items()
+        }
         with open(self.__save_path, "wb") as file:
             pickle.dump(data_serializable, file)
 
     def __save_json(self,data):
         """Save data as a JSON file."""
         import json
-        data_serializable = {label: embedding.tolist() for label, embedding in data.items()}
+        data_serializable = {
+            label: [tensor.tolist() for tensor in embeddings]
+            for label, embeddings in data.items()
+        }
         with open(self.__save_path, "w") as file:
             json.dump(data_serializable, file, indent=2)
     
@@ -261,65 +273,170 @@ class DB_Action:
 
 class Model_Detect:
     """
-    Predict speaker
-
-    Args:
-        model: TrckNet
-        model_path: PTH file address
-        db: User voiceprint registry (dict)
-        threshold: Cosine similarity threshold
-    ⚠️ The threshold must be less than 1
-
+    Speaker recognition engine
     """
-    
-    def __init__(self, model:TrckNet, model_path, db={}, threshold=0.8):
+
+    def __init__(self, model, model_path, db={}, threshold=0.8):
+        assert threshold < 1, f"threshold must < 1"
         self.model_path = model_path
-        assert not os.path.exists(model_path), f"Model Path {model_path} not exist"
-        self.db = db
-        self.threshold= threshold
-        assert threshold<1, f"threshold must <=1"
         self.model = model
-        model.load_state_dict(torch.load(self.model_path, map_location='cpu')) 
-        model.eval()
+        self.model.load_state_dict(torch.load(self.model_path, map_location='cpu'))
+        self.model.eval()
+        self.db = db
+        self.threshold = threshold
+        print(f"✅ Loaded model from {model_path}")
 
-    def identify_speaker(self, data, type="file"):
-        """
-        identify speaker
+    def identify_speaker(self, data, type_file="file"):
+        mel = User_Voice_DB().preprocess(data, input_type=type_file)
 
-        Args:
-            data: input data example file or stream data
-            input_type:
-                - 'file'：路径字符串
-                - 'stream': numpy array(如Vosk队列中获取的)
-                - 'base64': base64编码字符串
-                - 'pcm': ESP32发送的PCM numpy数组
-        
-        Returns:
-            speaker name or label
-        """
-        # assert (wav_path.endswith(".wav") and os.path.exists(wav_path)), f"{wav_path} format error or don't exist"
-        mel = User_Voice_DB().preprocess(data, input_type=type)
         with torch.no_grad():
-            emb = self.model(mel.unsqueeze(0))  # [1, 128] Get wav feature
-        score = []
-        name = []
-        for label, feature_vector in self.db.items():
-            sim = self.__cosine_similarity(a=emb,b=feature_vector)
-            if sim>self.threshold:
-                score.append(sim) 
-                name.append(label)
-                logger.info(f"✅ sound like is {name}, score get {sim:.4f}")
-        
-        return name[self.__get_max(score)] 
+            emb = self.model(mel.unsqueeze(0)).squeeze(0)  # [128]
+
+        names = []
+        scores = []
+
+        for label, embeddings in self.db.items():
+            for ref_emb in embeddings:
+                sim = self.__cosine_similarity(emb, ref_emb)
+                print(f"✅ Match {label}, similarity: {sim:.4f}")
+                # if sim > best_score:
+                    # best_score = sim
+                    # best_label = label
+                scores.append(sim)
+                names.append(label)
+
+        # if best_score < self.threshold:
+        #     print(f"⚠️ No match found, highest score {best_score:.4f}")
+        #     return "Unknown"
+        # else:
+        #     return best_label
+        return names[self.__get_max(scores)]
  
     def __get_max(self, data):
         """
         Get max score in data 
         return max idx
         """
+        max_score=0
+        max_idx=0
         if not data:
             logger.warning("⚠️ data is empty")
-        return max(enumerate(data), key=lambda x: x[1])[0]
+        for idx, score in enumerate(data):
+            if score>max_score:
+                max_score = score
+                max_idx = idx   
+        return max_idx
 
-    def __cosine_similarity(self,a, b):
-        return F.cosine_similarity(a, b).item()
+    def __cosine_similarity(self, a, b):
+        return F.cosine_similarity(a.unsqueeze(0), b.unsqueeze(0)).item()
+
+
+# import MNN
+# import numpy as np
+# import os
+# import torch
+# import torch.nn.functional as F
+
+# class Model_Detect_MNN:
+#     """
+#     Predict speaker (MNN version)
+
+#     Args:
+#         model_path: MNN file address
+#         db: User voiceprint registry (dict)
+#         threshold: Cosine similarity threshold
+#     ⚠️ The threshold must be less than 1
+#     """
+    
+#     def __init__(self, model_path, db={}, threshold=0.8):
+#         assert os.path.exists(model_path), f"Model Path {model_path} not exist"
+#         self.model_path = model_path
+#         self.db = db
+#         self.threshold = threshold
+#         assert threshold < 1, "threshold must be less than 1"
+        
+#         # Load MNN model
+#         self.interpreter = MNN.Interpreter(model_path)
+#         self.session = self.interpreter.createSession()
+#         self.input_tensor = self.interpreter.getSessionInput(self.session)
+
+#     def identify_speaker(self, data, input_type="file"):
+#         """
+#         identify speaker
+
+#         Args:
+#             data: input data example file or stream data
+#             input_type:
+#                 - 'file'：路径字符串
+#                 - 'stream': numpy array(如Vosk队列中获取的)
+#                 - 'base64': base64编码字符串
+#                 - 'pcm': ESP32发送的PCM numpy数组
+        
+#         Returns:
+#             speaker name or label
+#         """
+#         # Step 1: Preprocess
+#         mel = User_Voice_DB().preprocess(data, input_type=input_type)  # [dim, time]
+        
+#         # Step 2: MNN 推理
+#         emb = self.__infer(mel)  # emb shape: [128]
+        
+#         # Step 3: 比对声纹
+#         score = []
+#         name = []
+#         for label, feature_vector in self.db.items():
+#             sim = self.__cosine_similarity(a=emb, b=feature_vector)
+#             if sim > self.threshold:
+#                 score.append(sim)
+#                 name.append(label)
+#                 logger.info(f"✅ sound like is {name}, score get {sim:.4f}")
+        
+#         if not score:
+#             logger.warning("⚠️ No matching speaker found")
+#             return None
+        
+#         return name[self.__get_max(score)] 
+
+#     def __infer(self, mel):
+#         """
+#         Use MNN model to infer embedding
+#         """
+#         mel = mel.unsqueeze(0)  # [1, dim, time]
+#         mel = mel.numpy()
+
+#         # Prepare input
+#         mel = np.expand_dims(mel, 0) if mel.ndim == 3 else mel  # (batch, channel, dim, time)
+#         tmp_input = MNN.Tensor(self.input_tensor.getShape(), MNN.Halide_Type_Float, mel, MNN.Tensor_DimensionType_Caffe)
+#         self.input_tensor.copyFrom(tmp_input)
+        
+#         self.interpreter.runSession(self.session)
+        
+#         output = self.interpreter.getSessionOutput(self.session)
+#         output_np = np.array(output.getData(), dtype=np.float32)
+#         return torch.from_numpy(output_np)  # 转回 torch tensor，方便后续余弦相似度计算
+
+#     def __get_max(self, data):
+#         """
+#         Get max score in data 
+#         return max idx
+#         """
+#         if not data:
+#             logger.warning("⚠️ data is empty")
+#             return 0
+#         return max(enumerate(data), key=lambda x: x[1])[0]
+
+#     def __cosine_similarity(self, a, b):
+#         return F.cosine_similarity(a, b, dim=0).item()
+
+
+
+current_dir = os.path.dirname(__file__)
+model_path = os.path.abspath(os.path.join(current_dir ,'..','..', 'model','tvector_model.pth'))
+model = TrckNet()
+db = User_Voice_DB().build_voice_db(voice_path=voice_path, model=model)
+DB_Action(save_format="json").save(db)
+x2_path = r"C:\Users\lenovo\Desktop\python\音频信号处理\1.wav"
+detect = Model_Detect(model= model,model_path=model_path, db=db)
+x = detect.identify_speaker(x2_path)
+print(x)
+ 
