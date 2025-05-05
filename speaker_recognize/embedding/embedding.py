@@ -10,7 +10,7 @@ import numpy as np
 import torchvision.models as models
 import torchaudio.transforms as T
 from log import logger
-from config import Config
+from speaker_recognize import config
 
 
 current_dir = os.path.dirname(__file__)
@@ -178,7 +178,7 @@ def model_train(
         device = config.device()  # get train device
         model_train(device=device)
     """
-    config_time = Config()
+    config_time = config.Config()
     if resnet_model:
         model =TrckNet()
     else:

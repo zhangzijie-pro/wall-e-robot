@@ -172,6 +172,8 @@ def crop_save_boxes(image_ori, boxes, save_dir):
         save_path = os.path.join(save_dir, f"crop_{i:03d}.png")
         img = cv2.resize(cropped,(125,125))
         cv2.imwrite(save_path, img)
+    
+    return None
 
 def Get_crop_Tensor(image_ori, boxes):
     """
@@ -201,6 +203,8 @@ def Get_crop_Tensor(image_ori, boxes):
         image_crops.append(cropped_tensor)
     
     return image_crops
+
+
 def inference(
     input_img_path,
     save_path,
@@ -210,9 +214,11 @@ def inference(
     image_std=128.0,
     center_variance=0.1,
     size_variance=0.2,
-    threshold=0.7
+    threshold=0.7,
+    return_tensor=False,
 ):
     """使用 MNN 模型进行推理并裁剪检测到的边界框区域"""
+    
     priors = define_img_size(input_size)
     
     if not os.path.exists(save_path):
@@ -275,8 +281,9 @@ def inference(
             image_ori.shape[1], image_ori.shape[0], scores, boxes, threshold
         )
         
+        return crop_save_boxes(image_ori, boxes, save_path) if return_tensor else Get_crop_Tensor(image_ori, boxes)
         # 裁剪并保存边界框区域
-        crop_save_boxes(image_ori, boxes, save_path)
+
 
 
 # test
