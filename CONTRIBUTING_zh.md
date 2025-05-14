@@ -138,7 +138,7 @@
      ```bash
      pip install -r ROS2_Packages/requirements.txt
      ```
-   - 安装 ESP32 开发工具（例如 PlatformIO 或 Arduino IDE）。
+   - 安装 ESP32 开发工具（例如 ESP32-IDF PlatformIO 或 Arduino IDE）。
 
 3. **构建 ROS2 工作空间**：
    ```bash

@@ -138,7 +138,7 @@ To contribute code or test changes, set up the development environment as follow
      ```bash
      pip install -r ROS2_Packages/requirements.txt
      ```
-   - Install ESP32 development tools (e.g., PlatformIO or Arduino IDE).
+   - Install ESP32 development tools (e.g., ESP32-IDF PlatformIO or Arduino IDE).
 
 3. **Build the ROS2 Workspace**:
    ```bash
