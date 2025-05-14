@@ -1,16 +1,17 @@
 {
     "C_Cpp.intelliSenseEngine": "default",
-    "idf.espIdfPath": "/home/tww/esp/v5.0.2/esp-idf",
+    "idf.espIdfPath": "/home/zzj/esp/v5.3.3/esp-idf",
     "idf.pythonInstallPath": "/usr/bin/python3",
     "idf.openOcdConfigs": [
         "board/esp32s3-builtin.cfg"
     ],
     "idf.port": "/dev/ttyS0",
-    "idf.toolsPath": "/home/tww/.espressif",
+    "idf.toolsPath": "/home/zzj/ESPRESSIF/Tools",
     "files.associations": {
         "freertos.h": "c"
     },
     "idf.customExtraVars": {
         "IDF_TARGET": "esp32s3"
-    }
+    },
+    "idf.flashType": "UART"
 }
