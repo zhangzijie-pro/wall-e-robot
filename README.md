@@ -84,7 +84,7 @@ git clone https://github.com/zhangzijie-pro/wall-e-robot.git
 2. **Build ROS2 Workspace**
 
 ```bash
-cd wall-e-robot/ros2_ws
+cd wall-e-robot/ROS2_Packages
 colcon build --symlink-install
 source install/setup.bash
 ```
