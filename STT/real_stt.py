@@ -9,8 +9,10 @@ import json  # 新增导入（识别结果需要）
 import sounddevice as sd
 from vosk import Model, KaldiRecognizer
 import psutil
+from speaker_recognize.log import logger, log
 
 
+@log()
 class VoiceProcessor:
     def __init__(self):
         self.last_voice_time = time.time()  # 使用系统时间初始化
