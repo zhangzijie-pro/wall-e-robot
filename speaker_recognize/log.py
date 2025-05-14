@@ -4,7 +4,6 @@ import os
 
 class CustomLogger(logging.Logger):
     def findCaller(self, stack_info=False, stacklevel=1):
-        # 向上查找真实调用 logger.info 的函数
         f = logging.currentframe()
         for _ in range(stacklevel):
             if f is not None:

@@ -7,6 +7,20 @@ import os
 from log import logger
 import onnx
 
+
+current__dir = os.path.dirname(__file__)
+"""specker_recognize"""
+face_dir = os.path.abspath(os.path.join(current__dir, "Face"))
+voice_dir = os.path.abspath(os.path.join(current__dir, "emdedding"))
+
+json_lib_path_face = os.path.abspath(os.path.join(current__dir, "face_dataset.json"))
+json_lib_path_voice = os.path.abspath(os.path.join(current__dir, "voice_dataset.json"))
+
+mnn_face_detect = os.path.abspath(os.path.join(current__dir, "..", "model", "face_recongize.mnn"))
+mnn_face_feature = os.path.abspath(os.path.join(current__dir, "..", "model", "facenet_fp16.mnn"))
+mnn_voice_feature = os.path.abspath(os.path.join(current__dir, "..", "model", "voice_tensor.mnn"))
+
+
 class Config:
     """
     Config example :
