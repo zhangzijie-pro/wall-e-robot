@@ -1,8 +1,18 @@
 # Wall·E 机器人
 
+<img src="./images/walle.webp" alt="WALL·E" width="100"/>
+
+
 欢迎体验 **Wall·E 机器人项目**，这是一款受皮克斯《机器人总动员》启发的智能交互机器人。该开源系统专为多模态交互、自主导航和个性化用户体验而设计。
 
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+
+
+<div align="center">
+
+[中文](README_zh.md) | [English](README.md)
+
+</div>
 
 ##  🚀 功能
 
@@ -122,8 +132,8 @@ ros2 launch launch/walle_full_system.launch.py
 ---
 
 ## 🤝 贡献
-欢迎提交 Pull Request 或提出创意！对于重大更改，请先创建一个 Issue 进行讨论。
-
+欢迎提交 Pull Request 或提出创意！对于重大更改，请先创建一个 Issue 进行讨论。  
+详细的贡献指南请查看 [CONTRIBUTING.md](CONTRIBUTING_zh.md)。
 ---
 
 ## 🧠 灵感来源

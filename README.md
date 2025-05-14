@@ -1,8 +1,16 @@
 # Wall·E Robot
 
+<img src="./images/walle.webp" alt="WALL·E" width="150"/>
+
 Welcome to the **Wall·E Robot Project**, an intelligent, interactive robot inspired by Pixar's WALL·E. This open-source system is designed for multimodal interaction, autonomous navigation, and personalized user engagement.
 
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+
+<div align="center">
+
+[中文](README_zh.md) | [English](README.md)
+
+</div>
 
 ## 🚀 Features
 
@@ -116,8 +124,9 @@ Licensed under the [Apache License 2.0](LICENSE).
 
 ## 🤝 Contributing
 
-Pull requests and ideas are welcome! For major changes, please open an issue first.
-
+Contributions are welcome via Pull Requests or ideas!  
+For major changes, please open an issue first to discuss what you would like to change.  
+For detailed contribution guidelines, see [CONTRIBUTING.md](CONTRIBUTING.md).
 ---
 
 ## 🧠 Inspirations
