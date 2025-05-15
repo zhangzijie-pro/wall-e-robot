@@ -10,7 +10,7 @@ import numpy as np
 import torchvision.models as models
 import torchaudio.transforms as T
 from log import logger
-from speaker_recognize import config
+from SpeakerRecognition import config
 
 
 current_dir = os.path.dirname(__file__)
