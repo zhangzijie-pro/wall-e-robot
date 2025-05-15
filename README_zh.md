@@ -127,19 +127,20 @@ ros2 launch launch/walle_full_system.launch.py
 ---
 
 ## 📝 许可证
-本项目采用 Apache 2.0 许可证。
+本项目采用 Apache 2.0 许可证
 
 ---
 
 ## 🤝 贡献
 欢迎提交 Pull Request 或提出创意！对于重大更改，请先创建一个 Issue 进行讨论。  
-详细的贡献指南请查看 [CONTRIBUTING.md](CONTRIBUTING_zh.md)。
+详细的贡献指南请查看 [CONTRIBUTING.md](CONTRIBUTING_zh.md)
+
 ---
 
 ## 🧠 灵感来源
-本项目受 WALL·E 启发，旨在为个人机器人赋予情感智能和自主能力。
+本项目受 WALL·E 启发，旨在为个人机器人赋予情感智能和自主能力
 
 ---
 
 ## 📬 联系方式
-如需合作或有任何疑问，请通过 GitHub 创建 Issue 或直接联系。
+如需合作或有任何疑问，请通过 GitHub 创建 Issue 或直接联系

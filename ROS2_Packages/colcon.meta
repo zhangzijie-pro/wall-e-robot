@@ -1,0 +1,49 @@
+metadata:
+  version: 1
+  dependencies:
+
+    # 感知层
+    camera_node:
+      depends: []
+    face_recognition_node:
+      depends: [camera_node]
+    mic_audio_node:
+      depends: []
+    voice_id_node:
+      depends: [mic_audio_node]
+    vosk_stt_node:
+      depends: [mic_audio_node]
+
+    # 认知层
+    langchain_agent_node:
+      depends: [vosk_stt_node, face_recognition_node, voice_id_node]
+    task_planner_node:
+      depends: [langchain_agent_node]
+    executor_node:
+      depends: [task_planner_node]
+    memory_manager_node:
+      depends: []
+    scene_trigger_node:
+      depends: []
+
+    # 表达层
+    chattts_node:
+      depends: [executor_node]
+    audio_play_client:
+      depends: [chattts_node]
+
+    # 动作控制层
+    motion_controller_node:
+      depends: []
+    servo_controller_node:
+      depends: []
+    esp32_comm_node:
+      depends: [motion_controller_node, servo_controller_node]
+
+    # 路径规划与建图层
+    lidar_node:
+      depends: []
+    slam_toolbox_node:
+      depends: [lidar_node]
+    nav2_bt_navigator:
+      depends: [slam_toolbox_node]

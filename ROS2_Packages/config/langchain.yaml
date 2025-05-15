@@ -1,0 +1,29 @@
+version: 1
+nodes:
+  - id: stt
+    type: vosk
+    output: text
+
+  - id: task_splitter
+    type: langchain
+    input: text
+    output: sub_tasks
+
+  - id: task_executor
+    type: router
+    input: sub_tasks
+    routes:
+      - if: sub_task.type == "move"
+        do: move_node
+      - if: sub_task.type == "say"
+        do: chattts_node
+
+  - id: move_node
+    type: ros2_pub
+    topic: /motion_cmd
+    msg_type: geometry_msgs/Twist
+
+  - id: chattts_node
+    type: ros2_pub
+    topic: /speech_output
+    msg_type: std_msgs/String
