@@ -1,3 +1,1 @@
-# Speech TO Text 
-
-STT
+# Speech TO Text
