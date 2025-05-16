@@ -14,7 +14,7 @@
 | ----------------------- | ------ | ------------------- | ------------------------------------------------------- |
 | `camera_node`           | Python | 使用 `cv_camera` 获取图像 | `/image_raw` (sensor\_msgs/Image)                       |
 | `face_recognition_node` | Python | 人脸检测 + 特征比对         | 订阅 `/image_raw`，发布 `/detected_faces` (std\_msgs/String) |
-| `mic_audio_node`        | Python | 接收 ESP32 发来的音频流     | 发布 `/raw_audio` (自定义)                                   |
+| `mic_audio_node`        | C++    | 接收 ESP32 发来的音频流     | 发布 `/raw_audio` (自定义)                                   |
 | `voice_id_node`         | Python | 声纹识别，身份确认           | 订阅 `/raw_audio`，发布 `/speaker_id` (std\_msgs/String)     |
 | `vosk_stt_node`         | C++    | 音频转文本（高性能）          | 订阅 `/raw_audio`，发布 `/text_input` (std\_msgs/String)     |
 
