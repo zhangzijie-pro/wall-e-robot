@@ -1,0 +1,12 @@
+serial:
+  port: "/dev/ttyUSB0"
+  baud_rate: 115200
+model:
+  path: "../ML_Models/vosk_model"
+  language: "cn"
+audio:
+  sample_rate: 16000
+  block_size: 1600
+  queue_size: 50
+logging:
+  file: "speech_recognition.log"
