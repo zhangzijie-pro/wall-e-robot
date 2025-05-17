@@ -8,7 +8,6 @@ endif()
 # find dependencies
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
-find_package(STT_Vosk REQUIRED)
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
@@ -23,3 +22,19 @@ if(BUILD_TESTING)
 endif()
 
 ament_package()
+
+add_executable(
+  mic_audio_node
+  src/mic_audio_node.cc
+)
+
+#target_include_directories(mic_audio_node PUBLIC ${rclcpp_INCLUDE_DIRS})
+#target_link_libraries(mic_audio_node ${rclcpp_LIBRARIES})
+ament_target_dependencies(
+  mic_audio_node
+  rclcpp
+)
+
+install(TARGETS mic_audio_node
+  DESTINATION lib/${PROJECT_NAME}
+)

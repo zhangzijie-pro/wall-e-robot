@@ -1,4 +1,3 @@
-#include "vosk_speech_recognizer.h"
 #include <rclcpp/rclcpp.hpp>
 
 int main(int argc, char **argv)

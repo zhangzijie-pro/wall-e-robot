@@ -1,9 +1,6 @@
 # AudioStream.msg
 
-uint8[] data
-
-# "pcm", "opus", "mp3"
-string encoding
+int16[] data
 
 uint32 sample_rate
 
