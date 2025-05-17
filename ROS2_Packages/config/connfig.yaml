@@ -1,0 +1,13 @@
+mic_audio_node:
+  port_name: "/dev/ttyUSB0"
+  baud_rate: 115200
+  block_size: 1024
+  sample_rate: 16000
+  channels: 1
+
+stt_node:
+  model_path: "../../ML_Models/vosk_model"
+  sample_rate: 16000
+  block_size: 1024  
+  queue_size: 50
+  log_file: "../log/stt.log"
