@@ -8,6 +8,10 @@ endif()
 # find dependencies
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
+find_package(std_msgs REQUIRED)
+find_package(yaml-cpp REQUIRED)
+find_package(utils REQUIRED)
+
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
@@ -26,6 +30,11 @@ ament_package()
 add_executable(
   mic_audio_node
   src/mic_audio_node.cc
+)
+
+
+target_link_libraries(mic_audio_node 
+  utils::shared_utils 
 )
 
 #target_include_directories(mic_audio_node PUBLIC ${rclcpp_INCLUDE_DIRS})
