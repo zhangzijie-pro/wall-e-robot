@@ -73,15 +73,19 @@ wall-e-robot/
 │
 ├── 3D_Models/              # WALL·E 外壳和结构的 3D 打印文件（.stl 等）
 ├── Dataset/                # 声纹模型、人脸识别与高清图像处理的训练数据集
+├── docs
 ├── ESP32_Firmware/         # ESP32 上运行的嵌入式代码（例如运动控制）
-├── ML_Models/              # 训练后的模型权重
+├── models/                 # 训练后的模型权重
 ├── ROS2_Packages/          # ROS 内容
 ├── Hardware_Design/        # 原理图和 PCB 设计文件
 ├── SpeakerRecognition/     # 说话者识别模块（包含声纹识别与人脸识别）
-├── STT_Vosk/               # Vosk 语音识别代码和实时处理逻辑
-├── TTS_ChatTTS/            # ChatTTS 实时 TTS 推理和三缓冲播放
+├── tts/                    # ChatTTS 实时 TTS 推理和三缓冲播放
+├── Tools/
 │
 ├── .gitignore
+├── CONTRIBUTING.md
+├── pyproject.toml
+├── setup.py
 ├── LICENSE
 └── README.md
 ```

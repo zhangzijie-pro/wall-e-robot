@@ -66,15 +66,19 @@ wall-e-robot/
 │
 ├── 3D_Models/              # WALL·E 3D print file（e.g .stl）
 ├── Dataset/                # Dataset
+├── docs
 ├── ESP32_Firmware/         # ESP32 code 
-├── ML_Models/              # trained model weight
+├── models/                 # trained model weight
 ├── ROS2_Packages/          # ROS code
 ├── Hardware_Design/        # SCH PCB design
 ├── SpeakerRecognition/     # speaker recognition
-├── STT_Vosk/               # Vosk real time STT 
-├── TTS_ChatTTS/            # ChatTTS real time TTS and three cache
+├── tts/                    # ChatTTS real time TTS and three cache
+├── Tools/
 │
 ├── .gitignore
+├── CONTRIBUTING.md
+├── pyproject.toml
+├── setup.py
 ├── LICENSE
 └── README.md
 ```
