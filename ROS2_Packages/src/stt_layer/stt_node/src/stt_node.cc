@@ -19,6 +19,7 @@ public:
         vosk_config.log_file = get_package_path("stt_node") + "/" + config["log_file"].as<std::string>();
 
         RCLCPP_INFO(this->get_logger(), "Model path: %s", vosk_config.model_path.c_str());
+        publisher_.create_publisher<std_msgs::msgs::String>("STT_Text",10);
 
         recognizer_ = std::make_unique<VoskSpeechRecognizer>(vosk_config);
         recognizer_->set_result_callback([this](const std::string &text) {
@@ -33,6 +34,13 @@ public:
                 RCLCPP_DEBUG(this->get_logger(), "Received audio block of size: %zu", msg->data.size());
                 recognizer_->push_audio(msg->data);
             });
+
+        recognizer_.set_result_callback([this](const std::string &text) {
+            RCLCPP_INFO(this->get_logger(), "Recognized: %s", text.c_str());
+            std_msgs::msg::String result_msg;
+            result_msg.data = text;
+            publisher_->publish(result_msg);
+        });
     }
     ~STTNode()
     {
@@ -47,6 +55,7 @@ private:
 
     std::unique_ptr<VoskSpeechRecognizer> recognizer_;
     rclcpp::Subscription<std_msgs::msg::Int16MultiArray>::SharedPtr subscription_;
+    rclcpp::Publisher<std_msgs::msg::String>::SharedPtr publisher_;
 }
 
 int main(int argc, char **argv) {
