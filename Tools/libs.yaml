@@ -1,0 +1,10 @@
+libraries:
+  - name: spdlog
+    repo: https://github.com/gabime/spdlog.git
+    build: cmake
+  - name: libserialport
+    repo: https://github.com/sigrokproject/libserialport.git
+    build: autotools
+  - name: vosk-api
+    repo: https://github.com/alphacep/vosk-api.git
+    build: none  # 如果没有统一 build 步骤，只下载
