@@ -180,5 +180,11 @@ CMakeCache.txt
 .vscode/
 packages/
 
+# ROS2_Packages
 ROS2_Packages/install/
 ROS2_Packages/log/
+
+# Hard_Ware
+Hardware_Design/__Previews/
+Hardware_Design/History/
+Hardware_Design/Project Logs for PCB_Project/
