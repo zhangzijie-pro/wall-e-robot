@@ -1,5 +1,7 @@
 ## walle ROS2 系统
 
+<img src="../images/ros.png" alt="WALL·E" />
+
 ### 一、系统总览
 
 树莓派运行 ROS2，主要负责语音识别、图像识别、智能任务规划、路径导航、语音合成与动作控制等任务。各模块分工明确，采用话题（topic）、服务（service）和动作（action）进行节点间通信。
