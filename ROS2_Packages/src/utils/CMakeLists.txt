@@ -31,7 +31,7 @@ ament_target_dependencies(shared_utils INTERFACE yaml-cpp ament_index_cpp)
 # ament_python_install_package(shared_utils)
 
 # install(
-#   DIRECTORY shared_utils/python/shared_utils
+#   DIRECTORY shared_utils/python
 #   DESTINATION lib/${PROJECT_NAME}/shared_utils
 # )
 
