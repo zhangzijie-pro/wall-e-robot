@@ -1,11 +1,13 @@
 <?xml version="1.0"?>
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
-  <name>face_recognition_node</name>
+  <name>face_voice_id_node</name>
   <version>0.0.0</version>
   <description>TODO: Package description</description>
-  <maintainer email="zzj@todo.todo">zzj</maintainer>
+  <maintainer email="zzj01262022@163.com">zzj</maintainer>
   <license>Apache-2.0</license>
+
+  <depend>rclpy</depend>
 
   <test_depend>ament_copyright</test_depend>
   <test_depend>ament_flake8</test_depend>

@@ -1,6 +1,6 @@
 from setuptools import find_packages, setup
 
-package_name = 'face_recognition_node'
+package_name = 'face_voice_id_node'
 
 setup(
     name=package_name,
@@ -14,12 +14,13 @@ setup(
     install_requires=['setuptools'],
     zip_safe=True,
     maintainer='zzj',
-    maintainer_email='zzj@todo.todo',
+    maintainer_email='zzj01262022@163.com',
     description='TODO: Package description',
     license='Apache-2.0',
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
+            'face_voice_id_node=face_voice_id_node.main_node:main',
         ],
     },
 )

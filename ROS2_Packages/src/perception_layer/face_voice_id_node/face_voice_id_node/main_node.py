@@ -1,19 +1,32 @@
 import rclpy
 from rclpy.node import Node
 from std_msgs.msg import ByteMultiArray
+from std_msgs.msg import String
+from sensor_msgs.msg import Image
 import random
 
 class VoiceIDNode(Node):
     def __init__(self):
         super().__init__("voice_id_node")
 
-        self.subscription = self.create_subscription(
+        self.subscription_audio = self.create_subscription(
             ByteMultiArray,
-            "mic_audio",
+            "raw_audio",
+            self.listener_callback,
+            10
+        )
+        self.subscription_image = self.create_subscription(
+            Image,
+            "image_raw",
             self.listener_callback,
             10
         )
 
+        self.publisher_voice_id = self.create_publisher(
+            String,
+            "speaker_id",
+            self.speaker_id            
+        )
 
     def listener_callback(self, msg):
         data = msg.data
@@ -24,6 +37,9 @@ class VoiceIDNode(Node):
         reduced_size = len(data) // 3
         selected_indices = sorted(random.sample(range(len(data)), reduced_size))
         self.audio_data = [data[i] for i in selected_indices]
+    
+    def speaker_id(self):
+        pass
     
 
 def main(args=None):

@@ -18,7 +18,7 @@ public:
         RCLCPP_INFO(this->get_logger(), "Baud rate: %d", baud_rate);
         RCLCPP_INFO(this->get_logger(), "Block size: %d", block_size);
 
-        publisher_ = this->create_publisher<std_msgs::msg::String>("mic_audio_data", 10);
+        publisher_ = this->create_publisher<std_msgs::msg::String>("raw_audio", 10);
         sp_get_port_by_name(port_name.c_str(), &port_);
         sp_open(port_, SP_MODE_READ);
         sp_set_baudrate(port_, baud_rate);
