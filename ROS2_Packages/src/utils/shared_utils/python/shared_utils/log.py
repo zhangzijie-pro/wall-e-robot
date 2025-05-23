@@ -16,7 +16,7 @@ class CustomLogger(logging.Logger):
             f = f.f_back
         return ("<unknown>", 0, "<unknown>", None)
 
-def logger_config(name="custom_logger", log_file="speaker_embedding.log"):
+def logger_config(name="custom_logger", log_file="log/speaker_embedding.log"):
     logging.setLoggerClass(CustomLogger)
     logger = logging.getLogger(name)
     logger.setLevel(logging.INFO)
