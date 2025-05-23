@@ -28,12 +28,12 @@ target_include_directories(shared_utils INTERFACE
 )
 ament_target_dependencies(shared_utils INTERFACE yaml-cpp ament_index_cpp)
 
-# ament_python_install_package(shared_utils)
+ament_python_install_package(shared_utils)
 
-# install(
-#   DIRECTORY shared_utils/python
-#   DESTINATION lib/${PROJECT_NAME}/shared_utils
-# )
+install(
+  DIRECTORY shared_utils/python/shared_utils
+  DESTINATION lib/python3.10/site-packages
+)
 
 install(DIRECTORY shared_utils/include/
   DESTINATION include/

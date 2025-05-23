@@ -1,22 +1,14 @@
-# Shared Package
+## ✅ Build and Use
 
-CMakeLists.txt use function
-```txt
-find_package(utils REQUIRED)
-find_package(rclcpp REQUIRED)
-
-target_link_libraries(your_node
-  utils::shared_utils
-)
+```bash
+cd ~/ROS2_Packages 
+chmod +x ./build_utils.sh
+./build_utils.sh
 ```
 
-Cpp 
-```cpp
-// Yaml Loader
-#include "shared_utils/config_loader.h"
-
-// msg srv
-#include "utils/msg/your_custom_msg.hpp"
-#include "utils/srv/your_custom_service.hpp"
-
+Use:
+```python
+from utils.msg import AudioStream
+from shared_utils.audio_helper import play_beep
 ```
+---
