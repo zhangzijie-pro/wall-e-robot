@@ -1,12 +1,7 @@
 import ChatTTS
-from config import Config
 from stream import ChatStreamer
 import torch
 import torchaudio
-
-# 加载 ChatTTS
-
-config = Config()
 
 chat = ChatTTS.Chat()
 chat.load(compile=False)
@@ -27,9 +22,6 @@ params_refine_text = ChatTTS.Chat.RefineTextParams(
     top_P=0.7,  # top P decode
     top_K=20,  # top K decode
 )
-
-spend_time = config.get_spend_time()
-print(f"load_model: {spend_time} s")
 
 # 获取ChatTTS 流式推理generator
 streamchat = chat.infer(

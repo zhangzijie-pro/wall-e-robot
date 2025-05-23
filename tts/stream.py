@@ -3,7 +3,7 @@ import threading
 import queue
 import numpy as np
 from queue_thread import SafeRealTimeBufferPlayer
-from tools.audio import float_to_int16
+from np import float_to_int16
 
 
 class ChatStreamer:
@@ -103,48 +103,3 @@ class ChatStreamer:
         player = SafeRealTimeBufferPlayer(buffer_size=50,status_callback=lambda s: print("状态:", s))
         audio_gen = self.generate(streamchat, output_format="PCM16_byte")
         player.play(audio_gen)
-    # def play(self, streamchat, wait=1):
-    #     FORMAT = pyaudio.paInt16
-    #     CHANNELS = 1
-    #     RATE = 24000
-    #     CHUNK = 1024
-
-    #     p = pyaudio.PyAudio()
-    #     stream_out = p.open(format=FORMAT, channels=CHANNELS, rate=RATE, output=True)
-
-    #     audio_queue = queue.Queue(maxsize=400)
-    #     is_finished = threading.Event()
-
-    #     def producer():
-    #         for audio_bytes in self.generate(streamchat, output_format="PCM16_byte"):
-    #             while audio_queue.full():
-    #                 time.sleep(1)
-    #             audio_queue.put(audio_bytes)
-    #         is_finished.set()
-
-    #     producer_thread = threading.Thread(target=producer)
-    #     producer_thread.start()
-
-    #     # 缓冲时间
-    #     prefill_bytes = b""
-    #     min_prefill_bytes = int(RATE * wait * 2)  # 16-bit = 2 bytes
-    #     while len(prefill_bytes) < min_prefill_bytes and not is_finished.is_set():
-    #         try:
-    #             prefill_bytes += audio_queue.get()
-    #         except queue.Empty:
-    #             print("hungry !! i need voice Now!!!")
-    #             pass
-
-    #     stream_out.write(prefill_bytes)
-
-    #     # 播放剩余数据
-    #     while not (is_finished.is_set() and audio_queue.empty()):
-    #         try:
-    #             data = audio_queue.get(timeout=0.01)
-    #             stream_out.write(data)
-    #         except queue.Empty:
-    #             continue
-
-    #     stream_out.stop_stream()
-    #     stream_out.close()
-    #     p.terminate()
