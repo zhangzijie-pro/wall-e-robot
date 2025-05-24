@@ -55,12 +55,8 @@ def extract_embedding(model_path,image=None,input_size=(125, 125),image_path=Non
     print(f"推理时间: {round(time.time() - start_time, 4)} 秒")
     return embedding
 
-# embedding = extract_embedding(img, face_pth)
-# print(embedding.shape)
-# print(embedding)
 
-
-def build_face_database(image_dir, model_path, json_path, input_size=(125, 125)):
+def build_face_database(image_dir, model_path, input_size=(125, 125)):
     face_db = {}
 
     for person_name in os.listdir(image_dir):
@@ -75,11 +71,9 @@ def build_face_database(image_dir, model_path, json_path, input_size=(125, 125))
                 embedding = extract_embedding(img_path, model_path, input_size)
                 face_db[person_name].append(embedding.tolist())
             except Exception as e:
-                print(f"Failed to process {img_path}: {e}")
+                logger.error(f"Failed to process {img_path}: {e}")
 
-    with open(json_path, 'w') as f:
-        json.dump(face_db, f, indent=2)
-    print(f"人脸库已保存到 {json_path}")
+    return face_db
 
 from scipy.spatial.distance import cosine
 

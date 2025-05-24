@@ -10,8 +10,6 @@ import onnx
 current__dir = os.path.dirname(__file__)
 pwd_dir = os.getcwd()  # get pwd path
 PARENT_PATH = os.path.abspath(os.path.join(pwd_dir, ".."))
-print(PARENT_PATH)
-
 
 """specker_recognize"""
 face_dir = os.path.abspath(os.path.join(current__dir, "Face"))

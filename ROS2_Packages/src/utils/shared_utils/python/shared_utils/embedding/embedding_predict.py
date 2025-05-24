@@ -10,6 +10,7 @@ from embedding import logger
 import base64
 import io
 import soundfile as sf
+import MNN
 
 class User_Voice_DB:
     """
@@ -82,7 +83,7 @@ class User_Voice_DB:
         return mel.squeeze(0)
 
 
-    def build_voice_db(self, voice_path, model):
+    def build_voice_db(self, voice_path:str, mnn_model:str):
         """
         Get DB -> {speaker: feature vector, ...}
         you can save this labels and features to you file
@@ -110,26 +111,75 @@ class User_Voice_DB:
         Returns:
             db(dict)     
         """
+        # use PT model build
+        # for speaker in os.listdir(voice_path):
+        #     speaker_dir = os.path.join(voice_path, speaker)
+        #     if not os.path.isdir(speaker_dir): continue
+
+        #     embeddings = []
+        #     for file in os.listdir(speaker_dir):
+        #         if file.endswith(".wav"):
+        #             audio_path = os.path.join(speaker_dir, file)
+        #             mel = self.preprocess(audio_path)
+        #             with torch.no_grad():
+        #                 emb = model(mel.unsqueeze(0))  # [1, 128]
+        #                 embeddings.append(emb.squeeze(0))  # [128]
+
+        #     if embeddings:
+        #         self.db[speaker] = embeddings  # List[Tensor]
+        # return self.db
+        import numpy as np
+
         for speaker in os.listdir(voice_path):
             speaker_dir = os.path.join(voice_path, speaker)
-            if not os.path.isdir(speaker_dir): continue
+            if not os.path.isdir(speaker_dir):
+                continue
 
             embeddings = []
             for file in os.listdir(speaker_dir):
                 if file.endswith(".wav"):
                     audio_path = os.path.join(speaker_dir, file)
-                    mel = self.preprocess(audio_path)
-                    with torch.no_grad():
-                        emb = model(mel.unsqueeze(0))  # [1, 128]
-                        embeddings.append(emb.squeeze(0))  # [128]
+                    
+                    # 预处理获取梅尔频谱（假设返回PyTorch Tensor）
+                    mel_tensor = self.preprocess(audio_path)
+                    
+                    # mel_np = mel_tensor.numpy().astype(np.float32)
+                    # mel_np = np.expand_dims(mel_np, axis=0)  # 添加批次维度 [1, ...]
+                    
+                    emb_tensor = __infer(mel_tensor, mnn_model)
+                    
+                    embeddings.append(emb_tensor)
 
             if embeddings:
-                self.db[speaker] = embeddings  # List[Tensor]
+                self.db[speaker] = embeddings
         return self.db
     
     
     def __data_db__(self):
         return self.db
+
+def __infer(mel,model_path):
+    """
+    Use MNN model to infer embedding
+    """
+    interpreter = MNN.Interpreter(model_path)
+    session = interpreter.createSession()
+    input_tensor = interpreter.getSessionInput(session)
+
+    mel = mel.unsqueeze(0)  # [1, dim, time]
+    mel = mel.numpy()
+
+    # Prepare input
+    mel = np.expand_dims(mel, 0) if mel.ndim == 3 else mel  # (batch, channel, dim, time)
+    tmp_input = MNN.Tensor(input_tensor.getShape(), MNN.Halide_Type_Float, mel, MNN.Tensor_DimensionType_Caffe)
+    input_tensor.copyFrom(tmp_input)
+    
+    interpreter.runSession(session)
+    
+    output = interpreter.getSessionOutput(session)
+    output_np = np.array(output.getData(), dtype=np.float32)
+
+    return torch.from_numpy(output_np)  # 转回 torch tensor，方便后续余弦相似度计算
 
 class DB_Action:
     """
@@ -226,7 +276,7 @@ class DB_Action:
         finally:
             self.r.close()
 
-    def Get_DB(self) -> dict:
+    def Get_DB(self, data_path=None) -> dict:
         """
         Get Json Pkl Redis  K-V 
 
@@ -240,7 +290,10 @@ class DB_Action:
         Returns:
             db(dict)
         """
-        assert not os.path.exists(self.__save_path), f"Can't found File to Read"
+        # assert not os.path.exists(self.__save_path), f"Can't found File to Read"
+        if not data_path is None:
+            self.__save_path = data_path
+
         if self.save_format=="pkl":
             self.__Get_pkl()
             return self.db
@@ -331,102 +384,101 @@ class Model_Detect:
         return F.cosine_similarity(a.unsqueeze(0), b.unsqueeze(0)).item()
 
 
-# import MNN
-# import numpy as np
-# import os
-# import torch
-# import torch.nn.functional as F
+import MNN
+import numpy as np
+import os
+import torch
+import torch.nn.functional as F
 
-# class Model_Detect_MNN:
-#     """
-#     Predict speaker (MNN version)
+class Model_Detect_MNN:
+    """
+    Predict speaker (MNN version)
 
-#     Args:
-#         model_path: MNN file address
-#         db: User voiceprint registry (dict)
-#         threshold: Cosine similarity threshold
-#     ⚠️ The threshold must be less than 1
-#     """
+    Args:
+        model_path: MNN file address
+        db: User voiceprint registry (dict)
+        threshold: Cosine similarity threshold
+    ⚠️ The threshold must be less than 1
+    """
     
-#     def __init__(self, model_path, db={}, threshold=0.8):
-#         assert os.path.exists(model_path), f"Model Path {model_path} not exist"
-#         self.model_path = model_path
-#         self.db = db
-#         self.threshold = threshold
-#         assert threshold < 1, "threshold must be less than 1"
+    def __init__(self, model_path, db={}, threshold=0.8):
+        assert os.path.exists(model_path), f"Model Path {model_path} not exist"
+        self.model_path = model_path
+        self.db = db
+        self.threshold = threshold
+        assert threshold < 1, "threshold must be less than 1"
         
-#         # Load MNN model
-#         self.interpreter = MNN.Interpreter(model_path)
-#         self.session = self.interpreter.createSession()
-#         self.input_tensor = self.interpreter.getSessionInput(self.session)
+        # Load MNN model
+        self.interpreter = MNN.Interpreter(model_path)
+        self.session = self.interpreter.createSession()
+        self.input_tensor = self.interpreter.getSessionInput(self.session)
 
-#     def identify_speaker(self, data, input_type="file"):
-#         """
-#         identify speaker
+    def identify_speaker(self, data, input_type="file"):
+        """
+        identify speaker
 
-#         Args:
-#             data: input data example file or stream data
-#             input_type:
-#                 - 'file'：路径字符串
-#                 - 'stream': numpy array(如Vosk队列中获取的)
-#                 - 'base64': base64编码字符串
-#                 - 'pcm': ESP32发送的PCM numpy数组
+        Args:
+            data: input data example file or stream data
+            input_type:
+                - 'file'：路径字符串
+                - 'stream': numpy array(如Vosk队列中获取的)
+                - 'base64': base64编码字符串
+                - 'pcm': ESP32发送的PCM numpy数组
         
-#         Returns:
-#             speaker name or label
-#         """
-#         # Step 1: Preprocess
-#         mel = User_Voice_DB().preprocess(data, input_type=input_type)  # [dim, time]
+        Returns:
+            speaker name or label
+        """
+        mel = User_Voice_DB().preprocess(data, input_type=input_type)  # [dim, time]
         
-#         # Step 2: MNN 推理
-#         emb = self.__infer(mel)  # emb shape: [128]
+        # Step 2: MNN 推理
+        emb = self.__infer(mel)  # emb shape: [128]
         
-#         # Step 3: 比对声纹
-#         score = []
-#         name = []
-#         for label, feature_vector in self.db.items():
-#             sim = self.__cosine_similarity(a=emb, b=feature_vector)
-#             if sim > self.threshold:
-#                 score.append(sim)
-#                 name.append(label)
-#                 logger.info(f"✅ sound like is {name}, score get {sim:.4f}")
+        # Step 3: 比对声纹
+        score = []
+        name = []
+        for label, feature_vector in self.db.items():
+            sim = self.__cosine_similarity(a=emb, b=feature_vector)
+            if sim > self.threshold:
+                score.append(sim)
+                name.append(label)
+                logger.info(f"✅ sound like is {name}, score get {sim:.4f}")
         
-#         if not score:
-#             logger.warning("⚠️ No matching speaker found")
-#             return None
+        if not score:
+            logger.warning("⚠️ No matching speaker found")
+            return None
         
-#         return name[self.__get_max(score)] 
+        return name[self.__get_max(score)] 
 
-#     def __infer(self, mel):
-#         """
-#         Use MNN model to infer embedding
-#         """
-#         mel = mel.unsqueeze(0)  # [1, dim, time]
-#         mel = mel.numpy()
+    def __infer(self, mel):
+        """
+        Use MNN model to infer embedding
+        """
+        mel = mel.unsqueeze(0)  # [1, dim, time]
+        mel = mel.numpy()
 
-#         # Prepare input
-#         mel = np.expand_dims(mel, 0) if mel.ndim == 3 else mel  # (batch, channel, dim, time)
-#         tmp_input = MNN.Tensor(self.input_tensor.getShape(), MNN.Halide_Type_Float, mel, MNN.Tensor_DimensionType_Caffe)
-#         self.input_tensor.copyFrom(tmp_input)
+        # Prepare input
+        mel = np.expand_dims(mel, 0) if mel.ndim == 3 else mel  # (batch, channel, dim, time)
+        tmp_input = MNN.Tensor(self.input_tensor.getShape(), MNN.Halide_Type_Float, mel, MNN.Tensor_DimensionType_Caffe)
+        self.input_tensor.copyFrom(tmp_input)
         
-#         self.interpreter.runSession(self.session)
+        self.interpreter.runSession(self.session)
         
-#         output = self.interpreter.getSessionOutput(self.session)
-#         output_np = np.array(output.getData(), dtype=np.float32)
-#         return torch.from_numpy(output_np)  # 转回 torch tensor，方便后续余弦相似度计算
+        output = self.interpreter.getSessionOutput(self.session)
+        output_np = np.array(output.getData(), dtype=np.float32)
+        return torch.from_numpy(output_np)  # 转回 torch tensor，方便后续余弦相似度计算
 
-#     def __get_max(self, data):
-#         """
-#         Get max score in data 
-#         return max idx
-#         """
-#         if not data:
-#             logger.warning("⚠️ data is empty")
-#             return 0
-#         return max(enumerate(data), key=lambda x: x[1])[0]
+    def __get_max(self, data):
+        """
+        Get max score in data 
+        return max idx
+        """
+        if not data:
+            logger.warning("⚠️ data is empty")
+            return 0
+        return max(enumerate(data), key=lambda x: x[1])[0]
 
-#     def __cosine_similarity(self, a, b):
-#         return F.cosine_similarity(a, b, dim=0).item()
+    def __cosine_similarity(self, a, b):
+        return F.cosine_similarity(a, b, dim=0).item()
 
 
 

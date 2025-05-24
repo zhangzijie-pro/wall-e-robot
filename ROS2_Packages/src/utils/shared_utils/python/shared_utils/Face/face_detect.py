@@ -217,7 +217,10 @@ def inference(
     threshold=0.7,
     return_tensor=False,
 ):
-    """使用 MNN 模型进行推理并裁剪检测到的边界框区域"""
+    """
+    使用 MNN 模型进行推理并裁剪检测到的边界框区域
+    进行验证测试集使用
+    """
     
     priors = define_img_size(input_size)
     
@@ -283,6 +286,79 @@ def inference(
         
         return crop_save_boxes(image_ori, boxes, save_path) if return_tensor else Get_crop_Tensor(image_ori, boxes)
         # 裁剪并保存边界框区域
+
+
+
+def inference(
+    img_tensor,
+    model_path,
+    input_size=[320, 240],
+    image_mean=127.5,
+    image_std=128.0,
+    center_variance=0.1,
+    size_variance=0.2,
+    threshold=0.7,
+    save_path=None,
+    return_tensor=True,
+):
+    """
+    Detect Face
+
+    Args:
+        img_tensor: cv2.imread(img_path)->  MatLike
+        model_path
+    """
+    
+    priors = define_img_size(input_size)
+    
+    if save_path is None:
+        pass
+    else:
+        if not os.path.exists(save_path):
+            os.makedirs(save_path)
+
+    image_ori = img_tensor
+    
+    
+    interpreter = MNN.Interpreter(model_path)
+    session = interpreter.createSession()
+    input_tensor = interpreter.getSessionInput(session)
+    
+    image = cv2.cvtColor(image_ori, cv2.COLOR_BGR2RGB)
+    image = cv2.resize(image, tuple(input_size))
+    image = image.astype(np.float32)
+    image = (image - image_mean) / image_std
+    image = image.transpose((2, 0, 1))
+    
+    image = np.expand_dims(image, axis=0)
+    if image.shape != (1, 3, input_size[1], input_size[0]):
+        print(f"错误：图像形状 {image.shape} 不符合预期 (1, 3, {input_size[1]}, {input_size[0]})")
+    
+    tmp_input = MNN.Tensor(
+        (1, 3, input_size[1], input_size[0]),
+        MNN.Halide_Type_Float,
+        image,
+        MNN.Tensor_DimensionType_Caffe
+    )
+    input_tensor.copyFrom(tmp_input)
+    
+    interpreter.runSession(session)
+    
+    scores = interpreter.getSessionOutput(session, "scores").getData()
+    boxes = interpreter.getSessionOutput(session, "boxes").getData()
+    
+    boxes = np.expand_dims(np.reshape(boxes, (-1, 4)), axis=0)
+    scores = np.expand_dims(np.reshape(scores, (-1, 2)), axis=0)
+    
+    boxes = box_utils.convert_locations_to_boxes(
+        boxes, priors, center_variance, size_variance
+    )
+    boxes = box_utils.center_form_to_corner_form(boxes)
+    boxes, labels, probs = predict(
+        image_ori.shape[1], image_ori.shape[0], scores, boxes, threshold
+    )
+    
+    return crop_save_boxes(image_ori, boxes, save_path) if return_tensor else Get_crop_Tensor(image_ori, boxes)
 
 
 
