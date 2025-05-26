@@ -7,4 +7,4 @@ libraries:
     build: autotools
   - name: vosk-api
     repo: https://github.com/alphacep/vosk-api.git
-    build: none  # 如果没有统一 build 步骤，只下载
+    build: none

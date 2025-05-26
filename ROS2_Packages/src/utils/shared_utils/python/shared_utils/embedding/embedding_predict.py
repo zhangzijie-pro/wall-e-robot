@@ -447,7 +447,7 @@ class Model_Detect_MNN:
             logger.warning("⚠️ No matching speaker found")
             return None
         
-        return name[self.__get_max(score)] 
+        return (name[self.__get_max(score)], sim) 
 
     def __infer(self, mel):
         """
@@ -487,8 +487,7 @@ model_path = os.path.abspath(os.path.join(current_dir ,'..','..', 'model','tvect
 model = TrckNet()
 db = User_Voice_DB().build_voice_db(voice_path=voice_path, model=model)
 DB_Action(save_format="json").save(db)
-x2_path = r"C:\Users\lenovo\Desktop\python\音频信号处理\1.wav"
 detect = Model_Detect(model= model,model_path=model_path, db=db)
-x = detect.identify_speaker(x2_path)
+x = detect.identify_speaker(test_path)
 print(x)
  

@@ -289,7 +289,7 @@ def inference(
 
 
 
-def inference(
+def inference_img(
     img_tensor,
     model_path,
     input_size=[320, 240],

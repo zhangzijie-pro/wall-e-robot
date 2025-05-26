@@ -10,9 +10,7 @@ import time
 from log import logger
 
 current_dir = os.path.dirname(__file__)
-face_pth = os.path.abspath(os.path.join(current_dir,"..","..","model","facenet_fp16.mnn"))
-dataset = os.path.abspath(os.path.join(current_dir,"..","..","Dataset","face_dataset")) # ,"Colin_Powell","Colin_Powell_0002.jpg"
-img = os.path.abspath(os.path.join(current_dir,"..","..","Dataset","face_dataset","Colin_Powell","Colin_Powell_0008.jpg")) # 
+# img = os.path.abspath(os.path.join(current_dir,"..","..","Dataset","face_dataset","Colin_Powell","Colin_Powell_0008.jpg")) # 
 
 
 def extract_embedding(model_path,image=None,input_size=(125, 125),image_path=None):
@@ -45,14 +43,12 @@ def extract_embedding(model_path,image=None,input_size=(125, 125),image_path=Non
     tmp_input = MNN.Tensor((1, 3, *input_size), MNN.Halide_Type_Float, img, MNN.Tensor_DimensionType_Caffe)
     input_tensor.copyFrom(tmp_input)
 
-    start_time = time.time()
     interpreter.runSession(session)
     output = interpreter.getSessionOutput(session)
 
     embedding = np.array(output.getData(), dtype=np.float32)
     embedding = embedding / np.linalg.norm(embedding)
     
-    print(f"推理时间: {round(time.time() - start_time, 4)} 秒")
     return embedding
 
 
@@ -77,14 +73,17 @@ def build_face_database(image_dir, model_path, input_size=(125, 125)):
 
 from scipy.spatial.distance import cosine
 
-def recognize_face(image_path, model_path, db_path, input_size=(125, 125), threshold=0.5):
-    with open(db_path, 'r') as f:
-        face_db = json.load(f)
-
-    query_embedding = extract_embedding(image_path, model_path, input_size)
+def recognize_face(img, model_path, face_db, input_size=(125, 125), threshold=0.5):
+    """
+    Args:
+        img: img_path or img_tensor
+        model_path: only support MNN model
+        face_db: face_lib data
+    """
+    query_embedding = extract_embedding(model_path, img, input_size) # [128]
 
     best_match = None
-    best_score = 1.0  # 越小越相似
+    best_score = 1.0
 
     for name, embeddings in face_db.items():
         for emb in embeddings:
@@ -94,15 +93,6 @@ def recognize_face(image_path, model_path, db_path, input_size=(125, 125), thres
                 best_match = name
 
     if best_score < threshold:
-        print(f"识别结果: {best_match}（相似度: {round(1 - best_score, 4)}）")
         return best_match, best_score
     else:
-        print(f"未识别（最接近：{best_match}, 相似度: {round(1 - best_score, 4)}）")
         return None, best_score
-
-# 构建人脸库
-# build_face_database(dataset, face_pth, "face_db.json")
-
-recognize_face(img, face_pth, "face_db.json")
-
-
