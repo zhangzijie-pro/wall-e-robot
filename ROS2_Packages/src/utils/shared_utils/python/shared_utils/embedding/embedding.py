@@ -10,8 +10,7 @@ import numpy as np
 import torchvision.models as models
 import torchaudio.transforms as T
 from log import logger
-from SpeakerRecognition import config
-
+import config
 
 current_dir = os.path.dirname(__file__)
 voice_path = os.path.abspath(os.path.join(current_dir ,'..','..', 'Dataset','voice'))

@@ -13,6 +13,15 @@ class VoiceIDNode(Node):
 
         self.min_confidence = 0.6
         self.SRData = SpeakerRecognize_Data()
+
+        self.audio_ready = False
+        self.image_ready = False
+
+
+        self.last_speaker_id = None
+        self.last_publish_time = self.get_clock().now()
+        self.publish_interval_sec = 5.0 
+
         self.subscription_audio = self.create_subscription(
             ByteMultiArray,
             "raw_audio",
@@ -37,17 +46,47 @@ class VoiceIDNode(Node):
         if not data:
             return
 
-        # 随机保留三分之一的数据
         reduced_size = len(data) // 3
         selected_indices = sorted(random.sample(range(len(data)), reduced_size))
         audio_data = [data[i] for i in selected_indices]
+
         self.SRData._set_audio_tensor(audio_data)
+        self.audio_ready = True
+        self.try_fusion()
 
     def image_callback(self, msg):
-        data = msg.data
-        if not data:
+        if not msg.data:
             return
-    
+        self.SRData._set_image(msg)
+        self.image_ready = True
+        self.try_fusion()
+
+
+    def try_fusion(self):
+        if not (self.audio_ready and self.image_ready):
+            return
+
+        speaker_id = self.get_speaker_id()
+
+        now = self.get_clock().now()
+        time_since_last = (now - self.last_publish_time).nanoseconds / 1e9
+
+        if speaker_id == self.last_speaker_id and time_since_last < self.publish_interval_sec:
+            self.get_logger().info(
+                f"Speaker '{speaker_id}' already published {time_since_last:.1f}s ago. Skipping."
+            )
+        else:
+            msg = String()
+            msg.data = speaker_id
+            self.publisher_voice_id.publish(msg)
+            self.get_logger().info(f"Published speaker ID: {speaker_id}")
+            self.last_speaker_id = speaker_id
+            self.last_publish_time = now
+
+        # Reset flags
+        self.audio_ready = False
+        self.image_ready = False
+
     def get_speaker_id(self):
         sr = SpeakerRecognize(self.SRData)
         face_ids, voice_id = sr.Start_()
@@ -71,8 +110,6 @@ class VoiceIDNode(Node):
             
         return voice_id[0] if voice_id[0] else names[0]
 
-    def speaker_id(self):
-        pass
 
 def main(args=None):
     rclpy.init(args=args)
