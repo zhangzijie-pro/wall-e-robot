@@ -10,6 +10,12 @@ class ThirdLibcpp(install):
             '--yaml', 'Tools/libs.yaml',
             '--output', 'include'
         ], check=True)
+
+        subprocess.run([
+            'python3', 'Tools/model.py',
+            '--yaml', 'Tools/model_config.yaml'
+        ], check=True)
+
         super().run()
 
 
