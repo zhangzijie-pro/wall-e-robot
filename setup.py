@@ -8,7 +8,7 @@ class ThirdLibcpp(install):
         subprocess.run([
             'python3', 'Tools/lib_build.py',
             '--yaml', 'Tools/libs.yaml',
-            '--output', 'Packages'
+            '--output', 'include'
         ], check=True)
         super().run()
 

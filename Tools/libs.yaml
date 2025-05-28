@@ -2,9 +2,23 @@ libraries:
   - name: spdlog
     repo: https://github.com/gabime/spdlog.git
     build: cmake
+    
   - name: libserialport
     repo: https://github.com/sigrokproject/libserialport.git
     build: autotools
+
   - name: vosk-api
     repo: https://github.com/alphacep/vosk-api.git
     build: none
+
+  - name: opencv
+    repo: https://github.com/opencv/opencv.git
+    build: cmake
+
+  - name: image_transport
+    repo: https://github.com/ros-perception/image_common.git
+    build: cmake
+
+  - name: cv_bridge
+    repo: https://github.com/ros-perception/vision_opencv.git
+    build: cmake

@@ -89,6 +89,10 @@ def build_library(name, build_type, lib_dir):
 
 @log()
 def main(yaml_path, output_dir):
+    # run bash build
+    run_cmd(["./setuptool.sh"])
+
+    # download repo and make
     with open(yaml_path, 'r') as f:
         config = yaml.safe_load(f)
 
