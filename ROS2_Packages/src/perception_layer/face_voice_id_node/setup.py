@@ -5,7 +5,11 @@ package_name = 'face_voice_id_node'
 setup(
     name=package_name,
     version='0.0.0',
-    packages=find_packages(exclude=['test']),
+    packages=[package_name,              # Installs face_voice_id_node/
+        f'{package_name}.script',  # Installs script/
+        f'{package_name}.script.Face',  # Installs script/Face/
+        f'{package_name}.script.embedding'  # Installs script/embedding/
+        ],
     data_files=[
         ('share/ament_index/resource_index/packages',
             ['resource/' + package_name]),

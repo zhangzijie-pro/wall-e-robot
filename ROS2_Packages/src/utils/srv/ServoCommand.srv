@@ -1,5 +1,0 @@
-float32[] target_angles
-string[] servo_names
----
-bool success
-string message

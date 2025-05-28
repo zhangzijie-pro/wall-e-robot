@@ -1,6 +1,6 @@
 #include <rclcpp/rclcpp.hpp>
 #include <libserialport.h>
-#include "shared_utils/config_loader.hpp"
+#include "config_loader.h"
 #include "std_msgs/msg/int16_multi_array.hpp"
 #include <vector>
 

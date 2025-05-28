@@ -9,9 +9,7 @@ endif()
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
-find_package(yaml-cpp REQUIRED)
 find_package(utils REQUIRED)
-
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
@@ -25,8 +23,6 @@ if(BUILD_TESTING)
   ament_lint_auto_find_test_dependencies()
 endif()
 
-ament_package()
-
 add_executable(
   mic_audio_node
   src/mic_audio_node.cc
@@ -34,7 +30,7 @@ add_executable(
 
 
 target_link_libraries(mic_audio_node 
-  utils::shared_utils 
+  utils 
 )
 
 #target_include_directories(mic_audio_node PUBLIC ${rclcpp_INCLUDE_DIRS})
@@ -42,8 +38,15 @@ target_link_libraries(mic_audio_node
 ament_target_dependencies(
   mic_audio_node
   rclcpp
+  std_msgs
+  utils
 )
+message(STATUS "utils_FOUND: ${utils_FOUND}")
+message(STATUS "utils_INCLUDE_DIRS: ${utils_INCLUDE_DIRS}")
+message(STATUS "utils_LIBRARIES: ${utils_LIBRARIES}")
 
 install(TARGETS mic_audio_node
   DESTINATION lib/${PROJECT_NAME}
 )
+
+ament_package()

@@ -12,6 +12,8 @@
 
 #### 1. 感知层
 
+目前层级拥有bug, 无法使用因路径环境问题...
+
 | 节点名称                    | 语言     | 说明                  | 发布/订阅话题                                                 |
 | ----------------------- | ------ | ------------------- | ------------------------------------------------------- |
 | `camera_node`           | Python | 使用 `cv_camera` 获取图像 | `/image_raw` (sensor\_msgs/Image)                       |
@@ -56,7 +58,7 @@
 
 | 节点名称                | 语言  | 说明                        | 发布/订阅话题                             |
 | ------------------- | --- | ------------------------- | ----------------------------------- |
-| `lidar_node`        | C++ | 激光雷达驱动（如 RPLIDAR、YDLIDAR） | 发布 `/scan` (sensor\_msgs/LaserScan) |
+| `sllidar_node`        | C++ | 激光雷达驱动（如 RPLIDAR、YDLIDAR） | 发布 `/scan` (sensor\_msgs/LaserScan) |
 | `slam_toolbox_node` | C++ | 2D/3D 实时建图（SLAM Toolbox）  | 订阅 `/scan`，发布 `/map`、`/tf`          |
 | `nav2_bt_navigator` | C++ | Nav2 行为树导航                | 接收 `/goal_pose`，生成 `/cmd_vel`       |
 | `rviz2`             | 可视化 | 查看地图、路径、目标点               |                                     |

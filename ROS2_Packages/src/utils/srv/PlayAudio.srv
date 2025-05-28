@@ -1,7 +1,0 @@
-uint8[] data
-string encoding
-uint32 sample_rate
-uint8 channels
----
-bool success
-string message

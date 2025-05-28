@@ -1,6 +1,6 @@
 #include "rclcpp/rclcpp.hpp"
 #include "vosk_speech_recognizer.h"
-#include "shared_utils/config_loader.h"
+#include "config_loader.h"
 #include <filesystem>
 #include "std_msgs/msg/int16_multi_array.hpp"
 

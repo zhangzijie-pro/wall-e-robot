@@ -4,8 +4,7 @@ from std_msgs.msg import ByteMultiArray
 from std_msgs.msg import String
 from sensor_msgs.msg import Image
 import random
-from utils.msg import AudioStream
-from shared_utils.recognize import SpeakerRecognize_Data, SpeakerRecognize
+from face_voice_id_node.script.recongize import SpeakerRecognize_Data, SpeakerRecognize
 
 class VoiceIDNode(Node):
     def __init__(self):
