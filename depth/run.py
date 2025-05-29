@@ -5,6 +5,7 @@ import matplotlib
 import numpy as np
 import os
 import torch
+import matplotlib.pyplot as plt
 
 from depth_anything_v2.dpt import DepthAnythingV2
 
@@ -33,7 +34,7 @@ if __name__ == '__main__':
     }
     
     depth_anything = DepthAnythingV2(**model_configs[args.encoder])
-    depth_anything.load_state_dict(torch.load(r'./depth_anything_v2_vits.pth', map_location='cpu'))
+    depth_anything.load_state_dict(torch.load(r'./depth_anything_v2_vits.pth', map_location='cpu',weights_only=False))
     depth_anything = depth_anything.to(DEVICE).eval()
     
     if os.path.isfile(args.img_path):
@@ -47,20 +48,29 @@ if __name__ == '__main__':
     
     os.makedirs(args.outdir, exist_ok=True)
     
-    cmap = matplotlib.colormaps.get_cmap('Spectral_r')
+    cmap = matplotlib.colormaps['Spectral_r']
     
     for k, filename in enumerate(filenames):
         print(f'Progress {k+1}/{len(filenames)}: {filename}')
         
         raw_image = cv2.imread(filename)
-        
+        print("img shape -> " ,raw_image.shape)
+        raw_image = cv2.resize(raw_image, (640, 480))
+        cv2.imwrite(os.path.join("img", os.path.splitext(os.path.basename(filename))[0] + '.png'), raw_image)
+
         depth = depth_anything.infer_image(raw_image, args.input_size)
+        print("model out -> ", depth.shape)
+        print(type(depth[0][0]))
         
         depth = (depth - depth.min()) / (depth.max() - depth.min()) * 255.0
+        print("depth -> ", depth.shape)
+        print(depth[0][0])
+
         depth = depth.astype(np.uint8)
         
         if args.grayscale:
             depth = np.repeat(depth[..., np.newaxis], 3, axis=-1)
+            print(depth.shape)
         else:
             depth = (cmap(depth)[:, :, :3] * 255)[:, :, ::-1].astype(np.uint8)
         
