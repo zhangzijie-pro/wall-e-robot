@@ -106,3 +106,14 @@
 4. `executor_node`：下发动作 → 控制节点 → ChatTTS 合成回复
 
 ---
+
+## 五、Sim
+
+```bash
+sudo apt-get install ros-$ROS_DISTRO-joint-state-publisher-gui
+
+cd Simulation
+colcon build
+source install/setup.bash
+ros2 launch simulation_pkg display.launch.py
+```

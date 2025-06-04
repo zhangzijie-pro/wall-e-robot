@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:macro name="arm_part" params="index length">
+    <!-- 计算中点 -->
+    <xacro:property name="half_length" value="${0.5 * length}"/>
+
+    <link name="link${index}">
+      <visual>
+        <geometry>
+          <cylinder length="${length}" radius="0.01"/>
+        </geometry>
+        <origin xyz="0 0 ${half_length}" rpy="0 0 0"/>
+        <material name="blue">
+          <color rgba="0 0 1 1"/>
+        </material>
+      </visual>
+    </link>
+  </xacro:macro>
+
+
+  <xacro:macro name="gripper_link">
+    <link name="gripper_link">
+      <visual>
+        <geometry>
+          <box size="0.04 0.01 0.02"/>
+        </geometry>
+        <origin xyz="0 0 0.01" rpy="0 0 0"/>
+        <material name="green">
+          <color rgba="0 1 0 1"/>
+        </material>
+      </visual>
+    </link>
+  </xacro:macro>
+
+</robot>
