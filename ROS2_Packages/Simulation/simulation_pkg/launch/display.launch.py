@@ -5,7 +5,7 @@ from launch_ros.substitutions import FindPackageShare
 
 def generate_launch_description():
     urdf_file = PathJoinSubstitution(
-        [FindPackageShare("sim_pkg_arm"), "urdf", "arm.urdf.xacro"]
+        [FindPackageShare("simulation_pkg"), "urdf", "arm.urdf.xacro"]
     )
 
     return LaunchDescription([

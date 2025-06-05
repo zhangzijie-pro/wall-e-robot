@@ -1,60 +1,34 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="arm">
 
-<xacro:include filename="$(find sim_pkg_arm)/urdf/arm_joint/arm_joint.urdf.xacro"/>
-<xacro:include filename="$(find sim_pkg_arm)/urdf/arm_part/arm_part.urdf.xacro"/>
+<xacro:include filename="$(find simulation_pkg)/urdf/arm_joint/arm_joint.urdf.xacro"/>
+<xacro:include filename="$(find simulation_pkg)/urdf/arm_part/arm_part.urdf.xacro"/>
+    <link name="base_link">
+      <visual>
+        <geometry><box size="0.05 0.05 0.01"/></geometry>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <material name="gray"><color rgba="0.3 0.3 0.3 1"/></material>
+      </visual>
+    </link>
 
-  <!-- Base link -->
-  <link name="base_link">
-    <visual>
-      <geometry>
-        <box size="0.05 0.05 0.02"/>
-      </geometry>
-      <material name="gray">
-        <color rgba="0.5 0.5 0.5 1"/>
-      </material>
-    </visual>
-  </link>
+    <!-- 每一段 link 与 joint -->
+    <xacro:arm_part index="1" length="0.06"/>
+    <xacro:arm_joint index="1" parent="base_link" child="link1" length="0.01"/>
 
-  <!-- Create the 5 arm links and joints -->
-  <xacro:arm_joint index="1" parent="base_link" child="link1" length="0.05"/>
-  <xacro:arm_part index="1" length="0.05"/>
+    <xacro:arm_part index="2" length="0.06"/>
+    <xacro:arm_joint index="2" parent="link1" child="link2" length="0.06"/>
 
-  <xacro:arm_joint index="2" parent="link1" child="link2" length="0.04"/>
-  <xacro:arm_part index="2" length="0.05"/>
+    <xacro:arm_part index="3" length="0.05"/>
+    <xacro:arm_joint index="3" parent="link2" child="link3" length="0.05"/>
 
-  <xacro:arm_joint index="3" parent="link2" child="link3" length="0.035"/>
-  <xacro:arm_part index="3" length="0.05"/>
+    <xacro:arm_part index="4" length="0.05"/>
+    <xacro:arm_joint index="4" parent="link3" child="link4" length="0.05"/>
 
-  <xacro:arm_joint index="4" parent="link3" child="link4" length="0.03"/>
-  <xacro:arm_part index="4" length="0.05"/>
+    <xacro:arm_part index="5" length="0.04"/>
+    <xacro:arm_joint index="5" parent="link4" child="link5" length="0.04"/>
 
-  <xacro:arm_joint index="5" parent="link4" child="link5" length="0.025"/>
-  <xacro:arm_part index="5" length="0.025"/>
-
-  <xacro:gripper_joint parent="5" length="0.05"/>
-  <xacro:gripper_link/>
-
-  <!-- Add the gripper joint and part -->
-  <!-- <joint name="gripper_joint" type="revolute">
-    <parent link="link5"/>
-    <child link="gripper_link"/>
-    <origin xyz="0 0 0.02" rpy="0 0 0"/>
-    <axis xyz="0 1 0"/>
-    <limit effort="1.0" velocity="1.0" lower="0" upper="0.5"/>
-  </joint>
-
-  <link name="gripper_link">
-    <visual>
-      <geometry>
-        <box size="0.04 0.01 0.02"/>
-      </geometry>
-      <origin xyz="0 0 0.01" rpy="0 0 0"/>
-      <material name="green">
-        <color rgba="0 1 0 1"/>
-      </material>
-    </visual>
-  </link> -->
-
+    <!-- 爪子 -->
+    <xacro:gripper_link/>
+    <xacro:gripper_joint parent="link5" length="0.04"/>
 
 </robot>
