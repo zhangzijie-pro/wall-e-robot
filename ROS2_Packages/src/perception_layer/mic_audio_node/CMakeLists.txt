@@ -5,11 +5,16 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
 endif()
 
+set( CMAKE_CXX_FLAGS "-std=c++17 -O3" )
+
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 # find dependencies
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
-find_package(utils REQUIRED)
+include_directories(/home/zzj/wall-e-robot/Packages/libserialport/)
+link_directories(/home/zzj/wall-e-robot/Packages/libserialport/.libs)
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
@@ -26,11 +31,12 @@ endif()
 add_executable(
   mic_audio_node
   src/mic_audio_node.cc
+  src/config_loader.h
 )
 
-
-target_link_libraries(mic_audio_node 
-  utils 
+target_link_libraries(${PROJECT_NAME} serialport)
+target_link_libraries(mic_audio_node
+  ament_index_cpp::ament_index_cpp
 )
 
 #target_include_directories(mic_audio_node PUBLIC ${rclcpp_INCLUDE_DIRS})
@@ -39,11 +45,7 @@ ament_target_dependencies(
   mic_audio_node
   rclcpp
   std_msgs
-  utils
 )
-message(STATUS "utils_FOUND: ${utils_FOUND}")
-message(STATUS "utils_INCLUDE_DIRS: ${utils_INCLUDE_DIRS}")
-message(STATUS "utils_LIBRARIES: ${utils_LIBRARIES}")
 
 install(TARGETS mic_audio_node
   DESTINATION lib/${PROJECT_NAME}
