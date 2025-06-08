@@ -188,6 +188,7 @@ ROS2_Packages/log/
 Hardware_Design/__Previews/
 Hardware_Design/History/
 Hardware_Design/Project Logs for PCB_Project/
+Hardware_Design/Project Outputs for PCB_Project/
 
 # third cpp lib
 include/
