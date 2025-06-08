@@ -37,7 +37,7 @@ class VoiceIDNode(Node):
         self.publisher_voice_id = self.create_publisher(
             String,
             "speaker_id",
-            self.speaker_id            
+            self.get_speaker_id            
         )
 
     def audio_callback(self, msg):
