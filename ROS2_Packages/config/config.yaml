@@ -11,3 +11,7 @@ stt_node:
   block_size: 1024  
   queue_size: 50
   log_file: "../log/stt.log"
+
+agent_node:
+  speaker: ["speaker1", "speaker2"]
+  speaker_history: ["history1.json", "history2.json"]
