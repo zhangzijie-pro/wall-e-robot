@@ -45,6 +45,8 @@ setup(
         "Pillow",
         "gradio_imageslider",
         "gradio==4.29.0",
+        "ChatTTS",
+        "websockets",
     ],
     python_requires='>=3.10',
     cmdclass={

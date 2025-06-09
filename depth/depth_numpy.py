@@ -36,6 +36,3 @@ def depth_np(file_name, raw_img=None, input_size=518, save_type="numpy"):
         pass
 
     return depth
-
-raw_image = cv2.imread("./img/1.png")
-depth_np(raw_img=raw_image, file_name="4")

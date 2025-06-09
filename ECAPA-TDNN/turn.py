@@ -5,22 +5,6 @@ import logging.config
 import os
 import onnx
 
-current__dir = os.path.dirname(__file__)
-pwd_dir = os.getcwd()  # get pwd path
-PARENT_PATH = os.path.abspath(os.path.join(pwd_dir, ".."))
-
-"""specker_recognize"""
-face_dir = os.path.abspath(os.path.join(current__dir, "Face"))
-voice_dir = os.path.abspath(os.path.join(current__dir, "emdedding"))
-
-json_lib_path_face = os.path.abspath(os.path.join(current__dir, "face_dataset.json"))
-json_lib_path_voice = os.path.abspath(os.path.join(current__dir, "voice_dataset.json"))
-
-
-mnn_face_detect = os.path.abspath(os.path.join(pwd_dir, "..", "models", "face_recongize.mnn"))
-mnn_face_feature = os.path.abspath(os.path.join(pwd_dir, "..", "models", "facenet_fp16.mnn"))
-mnn_voice_feature = os.path.abspath(os.path.join(pwd_dir, "..", "models", "voice_tensor.mnn"))
-
 class Config:
     """
     Config example :

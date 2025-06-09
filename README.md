@@ -8,7 +8,7 @@ Welcome to the **Wall·E Robot Project**, an intelligent, interactive robot insp
 
 <div align="center">
 
-[中文](README_zh.md) | [English](README.md)
+[中文](./docs/README_zh.md) | [English](README.md)
 
 </div>
 
