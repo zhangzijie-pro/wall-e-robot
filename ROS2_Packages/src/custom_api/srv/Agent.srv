@@ -1,0 +1,4 @@
+int speaker_id
+sensor_msgs/Image image
+string input_text
+---

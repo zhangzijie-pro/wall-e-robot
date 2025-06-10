@@ -15,8 +15,6 @@ class SafeRealTimeBufferPlayer:
         self.buffers = [deque(maxlen=buffer_size) for _ in range(3)]
         self.buffer_index = 0
 
-        # self.current_buffer = self.buffer_a
-        # self.next_buffer = self.buffer_b
 
         self.lock = threading.Lock()
 
@@ -25,8 +23,11 @@ class SafeRealTimeBufferPlayer:
         self.paused = threading.Event()
 
         self.audio_queue = queue.Queue(maxsize=buffer_size * 3)
-
         self.status_callback = status_callback
+
+        self.audio_gen_iter = None
+        self.producer_thread_started = False
+
 
         self.p = pyaudio.PyAudio()
         self.stream = self.p.open(format=pyaudio.paInt16,
@@ -134,3 +135,43 @@ class SafeRealTimeBufferPlayer:
         self.stream.stop_stream()
         self.stream.close()
         self.p.terminate()
+    
+    def prepare(self, audio_gen):
+        self.audio_gen_iter = iter(audio_gen)
+        self.playing.set()
+        self.paused.clear()
+
+        if not self.producer_thread_started:
+            threading.Thread(target=self._producer, daemon=True).start()
+            self.producer_thread_started = True
+
+        _, next_b, prefetch = self._get_buffers()
+        self._fill_buffer(next_b)
+        self._fill_buffer(prefetch)
+
+    def get_next_audio_chunk(self):
+        if not self.playing.is_set():
+            return None
+        
+        if self.paused.is_set():
+            return None
+        
+        current, next_b, prefetch = self._get_buffers()
+
+        if len(next_b) < self.buffer_size:
+            self._fill_buffer(next_b)
+            return None
+        
+        if not current:
+            self._advance_buffers()
+            current, next_b, prefetch = self._get_buffers()
+            threading.Thread(target=self._fill_buffer, args=(prefetch,), daemon=True).start()
+
+        if current:
+            data = current.popleft()
+            self._invoke_callback()
+            return data
+        elif self.finished.is_set() and not next_b:
+            self.playing.clear()
+            return None
+        return None

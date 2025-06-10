@@ -99,7 +99,23 @@ class ChatStreamer:
                 if ChatStreamer.checkvoice(sub_wav):
                     yield ChatStreamer.formatted(sub_wav, output_format)
 
+    # play audio
     def play(self, streamchat):
-        player = SafeRealTimeBufferPlayer(buffer_size=50,status_callback=lambda s: print("状态:", s))
+        player = SafeRealTimeBufferPlayer(buffer_size=50,status_callback=lambda s: print("state:", s))
         audio_gen = self.generate(streamchat, output_format="PCM16_byte")
-        player.play(audio_gen)
+        player.play(audio_gen)        # play in this sounddevice
+    
+    def audio_part(self, streamchat, status_callback):
+        if not hasattr(self, "player"):
+            self.player = SafeRealTimeBufferPlayer(
+                buffer_size=50,
+                status_callback=status_callback
+            )
+
+        if not hasattr(self, "_audio_prepared") or not self._audio_prepared:
+            audio_gen = self.generate(streamchat, output_format="PCM16_byte")
+            self.player.prepare(audio_gen)
+            self._audio_prepared = True
+
+        return self.player.get_next_audio_chunk()
+
