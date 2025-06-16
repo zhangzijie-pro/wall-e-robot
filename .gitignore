@@ -196,3 +196,10 @@ include/
 # sim
 ROS2_Packages/Simulation/install/
 ROS2_Packages/Simulation/log/
+
+depth/input/
+depth/output/
+
+
+ROS2_Packages/src/navigation_layer/sllidar_node/obj/
+ROS2_Packages/src/navigation_layer/sllidar_node/output/
