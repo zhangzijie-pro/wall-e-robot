@@ -20,7 +20,7 @@ def generate_launch_description():
     scan_mode = LaunchConfiguration('scan_mode', default='Standard')
 
     rviz_config_dir = os.path.join(
-            get_package_share_directory('sllidar_ros2'),
+            get_package_share_directory('sllidar_node'),
             'rviz',
             'sllidar_ros2.rviz')
 
@@ -62,7 +62,7 @@ def generate_launch_description():
             description='Specifying scan mode of lidar'),
 
         Node(
-            package='sllidar_ros2',
+            package='sllidar_node',
             executable='sllidar_node',
             name='sllidar_node',
             parameters=[{'channel_type':channel_type,

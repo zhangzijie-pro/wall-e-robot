@@ -56,7 +56,7 @@ def generate_launch_description():
             description='Specifying scan mode of lidar'),
 
         Node(
-            package='sllidar_ros2',
+            package='sllidar_node',
             executable='sllidar_node',
             name='sllidar_node',
             parameters=[{'channel_type':channel_type,

@@ -17,17 +17,17 @@ for (int i = 0; i < count; i++) {
 }
 
 int main(int argc, char **argv) {
-rclcpp::init(argc, argv);
+    rclcpp::init(argc, argv);
 
-auto node = rclcpp::Node::make_shared("sllidar_client");
+    auto node = rclcpp::Node::make_shared("sllidar_client");
 
-auto lidar_info_sub = node->create_subscription<sensor_msgs::msg::LaserScan>(
-                        "scan", rclcpp::SensorDataQoS(), scanCb);
+    auto lidar_info_sub = node->create_subscription<sensor_msgs::msg::LaserScan>(
+                            "scan", rclcpp::SensorDataQoS(), scanCb);
 
-rclcpp::spin(node);
+    rclcpp::spin(node);
 
-rclcpp::shutdown();
+    rclcpp::shutdown();
 
 
-return 0;
+    return 0;
 }
