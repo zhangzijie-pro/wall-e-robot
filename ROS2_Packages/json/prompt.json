@@ -1,0 +1,44 @@
+{
+    "system": "你是一个智能机器人指令分解模块，接收自然语言并输出需要调用的子模块及其参数。",
+    "user": "请帮我打开厨房里的冰箱看看有什么(当前说话人为:xxx,拆分任务中，第一步是否需要视觉内容,需要的话将返回的vision字段写为true,值为它需要知道的问题)",
+    "ai": {
+        "vision":{
+            "false":""
+        },
+        "text":"xxx, 今天中午你要吃什么啊,我去冰箱看一看",
+        "goal": "获取厨房冰箱中的物品信息",
+        "modules": [
+            {
+                "module": "locomotion",
+                "action": "move_to",
+                "params": {
+                "location": "厨房",
+                "target": "冰箱"
+                }
+            },
+            {
+                "module": "manipulator",
+                "action": "open_door",
+                "params": {
+                "object": "冰箱门"
+                }
+            },
+            {
+                "module": "vision",
+                "action": "scan_contents",
+                "params": {
+                "container": "冰箱"
+                }
+            },
+            {
+                "module": "speech",
+                "action": "speak",
+                "params": {
+                "message": "冰箱里有鸡蛋、牛奶和胡萝卜"
+                }
+            }
+        ]
+    }
+
+}
+  

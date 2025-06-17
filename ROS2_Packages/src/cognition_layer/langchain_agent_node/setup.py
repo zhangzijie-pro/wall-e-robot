@@ -20,6 +20,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
+            'langchain_agent_node = langchain_agent_node.langchain_agent_node:main'
         ],
     },
 )

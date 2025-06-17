@@ -1,0 +1,2 @@
+string goal
+TaskStep[] steps

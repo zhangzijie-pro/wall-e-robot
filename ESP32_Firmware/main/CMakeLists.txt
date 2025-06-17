@@ -8,4 +8,5 @@ idf_component_register(
     INCLUDE_DIRS 
         "." 
         "../includes/es7210"
+    REQUIRES micro_ros_espidf_component
 )

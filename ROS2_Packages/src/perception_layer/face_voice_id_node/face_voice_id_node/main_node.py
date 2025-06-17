@@ -5,6 +5,9 @@ from std_msgs.msg import String
 from sensor_msgs.msg import Image
 import random
 from face_voice_id_node.script.recongize import SpeakerRecognize_Data, SpeakerRecognize
+from custom_api.srv import Agent
+from cv_bridge import CvBridge
+
 
 class VoiceIDNode(Node):
     def __init__(self):
@@ -12,6 +15,7 @@ class VoiceIDNode(Node):
 
         self.min_confidence = 0.6
         self.SRData = SpeakerRecognize_Data()
+        self.bridge = CvBridge()
 
         self.audio_ready = False
         self.image_ready = False
@@ -27,18 +31,26 @@ class VoiceIDNode(Node):
             self.audio_callback,
             10
         )
+        self.subscription_text = self.create_subscription(
+            String,
+            "input_text",
+            lambda msg: self.handle_text(msg.data),
+            10
+        )
+        
         self.subscription_image = self.create_subscription(
             Image,
             "image_raw",
             self.image_callback,
             10
         )
+        self.speaker_id = None
+        self.last_speaker_id = None
 
-        self.publisher_voice_id = self.create_publisher(
-            String,
-            "speaker_id",
-            self.get_speaker_id            
-        )
+        self.client = self.create_client(Agent,"/agent_cilent")
+
+    def handle_text(self, text):
+        self.text = text
 
     def audio_callback(self, msg):
         data = msg.data
@@ -65,26 +77,23 @@ class VoiceIDNode(Node):
         if not (self.audio_ready and self.image_ready):
             return
 
-        speaker_id = self.get_speaker_id()
+        self.speaker_id = self.get_speaker_id()
 
         now = self.get_clock().now()
         time_since_last = (now - self.last_publish_time).nanoseconds / 1e9
 
-        if speaker_id == self.last_speaker_id and time_since_last < self.publish_interval_sec:
+        if self.speaker_id == self.last_speaker_id and time_since_last < self.publish_interval_sec:
             self.get_logger().info(
-                f"Speaker '{speaker_id}' already published {time_since_last:.1f}s ago. Skipping."
+                f"Speaker '{self.speaker_id}' already published {time_since_last:.1f}s ago. Skipping."
             )
         else:
             msg = String()
-            msg.data = speaker_id
+            msg.data = self.speaker_id
             self.publisher_voice_id.publish(msg)
-            self.get_logger().info(f"Published speaker ID: {speaker_id}")
-            self.last_speaker_id = speaker_id
+            self.get_logger().info(f"Published speaker ID: {self.speaker_id}")
+            self.last_speaker_id = self.speaker_id
             self.last_publish_time = now
 
-        # Reset flags
-        self.audio_ready = False
-        self.image_ready = False
 
     def get_speaker_id(self):
         sr = SpeakerRecognize(self.SRData)
@@ -109,6 +118,22 @@ class VoiceIDNode(Node):
             
         return voice_id[0] if voice_id[0] else names[0]
 
+    def send_request(self):
+        while self.client.wait_for_service(1.0):
+            self.get_logger().info("Waiting for client up")
+        if self.audio_ready and self.image_ready:
+            request = Agent.Request()
+            request.image = self.bridge.cv2_to_imgmsg(self.cv2_img)
+            request.speaker_id = self.speaker_id
+            request.input_text = self.text
+            future = self.client.call_async(request)
+
+            rclpy.spin_until_future_complete(self,future)
+
+        
+        # Reset flags
+        self.audio_ready = False
+        self.image_ready = False
 
 def main(args=None):
     rclpy.init(args=args)
