@@ -1,4 +1,4 @@
 models:
   - name: Depth-Anything-V2-Small
-    url: https://huggingface.co/depth-anything/Depth-Anything-V2-Small/blob/main/depth_anything_v2_vits.pth
-    output_dir: models
+    repo_id: depth-anything/Depth-Anything-V2-Small
+    filename: [depth_anything_v2_vits.pth]

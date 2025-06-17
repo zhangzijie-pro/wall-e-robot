@@ -35,7 +35,6 @@ setup(
         'scipy>=1.11.0',
         'matplotlib>=3.8.0',
         'soundfile>=0.12.1',
-        'tqdm>=4.66.0',
         'torchvision>=0.16.0',
         'pydub>=0.25.0',
         'redis',
@@ -46,7 +45,6 @@ setup(
         "gradio_imageslider",
         "gradio==4.29.0",
         "ChatTTS",
-        "websockets",
     ],
     python_requires='>=3.10',
     cmdclass={

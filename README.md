@@ -66,14 +66,14 @@ wall-e-robot/
 │
 ├── 3D_Models/              # WALL·E 3D print file（e.g .stl）
 ├── Dataset/                # Dataset
-├── docs
+├── depth/                  # depth anything v2 model 
+├── docs/
+├── ECAPA-TDNN/             # speaker recognize model 
 ├── ESP32_Firmware/         # ESP32 code 
 ├── models/                 # trained model weight
 ├── ROS2_Packages/          # ROS code
 ├── Hardware_Design/        # SCH PCB design
-├── SpeakerRecognition/     # speaker recognition
-├── tts/                    # ChatTTS real time TTS and three cache
-├── Tools/
+├── Tools/                  # download third package and model
 │
 ├── .gitignore
 ├── CONTRIBUTING.md

@@ -2,28 +2,24 @@ import os
 import argparse
 import yaml
 import subprocess
-import urllib.request
 from log import logger, log
 
-@log()
-def run_cmd(cmd_list, cwd=None):
-    """Run a command in the shell and return the output."""
-    logger.info(f"Running command: {' '.join(cmd_list)}")
-    result = subprocess.run(cmd_list, cwd=cwd, capture_output=True, text=True)
-    if result.returncode != 0:
-        logger.error(f"Command failed with error code {result.returncode}")
-    return result.stdout.strip()
+from huggingface_hub import hf_hub_download
+import os
+
+model_path = os.path.join(os.getcwd(), "models")
+
 
 @log()
-def download_model(name, url, output_dir):
-    os.makedirs(output_dir, exist_ok=True)
-    filename = os.path.join(output_dir, os.path.basename(url))
-
-    if os.path.exists(filename):
-        logger.info(f"[{name}] Model already downloaded: {filename}")
+def download_model(name, repo_id, filenames, output_dir):
+    os.makedirs(output_dir, exist_ok=True)  
+    if len(filenames) == 1:
+        file_path = hf_hub_download(repo_id=repo_id, filename=filenames[0], local_dir=model_path)
+        logger.info(f"{name}:{filename} downloaded to: {file_path}")
     else:
-        logger.info(f"[{name}] Downloading from {url} to {filename}")
-        run_cmd(["wget", url, "-O", filename])
+        for filename in filenames:
+            file_path = hf_hub_download(repo_id=repo_id, filename=filename, local_dir=model_path)
+            logger.info(f"{name}:{filename} downloaded to: {file_path}")
 
 @log()
 def main(yaml_path):
@@ -33,10 +29,10 @@ def main(yaml_path):
     models = config.get('models', [])
     for model in models:
         name = model['name']
-        url = model['url']
-        output_dir = model.get('output_dir', 'downloaded_models')
-        model = os.path.abspath(os.path.join("..",output_dir))
-        download_model(name, url, model)
+        repo_id = model['repo_id']
+        filename = model['filename']    # []
+        output_dir = model_path
+        download_model(name, repo_id, filename, output_dir)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Download model weights from a YAML config.")

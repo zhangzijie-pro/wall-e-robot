@@ -12,13 +12,13 @@
 
 #### 1. 感知层
 
-目前层级拥有bug, 无法使用因路径环境问题...
+如果采用Micro-ROS,则mic_audio_node不会被使用到
 
 | 节点名称                    | 语言     | 说明                  | 发布/订阅话题                                                 |
 | ----------------------- | ------ | ------------------- | ------------------------------------------------------- |
 | `camera_node`           | C++ | 使用 `cv_camera` 获取图像 | `/image_raw` (sensor\_msgs/Image)                       |
 | `face_voice_id_node` | Python | 人脸检测 + 特征比对  +声纹识别，身份确认        | 订阅 `/image_raw`与 `/raw_audio`，发布 `/speaker_id` (std\_msgs/String) |
-| `mic_audio_node`        | C++    | 接收 ESP32 发来的音频流     | 发布 `/raw_audio` (自定义)                                   |
+| `mic_audio_node`        | C++    | 接收 ESP32 发来的音频流     | 发布 `/raw_audio` (自定义)                                      |
 | `stt_node`         | C++    | 音频转文本（高性能）          | 订阅 `/raw_audio`，发布 `/text_input` (std\_msgs/String)     |
 
 ---
@@ -40,7 +40,6 @@
 | 节点名称                | 语言     | 说明                 | 发布/订阅话题                                               |
 | ------------------- | ------ | ------------------ | ----------------------------------------------------- |
 | `chattts_node`      | Python | 文字转语音              | 订阅 `/speech_output` (std\_msgs/String)，生成音频流发送至 ESP32 |
-| `audio_play_client` | Python | 通过 TCP 将音频发至 ESP32 | 服务：`/play_audio(audio_bytes)`                         |
 
 ---
 
@@ -61,7 +60,6 @@
 | `sllidar_node`        | C++ | 激光雷达驱动（如 RPLIDAR、YDLIDAR） | 发布 `/scan` (sensor\_msgs/LaserScan) |
 | `slam_toolbox_node` | C++ | 2D/3D 实时建图（SLAM Toolbox）  | 订阅 `/scan`，发布 `/map`、`/tf`          |
 | `nav2_bt_navigator` | C++ | Nav2 行为树导航                | 接收 `/goal_pose`，生成 `/cmd_vel`       |
-| `rviz2`             | 可视化 | 查看地图、路径、目标点               |                                     |
 
 ---
 
@@ -84,7 +82,6 @@
 
 #### Services（服务）
 
-* `/play_audio(audio_bytes)`
 * `/send_motor_cmd(geometry_msgs/Twist)`
 * `/send_servo_cmd(ServoCommand)`
 * `/get_context(speaker_id)`
