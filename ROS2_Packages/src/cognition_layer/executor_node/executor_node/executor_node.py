@@ -14,9 +14,8 @@ class ExecutorNode(Node):
         self.get_logger().info("Executor node started.")
 
     def task_list_callback(self, msg: TaskList):
-        self.get_logger().info(f"收到任务计划：{msg.goal}")
-        for i, step in enumerate(msg.steps):
-            self.get_logger().info(f"步骤 {i+1}: {step.module} 执行 {step.action} 参数 {step.params}")
+        self.get_logger().info(f"✅ This Task Goal: {msg.goal}")
+        for step in msg.steps:
             self.execute_step(step)
 
     def execute_step(self, step: TaskStep):
@@ -29,15 +28,3 @@ class ExecutorNode(Node):
         else:
             self.get_logger().warn(f"未实现动作：{handler}")
 
-    # 示例动作
-    def bottom_move_to(self, location=None, target=None):
-        self.get_logger().info(f"[底盘] 移动到 {location or ''} 的 {target or ''}")
-
-    def arm_open_door(self, object=None):
-        self.get_logger().info(f"[手臂] 打开 {object}")
-
-    def vision_detect_objects(self, container=None):
-        self.get_logger().info(f"[视觉] 检测 {container}")
-
-    def speech_speak(self, message=None):
-        self.get_logger().info(f"[语音] 播报：{message}")

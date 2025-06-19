@@ -1,3 +1,9 @@
+"""
+    Node:   
+        pushlish: mic_audio  stt_text
+        params_config: ROS_Packages/config/config.yaml
+"""
+
 from rclpy import Node
 import rclpy
 from std_msgs.msg import String

@@ -9,6 +9,7 @@
         "goal": "获取厨房冰箱中的物品信息",
         "modules": [
             {
+                "id":"",
                 "module": "locomotion",
                 "action": "move_to",
                 "params": {
@@ -17,6 +18,16 @@
                 }
             },
             {
+                "id":"1",
+                "module": "locomotion",
+                "action": "move_to",
+                "params": {
+                "location": "厨房",
+                "target": "冰箱"
+                }
+            },
+            {
+                "id":"2",
                 "module": "manipulator",
                 "action": "open_door",
                 "params": {
@@ -24,6 +35,7 @@
                 }
             },
             {
+                "id":"3",
                 "module": "vision",
                 "action": "scan_contents",
                 "params": {
@@ -31,13 +43,18 @@
                 }
             },
             {
+                "id":"4",
                 "module": "speech",
                 "action": "speak",
                 "params": {
                 "message": "冰箱里有鸡蛋、牛奶和胡萝卜"
                 }
             }
-        ]
+        ],
+        "sequence":{
+            "parallel":[""]
+            
+        }
     }
 
 }

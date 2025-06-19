@@ -174,7 +174,20 @@ private:
     {
         static int scan_count = 0;
         auto scan_msg = std::make_shared<sensor_msgs::msg::LaserScan>();
-
+        /*
+            LaserScan:
+                Header header            # Header也是一个结构体,包含了seq,stamp,frame_id,其中seq指的是扫描顺序增加的id,stamp包含了开始扫描的时间和与开始扫描的时间差,frame_id是扫描的参考系名称.注意扫描是逆时针从正前方开始扫描的.
+                float32 angle_min        # 开始扫描的角度(角度)
+                float32 angle_max        # 结束扫描的角度(角度)
+                float32 angle_increment  # 每一次扫描增加的角度(角度)
+                float32 time_increment   # 测量的时间间隔(s)
+                float32 scan_time        # 扫描的时间间隔(s)
+                float32 range_min        # 距离最小值(m)
+                float32 range_max        # 距离最大值(m)
+                float32[] ranges         # 距离数组(长度360)(注意: 值 < range_min 或 > range_max 应当被丢弃)
+                float32[] intensities    # 与设备有关,强度数组(长度360)
+        */
+        
         scan_msg->header.stamp = start;
         scan_msg->header.frame_id = frame_id;
         scan_count++;
