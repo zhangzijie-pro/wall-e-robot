@@ -26,6 +26,15 @@ agent_node:
   speaker: ["speaker1", "speaker2"]
   speaker_history: ["history1.json", "history2.json"]
 
+
+executor_node:
+  tasks : [
+    {"task_name": ["msg_type","topic_name"]},
+    {"task2_name": ["msg2_type","topic_name2"]},
+    {"task3_name": ["msg3_type","topic_name3"]},
+  ]
+
+
 sllidar_node:
   channel_type: "serial"
   port_name: "/dev/ttyUSB0"

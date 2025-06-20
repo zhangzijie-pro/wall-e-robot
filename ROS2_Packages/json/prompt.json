@@ -9,21 +9,12 @@
         "goal": "获取厨房冰箱中的物品信息",
         "modules": [
             {
-                "id":"",
-                "module": "locomotion",
-                "action": "move_to",
-                "params": {
-                "location": "厨房",
-                "target": "冰箱"
-                }
-            },
-            {
                 "id":"1",
                 "module": "locomotion",
                 "action": "move_to",
                 "params": {
-                "location": "厨房",
-                "target": "冰箱"
+                    "location": "厨房",
+                    "target": "冰箱"
                 }
             },
             {
@@ -51,10 +42,14 @@
                 }
             }
         ],
-        "sequence":{
-            "parallel":[""]
-            
-        }
+        "dependency":[
+            [],
+            [],
+            [1,2],
+            [3]
+        ],
+        "sequence":[1,2,3,4],
+        "parallel":[]
     }
 
 }

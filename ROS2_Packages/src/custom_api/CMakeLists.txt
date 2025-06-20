@@ -16,9 +16,10 @@ find_package(rosidl_default_generators REQUIRED)
 # find_package(<dependency> REQUIRED)
 
 rosidl_generate_interfaces(${PROJECT_NAME}
-  "srv/FaceDetector.srv"
-  "srv/ParTol.srv"
-  "msg/SystemStatus.msg"
+  "srv/Agent.srv"
+  "msg/Agent.msg"
+  "msg/TaskList.msg"
+  "msg/TaskStep.msg"
   DEPENDENCIES sensor_msgs
 )
 
@@ -33,5 +34,9 @@ if(BUILD_TESTING)
   set(ament_cmake_cpplint_FOUND TRUE)
   ament_lint_auto_find_test_dependencies()
 endif()
+
+install(TARGETS msg srv
+  DESTINATION lib/${PROJECT_NAME}
+)
 
 ament_package()
