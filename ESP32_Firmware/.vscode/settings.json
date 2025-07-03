@@ -1,5 +1,6 @@
 {
-    "C_Cpp.intelliSenseEngine": "default",
+    "C_Cpp.intelliSenseEngine": "Tag Parser",         // 代码补全功能
+    "C_Cpp.errorSquiggles": "enabledIfIncludesResolve",
     "idf.espIdfPath": "/home/zzj/esp/v5.3.3/esp-idf",
     "idf.pythonInstallPath": "/usr/bin/python3",
     "idf.openOcdConfigs": [

@@ -107,16 +107,21 @@ class ECAPA_TDNN(nn.Module):
 
     def forward(self, x):
         x = x.transpose(1, 2)
-        out1 = self.layer1(x)
-        out2 = self.layer2(out1) + out1
-        out3 = self.layer3(out1 + out2) + out1 + out2
-        out4 = self.layer4(out1 + out2 + out3) + out1 + out2 + out3
+        # out1 = self.layer1(x)
+        # out2 = self.layer2(out1) + out1
+        # out3 = self.layer3(out1 + out2) + out1 + out2
+        # out4 = self.layer4(out1 + out2 + out3) + out1 + out2 + out3
 
-        out = torch.cat([out2, out3, out4], dim=1)
-        out = F.relu(self.conv(out))
-        out = self.bn1(self.pooling(out))
-        out = self.bn2(self.linear(out))
-        return out
+        out1 = self.layer1(x)
+        out2 = self.layer2(out1)
+        out3 = self.layer3(out1 + out2)
+        out4 = self.layer4(out1 + out2 + out3)
+
+        out = torch.cat([out2, out3, out4], dim=1)  # 512 * 3 = 1536
+        out = F.relu(self.conv(out))    # 1536 -> 1536
+        out = self.bn1(self.pooling(out))   # 1536 -> 3072
+        out = self.bn2(self.linear(out))    # 3072 -> 192
+        return out  # embedding vector of size [batch_size, embd_dim]
       
 
 
