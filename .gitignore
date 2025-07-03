@@ -204,3 +204,4 @@ depth/output/
 ROS2_Packages/src/navigation_layer/sllidar_node/obj/
 ROS2_Packages/src/navigation_layer/sllidar_node/output/
 ESP32_Firmware/component/
+test/

@@ -45,6 +45,7 @@ setup(
         "gradio_imageslider",
         "gradio==4.29.0",
         "ChatTTS",
+        "vosk",
     ],
     python_requires='>=3.10',
     cmdclass={
