@@ -191,7 +191,7 @@ Hardware_Design/Project Logs for PCB_Project/
 Hardware_Design/Project Outputs for PCB_Project/
 
 # third cpp lib
-include/
+package/include/
 
 # sim
 ROS2_Packages/Simulation/install/
