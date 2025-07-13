@@ -7,8 +7,8 @@ if [ -z "$ROS_DISTRO" ]; then
 fi
 
 sudo apt update
-sudo apt install -y ros-$ROS_DISTRO-cartographer \
-                    ros-$ROS_DISTRO-cartographer-ros
+# sudo apt install -y ros-$ROS_DISTRO-cartographer \
+#                     ros-$ROS_DISTRO-cartographer-ros
 
 mkdir -p ~/carto_ws/src
 cd ~/carto_ws/src
