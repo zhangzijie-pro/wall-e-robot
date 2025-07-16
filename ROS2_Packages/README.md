@@ -1,6 +1,6 @@
 ## walle ROS2 系统
 
-<img src="../images/ros.png" alt="WALL·E" />
+<img src="../docs/images/ros.png" alt="WALL·E" />
 
 ### 一、系统总览
 
