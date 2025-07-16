@@ -1,6 +1,6 @@
 # Wall·E 机器人
 
-<img src="./images/walle.webp" alt="WALL·E" width="100"/>
+<img src="./docs/images/walle.webp" alt="WALL·E" width="100"/>
 
 
 欢迎体验 **Wall·E 机器人项目**，这是一款受皮克斯《机器人总动员》启发的智能交互机器人。该开源系统专为多模态交互、自主导航和个性化用户体验而设计。
