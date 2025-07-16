@@ -2,11 +2,14 @@
 idf_component_register(
     SRCS
         "hello_world_main.c"
-        "../includes/es7210/es7210.c"
-        "../includes/es7210/es7210.h"
-        "../includes/es7210/es7210_reg.h"
+        "../components/custom/includes/motor.hpp"
+        "../components/custom/includes/joint.hpp"
+        "../components/custom/includes/pca9685.hpp"
+        "../components/custom/src/motor.cc"
+        "../components/custom/src/pca9685.cc"
     INCLUDE_DIRS 
         "." 
-        "../includes/es7210"
+        "../components/custom/includes/"
+        "../components/custom/src/"
     REQUIRES micro_ros_espidf_component
 )
