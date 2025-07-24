@@ -207,4 +207,6 @@ ROS2_Packages/src/navigation_layer/mapping_node/install/
 ROS2_Packages/src/navigation_layer/mapping_node/log/
 ESP32_Firmware/component/
 test/*.py
+test/depth/*.pth
+test/depth/*.pt
 include/

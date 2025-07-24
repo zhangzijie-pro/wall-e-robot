@@ -54,31 +54,35 @@ def get_depth_colormap(raw_image, model, input_size=518, grayscale=False):
         return (cmap(depth)[:, :, :3] * 255)[:, :, ::-1].astype(np.uint8)
 
 def main():
-    # 路径配置
-    # img_path = r'C:\Users\lenovo\Desktop\python\wall-e-robot\depth\test.jpg'
-    img_path = r'C:\Users\lenovo\Desktop\python\wall-e-robot\depth\cv.png'
-    outdir = './output'
-    os.makedirs(outdir, exist_ok=True)
-
-    raw_image = cv2.imread(img_path)
-    if raw_image is None:
-        print(f"Error: Unable to read image {img_path}")
+    cap = cv2.VideoCapture(0)
+    if not cap.isOpened():
+        print("Error: Unable to open camera.")
         return
-    raw_image = cv2.resize(raw_image, (640, 480))
 
-    # YOLO 目标检测
     yolo_model = load_yolo_model()
-    detections, scores, classes, class_names = detect_objects(raw_image, yolo_model)
-    yolo_result = draw_boxes_on_image(raw_image, detections, scores, classes, class_names)
-    cv2.imwrite(os.path.join(outdir, 'yolo_result.jpg'), yolo_result)
-
-    # 深度估计
     depth_model = load_depth_model()
-    depth_colormap = get_depth_colormap(raw_image, depth_model, grayscale=False)
-    depth_with_boxes = draw_boxes_on_image(depth_colormap, detections, scores, classes, class_names)
-    cv2.imwrite(os.path.join(outdir, 'depth_result.jpg'), depth_with_boxes)
 
-    print("✅ 推理完成，结果保存在:", outdir)
+    while True:
+        ret, frame = cap.read()
+        if not ret:
+            print("Failed to grab frame")
+            break
+
+        frame_resized = cv2.resize(frame, (640, 480))
+        detections, scores, classes, class_names = detect_objects(frame_resized, yolo_model)
+        yolo_result = draw_boxes_on_image(frame_resized, detections, scores, classes, class_names)
+
+        depth_colormap = get_depth_colormap(frame_resized, depth_model, grayscale=False)
+        depth_with_boxes = draw_boxes_on_image(depth_colormap, detections, scores, classes, class_names)
+
+        combined = np.hstack((yolo_result, depth_with_boxes))
+        cv2.imshow('YOLO Detection | Depth Estimation', combined)
+
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
+
+    cap.release()
+    cv2.destroyAllWindows()
 
 if __name__ == '__main__':
     main()

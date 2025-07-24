@@ -1,0 +1,58 @@
+model:
+  name: CLIPGroundingSeg
+  backbone:
+    type: CLIP
+    clip_variant: ViT-B/32
+    freeze_vision: true
+    freeze_text: true
+
+  anchor_generator:
+    sizes: [32, 64, 128, 256]
+    strides: [8, 16, 32]
+    aspect_ratios: [0.5, 1.0, 2.0]
+    method: "grid"
+
+  region_feature_extractor:
+    crop_method: "resize"  # or roi_align
+    output_dim: 512
+    positional_encoding: "mlp"  # "sin_cos" or "mlp"
+    position_dim: 64
+
+  region_matcher:
+    similarity: "cosine"
+    nms_threshold: 0.5
+    top_k: 100
+
+  segmentation_head:
+    type: "YOLOSegStyle"
+    upsampling: "bilinear"
+    loss: "BCE+Dice"
+
+  training:
+    optimizer: "AdamW"
+    lr: 1e-4
+    weight_decay: 0.01
+    epochs: 30
+    batch_size: 8
+    freeze_clip_epochs: 5
+    scheduler:
+      type: "CosineAnnealingLR"
+      T_max: 30
+      eta_min: 1e-6
+
+  dataset:
+    name: "GroundedSeg"
+    format: "image + text + boxes + masks"
+    input_size: [512, 512]
+    augmentation:
+      horizontal_flip: true
+      color_jitter:
+        brightness: 0.2
+        contrast: 0.2
+        saturation: 0.2
+      random_crop: false
+
+logging:
+  log_interval: 10
+  save_interval: 5
+  checkpoint_dir: "checkpoints/"
