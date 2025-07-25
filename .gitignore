@@ -205,8 +205,12 @@ ROS2_Packages/src/navigation_layer/sllidar_node/obj/
 ROS2_Packages/src/navigation_layer/sllidar_node/output/
 ROS2_Packages/src/navigation_layer/mapping_node/install/
 ROS2_Packages/src/navigation_layer/mapping_node/log/
+ROS2_Packages/src/navigation_layer/mapping_node/slam_gmapping
+
+
 ESP32_Firmware/component/
 test/*.py
 test/depth/*.pth
 test/depth/*.pt
+test/dnn*
 include/
