@@ -2,8 +2,17 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import torchvision.transforms as T
+from torchvision.transforms import Compose, Resize, CenterCrop, ToTensor, Normalize
 from torchvision.ops import roi_align
 import clip
+from PIL import Image
+
+try:
+    from torchvision.transforms import InterpolationMode
+    BICUBIC = InterpolationMode.BICUBIC
+except ImportError:
+    BICUBIC = Image.BICUBIC
+
 
 class CLIPExtractor(nn.Module):
     def __init__(self, clip_model, mode='image'):
@@ -12,8 +21,9 @@ class CLIPExtractor(nn.Module):
         self.clip_model = clip_model.eval()
         self.mode = mode
         self.image_preprocess = T.Compose([
-            T.Resize((224, 224)),  # CLIP 默认输入尺寸
-            T.Normalize(mean=(0.48145466, 0.4578275, 0.40821073),
+            Resize((224, 224), interpolation=BICUBIC, antialias=True),  # CLIP 默认输入尺寸
+            ToTensor(),
+            Normalize(mean=(0.48145466, 0.4578275, 0.40821073),
                         std=(0.26862954, 0.26130258, 0.27577711))
         ])
 

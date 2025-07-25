@@ -10,7 +10,7 @@ from datasets.dataset import GroundedSegDataset
 from utils.loss import compute_total_loss
 from model.detector import CLIPSegDetector
 from model.backbone.PostionEncoder import PositionalEncoder
-from model.matcher.matcher import SimilarityMatcher
+from model.matcher.matcher import RegionMatcher
 from model.head.seg_head import SegmentationHead
 
 def load_config(path):
@@ -45,7 +45,7 @@ def build_model(config, device):
     text_encoder = TextEncoder()
     image_encoder = ImageEncoder()
 
-    matcher = SimilarityMatcher(
+    matcher = RegionMatcher(
         iou_threshold=config["region_matcher"]["nms_threshold"],
         top_k=config["region_matcher"]["top_k"]
     )
