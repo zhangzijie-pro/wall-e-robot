@@ -11,7 +11,7 @@ class AAMSoftmaxLoss(nn.Module):
         self.embedding_dim = embedding_dim
         self.num_classes = num_classes
         self.weight = nn.Parameter(torch.FloatTensor(num_classes, embedding_dim))
-        nn.init.xavier_uniform_(self.weight)
+        nn.init.xavier_uniform_(self.weight, gain=nn.init.calculate_gain('selu'))
 
         self.cos_m = math.cos(margin)
         self.sin_m = math.sin(margin)

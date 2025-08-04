@@ -45,7 +45,7 @@ class STTNode(Node):
         self.recognizer = KaldiRecognizer(self.model, self.sample_rate)
         self.recognizer.SetWords(True)
 
-        self.buffers = [deque(maxlen=self.buffer_size), deque(maxlen=self.buffer_size), deque(maxlen=self.buffer_size)]
+        self.buffers = [deque(maxlen=self.buffer_size), deque(maxlen=self.buffer_size), deque(maxlen=self.buffer_size)] # 3 队列缓冲
         self.buffer_states = ['receive', 'process', 'publish']
         self.buffer_lock = asyncio.Lock()
         self.last_sound_time = time.time()
