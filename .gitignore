@@ -213,4 +213,4 @@ test/*.py
 test/depth/*.pth
 test/depth/*.pt
 test/dnn*
-include/
+walle_robot.egg-info/
