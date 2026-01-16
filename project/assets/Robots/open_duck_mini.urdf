@@ -1,0 +1,2616 @@
+<?xml version="1.0" ?>
+<!-- Generated using onshape-to-robot -->
+<!-- Onshape https://cad.onshape.com/documents/84650cc54e37c725427cad13/w/4b733da0a8eb399f746029ce/e/f339108803d3fb07700fa300 -->
+<robot name="robot_data">
+  <!-- Link trunk_assembly -->
+  <link name="trunk_assembly">
+    <inertial>
+      <origin xyz="-0.0483259 -9.97823e-05 0.0384971" rpy="0 0 0"/>
+      <mass value="0.698526"/>
+      <inertia ixx="0.00167701" ixy="-1.31662e-05" ixz="-3.24953e-05" iyy="0.00344479" iyz="-2.15581e-06" izz="0.00292635"/>
+    </inertial>
+    <!-- Part body_front -->
+    <visual>
+      <origin xyz="-0.019 0 0.0648909" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://meshes/body_front.stl"/>
+      </geometry>
+      <material name="body_front_material">
+        <color rgba="0.917647 0.917647 0.917647 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.019 0 0.0648909" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://meshes/body_front.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part usb_c_charger -->
+    <visual>
+      <origin xyz="-0.1263 -0.0257 0.0576079" rpy="1.5708 -1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/usb_c_charger.stl"/>
+      </geometry>
+      <material name="usb_c_charger_material">
+        <color rgba="0.615686 0.811765 0.929412 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.1263 -0.0257 0.0576079" rpy="1.5708 -1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/usb_c_charger.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part body_back -->
+    <visual>
+      <origin xyz="-0.019 3.46945e-18 0.0648909" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://meshes/body_back.stl"/>
+      </geometry>
+      <material name="body_back_material">
+        <color rgba="0.917647 0.917647 0.917647 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.019 3.46945e-18 0.0648909" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://meshes/body_back.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part body_middle_bottom -->
+    <visual>
+      <origin xyz="-0.019 -3.46945e-18 0.0648909" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://meshes/body_middle_bottom.stl"/>
+      </geometry>
+      <material name="body_middle_bottom_material">
+        <color rgba="0.917647 0.917647 0.917647 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.019 -3.46945e-18 0.0648909" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://meshes/body_middle_bottom.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part power_switch -->
+    <visual>
+      <origin xyz="-0.12034 -2.77556e-17 0.0899126" rpy="6.62155e-16 -0.896055 -5.17056e-16"/>
+      <geometry>
+        <mesh filename="package://meshes/power_switch.stl"/>
+      </geometry>
+      <material name="power_switch_material">
+        <color rgba="0.901961 0.901961 0.901961 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.12034 -2.77556e-17 0.0899126" rpy="6.62155e-16 -0.896055 -5.17056e-16"/>
+      <geometry>
+        <mesh filename="package://meshes/power_switch.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part bms -->
+    <visual>
+      <origin xyz="-0.0752028 -0.0249 0.0294899" rpy="1.5708 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/bms.stl"/>
+      </geometry>
+      <material name="bms_material">
+        <color rgba="0.231373 0.380392 0.705882 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.0752028 -0.0249 0.0294899" rpy="1.5708 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/bms.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part battery_pack_lid -->
+    <visual>
+      <origin xyz="-0.019 0 0.0648909" rpy="-3.38483e-16 -0 0"/>
+      <geometry>
+        <mesh filename="package://meshes/battery_pack_lid.stl"/>
+      </geometry>
+      <material name="battery_pack_lid_material">
+        <color rgba="0.231373 0.380392 0.705882 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.019 0 0.0648909" rpy="-3.38483e-16 -0 0"/>
+      <geometry>
+        <mesh filename="package://meshes/battery_pack_lid.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part body_middle_top -->
+    <visual>
+      <origin xyz="-0.019 0 0.0648909" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://meshes/body_middle_top.stl"/>
+      </geometry>
+      <material name="body_middle_top_material">
+        <color rgba="0.917647 0.917647 0.917647 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.019 0 0.0648909" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://meshes/body_middle_top.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part bno055 -->
+    <visual>
+      <origin xyz="-0.08711 1.30104e-16 0.0417909" rpy="-1.40621e-16 2.539e-51 7.80603e-33"/>
+      <geometry>
+        <mesh filename="package://meshes/bno055.stl"/>
+      </geometry>
+      <material name="bno055_material">
+        <color rgba="0.615686 0.811765 0.929412 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.08711 1.30104e-16 0.0417909" rpy="-1.40621e-16 2.539e-51 7.80603e-33"/>
+      <geometry>
+        <mesh filename="package://meshes/bno055.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part roll_bearing -->
+    <visual>
+      <origin xyz="-0.019 -6.93889e-18 0.0648909" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://meshes/roll_bearing.stl"/>
+      </geometry>
+      <material name="roll_bearing_material">
+        <color rgba="0.6 0.6 0.6 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.019 -6.93889e-18 0.0648909" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://meshes/roll_bearing.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part trunk_bottom -->
+    <visual>
+      <origin xyz="-0.019 9.1073e-18 0.0648909" rpy="-1.40621e-16 7.62308e-36 1.0842e-19"/>
+      <geometry>
+        <mesh filename="package://meshes/trunk_bottom.stl"/>
+      </geometry>
+      <material name="trunk_bottom_material">
+        <color rgba="0.180392 0.180392 0.180392 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.019 9.1073e-18 0.0648909" rpy="-1.40621e-16 7.62308e-36 1.0842e-19"/>
+      <geometry>
+        <mesh filename="package://meshes/trunk_bottom.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part trunk_top -->
+    <visual>
+      <origin xyz="-0.019 -2.42428e-16 0.0648909" rpy="-4.83554e-17 5.55112e-17 0"/>
+      <geometry>
+        <mesh filename="package://meshes/trunk_top.stl"/>
+      </geometry>
+      <material name="trunk_top_material">
+        <color rgba="0.180392 0.180392 0.180392 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.019 -2.42428e-16 0.0648909" rpy="-4.83554e-17 5.55112e-17 0"/>
+      <geometry>
+        <mesh filename="package://meshes/trunk_top.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part board -->
+    <visual>
+      <origin xyz="-0.06349 0.0165 0.0603909" rpy="1.40621e-16 2.22045e-14 -3.14159"/>
+      <geometry>
+        <mesh filename="package://meshes/board.stl"/>
+      </geometry>
+      <material name="board_material">
+        <color rgba="0 0.501961 0 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.06349 0.0165 0.0603909" rpy="1.40621e-16 2.22045e-14 -3.14159"/>
+      <geometry>
+        <mesh filename="package://meshes/board.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part roll_bearing_2 -->
+    <visual>
+      <origin xyz="-0.019 -0.07 0.0648909" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://meshes/roll_bearing.stl"/>
+      </geometry>
+      <material name="roll_bearing_2_material">
+        <color rgba="0.6 0.6 0.6 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.019 -0.07 0.0648909" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://meshes/roll_bearing.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part cell -->
+    <visual>
+      <origin xyz="-0.129625 -0.0105 0.0650134" rpy="-3.14159 7.17506e-17 2.19131"/>
+      <geometry>
+        <mesh filename="package://meshes/cell.stl"/>
+      </geometry>
+      <material name="cell_material">
+        <color rgba="0.615686 0.811765 0.929412 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.129625 -0.0105 0.0650134" rpy="-3.14159 7.17506e-17 2.19131"/>
+      <geometry>
+        <mesh filename="package://meshes/cell.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part holder -->
+    <visual>
+      <origin xyz="-0.139625 -0.0635245 0.031455" rpy="-1.30446e-16 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/holder.stl"/>
+      </geometry>
+      <material name="holder_material">
+        <color rgba="0.647059 0.647059 0.647059 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.139625 -0.0635245 0.031455" rpy="-1.30446e-16 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/holder.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part cell_2 -->
+    <visual>
+      <origin xyz="-0.129625 0.0105 1.34322e-05" rpy="8.31778e-17 2.75576e-16 0.750265"/>
+      <geometry>
+        <mesh filename="package://meshes/cell.stl"/>
+      </geometry>
+      <material name="cell_2_material">
+        <color rgba="0.615686 0.811765 0.929412 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.129625 0.0105 1.34322e-05" rpy="8.31778e-17 2.75576e-16 0.750265"/>
+      <geometry>
+        <mesh filename="package://meshes/cell.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part wj_wk00_0123middlecase_56 -->
+    <visual>
+      <origin xyz="0.001 0.0097 0.0645009" rpy="4.38892e-22 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/wj_wk00_0123middlecase_56.stl"/>
+      </geometry>
+      <material name="wj_wk00_0123middlecase_56_material">
+        <color rgba="0.247059 0.243137 0.243137 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.001 0.0097 0.0645009" rpy="4.38892e-22 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/wj_wk00_0123middlecase_56.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part drive_palonier -->
+    <visual>
+      <origin xyz="0.001 0.0097 0.0645009" rpy="4.38892e-22 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/drive_palonier.stl"/>
+      </geometry>
+      <material name="drive_palonier_material">
+        <color rgba="0.623529 0.666667 0.701961 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.001 0.0097 0.0645009" rpy="4.38892e-22 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/drive_palonier.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part wj_wk00_0124bottomcase_45 -->
+    <visual>
+      <origin xyz="0.001 0.0097 0.0645009" rpy="4.38892e-22 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/wj_wk00_0124bottomcase_45.stl"/>
+      </geometry>
+      <material name="wj_wk00_0124bottomcase_45_material">
+        <color rgba="0.247059 0.243137 0.243137 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.001 0.0097 0.0645009" rpy="4.38892e-22 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/wj_wk00_0124bottomcase_45.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part wj_wk00_0122topcabinetcase_95 -->
+    <visual>
+      <origin xyz="0.001 0.0097 0.0645009" rpy="4.38892e-22 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/wj_wk00_0122topcabinetcase_95.stl"/>
+      </geometry>
+      <material name="wj_wk00_0122topcabinetcase_95_material">
+        <color rgba="0.247059 0.243137 0.243137 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.001 0.0097 0.0645009" rpy="4.38892e-22 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/wj_wk00_0122topcabinetcase_95.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part passive_palonier -->
+    <visual>
+      <origin xyz="0.001 0.0126 0.0645009" rpy="4.38892e-22 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/passive_palonier.stl"/>
+      </geometry>
+      <material name="passive_palonier_material">
+        <color rgba="0.623529 0.666667 0.701961 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.001 0.0126 0.0645009" rpy="4.38892e-22 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/passive_palonier.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part wj_wk00_0123middlecase_56_2 -->
+    <visual>
+      <origin xyz="-0.0445 -0.035 0.0553909" rpy="-1.5708 2.22045e-14 3.14159"/>
+      <geometry>
+        <mesh filename="package://meshes/wj_wk00_0123middlecase_56.stl"/>
+      </geometry>
+      <material name="wj_wk00_0123middlecase_56_2_material">
+        <color rgba="0.247059 0.243137 0.243137 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.0445 -0.035 0.0553909" rpy="-1.5708 2.22045e-14 3.14159"/>
+      <geometry>
+        <mesh filename="package://meshes/wj_wk00_0123middlecase_56.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part drive_palonier_2 -->
+    <visual>
+      <origin xyz="-0.0445 -0.035 0.0553909" rpy="-1.5708 2.22045e-14 3.14159"/>
+      <geometry>
+        <mesh filename="package://meshes/drive_palonier.stl"/>
+      </geometry>
+      <material name="drive_palonier_2_material">
+        <color rgba="0.623529 0.666667 0.701961 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.0445 -0.035 0.0553909" rpy="-1.5708 2.22045e-14 3.14159"/>
+      <geometry>
+        <mesh filename="package://meshes/drive_palonier.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part wj_wk00_0124bottomcase_45_2 -->
+    <visual>
+      <origin xyz="-0.0445 -0.035 0.0553909" rpy="-1.5708 2.22045e-14 3.14159"/>
+      <geometry>
+        <mesh filename="package://meshes/wj_wk00_0124bottomcase_45.stl"/>
+      </geometry>
+      <material name="wj_wk00_0124bottomcase_45_2_material">
+        <color rgba="0.247059 0.243137 0.243137 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.0445 -0.035 0.0553909" rpy="-1.5708 2.22045e-14 3.14159"/>
+      <geometry>
+        <mesh filename="package://meshes/wj_wk00_0124bottomcase_45.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part wj_wk00_0122topcabinetcase_95_2 -->
+    <visual>
+      <origin xyz="-0.0445 -0.035 0.0553909" rpy="-1.5708 2.22045e-14 3.14159"/>
+      <geometry>
+        <mesh filename="package://meshes/wj_wk00_0122topcabinetcase_95.stl"/>
+      </geometry>
+      <material name="wj_wk00_0122topcabinetcase_95_2_material">
+        <color rgba="0.247059 0.243137 0.243137 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.0445 -0.035 0.0553909" rpy="-1.5708 2.22045e-14 3.14159"/>
+      <geometry>
+        <mesh filename="package://meshes/wj_wk00_0122topcabinetcase_95.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part passive_palonier_2 -->
+    <visual>
+      <origin xyz="-0.0445 -0.035 0.0524909" rpy="-1.5708 2.22045e-14 3.14159"/>
+      <geometry>
+        <mesh filename="package://meshes/passive_palonier.stl"/>
+      </geometry>
+      <material name="passive_palonier_2_material">
+        <color rgba="0.623529 0.666667 0.701961 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.0445 -0.035 0.0524909" rpy="-1.5708 2.22045e-14 3.14159"/>
+      <geometry>
+        <mesh filename="package://meshes/passive_palonier.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part wj_wk00_0123middlecase_56_3 -->
+    <visual>
+      <origin xyz="-0.0445 0.035 0.0553909" rpy="-1.5708 2.22045e-14 -3.14159"/>
+      <geometry>
+        <mesh filename="package://meshes/wj_wk00_0123middlecase_56.stl"/>
+      </geometry>
+      <material name="wj_wk00_0123middlecase_56_3_material">
+        <color rgba="0.247059 0.243137 0.243137 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.0445 0.035 0.0553909" rpy="-1.5708 2.22045e-14 -3.14159"/>
+      <geometry>
+        <mesh filename="package://meshes/wj_wk00_0123middlecase_56.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part drive_palonier_3 -->
+    <visual>
+      <origin xyz="-0.0445 0.035 0.0553909" rpy="-1.5708 2.22045e-14 -3.14159"/>
+      <geometry>
+        <mesh filename="package://meshes/drive_palonier.stl"/>
+      </geometry>
+      <material name="drive_palonier_3_material">
+        <color rgba="0.623529 0.666667 0.701961 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.0445 0.035 0.0553909" rpy="-1.5708 2.22045e-14 -3.14159"/>
+      <geometry>
+        <mesh filename="package://meshes/drive_palonier.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part wj_wk00_0124bottomcase_45_3 -->
+    <visual>
+      <origin xyz="-0.0445 0.035 0.0553909" rpy="-1.5708 2.22045e-14 -3.14159"/>
+      <geometry>
+        <mesh filename="package://meshes/wj_wk00_0124bottomcase_45.stl"/>
+      </geometry>
+      <material name="wj_wk00_0124bottomcase_45_3_material">
+        <color rgba="0.247059 0.243137 0.243137 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.0445 0.035 0.0553909" rpy="-1.5708 2.22045e-14 -3.14159"/>
+      <geometry>
+        <mesh filename="package://meshes/wj_wk00_0124bottomcase_45.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part wj_wk00_0122topcabinetcase_95_3 -->
+    <visual>
+      <origin xyz="-0.0445 0.035 0.0553909" rpy="-1.5708 2.22045e-14 -3.14159"/>
+      <geometry>
+        <mesh filename="package://meshes/wj_wk00_0122topcabinetcase_95.stl"/>
+      </geometry>
+      <material name="wj_wk00_0122topcabinetcase_95_3_material">
+        <color rgba="0.247059 0.243137 0.243137 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.0445 0.035 0.0553909" rpy="-1.5708 2.22045e-14 -3.14159"/>
+      <geometry>
+        <mesh filename="package://meshes/wj_wk00_0122topcabinetcase_95.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part passive_palonier_3 -->
+    <visual>
+      <origin xyz="-0.0445 0.035 0.0524909" rpy="-1.5708 2.22045e-14 -3.14159"/>
+      <geometry>
+        <mesh filename="package://meshes/passive_palonier.stl"/>
+      </geometry>
+      <material name="passive_palonier_3_material">
+        <color rgba="0.623529 0.666667 0.701961 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.0445 0.035 0.0524909" rpy="-1.5708 2.22045e-14 -3.14159"/>
+      <geometry>
+        <mesh filename="package://meshes/passive_palonier.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <!-- Frame trunk (dummy link + fixed joint) -->
+  <link name="trunk">
+    <origin xyz="0 0 0" rpy="0 -0 0"/>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1e-9"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+    </inertial>
+  </link>
+  <joint name="trunk_frame" type="fixed">
+    <origin xyz="-0.024 -2.41127e-16 0.0881909" rpy="-1.40621e-16 -9.42528e-17 7.80647e-33"/>
+    <parent link="trunk_assembly"/>
+    <child link="trunk"/>
+    <axis xyz="0 0 0"/>
+  </joint>
+  <!-- Frame imu (dummy link + fixed joint) -->
+  <link name="imu">
+    <origin xyz="0 0 0" rpy="0 -0 0"/>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1e-9"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+    </inertial>
+  </link>
+  <joint name="imu_frame" type="fixed">
+    <origin xyz="-0.08711 1.249e-16 0.0422909" rpy="-5.43077e-16 1.41608e-16 -1.98935e-15"/>
+    <parent link="trunk_assembly"/>
+    <child link="imu"/>
+    <axis xyz="0 0 0"/>
+  </joint>
+  <!-- Link hip_roll_assembly -->
+  <link name="hip_roll_assembly">
+    <inertial>
+      <origin xyz="0.000795081 -5.46541e-06 -0.03306" rpy="0 0 0"/>
+      <mass value="0.06648"/>
+      <inertia ixx="2.44411e-05" ixy="2.35658e-09" ixz="-3.81059e-07" iyy="2.81818e-05" iyz="-7.50036e-09" izz="1.42687e-05"/>
+    </inertial>
+    <!-- Part roll_motor_bottom -->
+    <visual>
+      <origin xyz="-3.33067e-16 -0.035 0.01905" rpy="-8.76998e-16 7.09142e-16 -5.55112e-16"/>
+      <geometry>
+        <mesh filename="package://meshes/roll_motor_bottom.stl"/>
+      </geometry>
+      <material name="roll_motor_bottom_material">
+        <color rgba="0.647059 0.647059 0.647059 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-3.33067e-16 -0.035 0.01905" rpy="-8.76998e-16 7.09142e-16 -5.55112e-16"/>
+      <geometry>
+        <mesh filename="package://meshes/roll_motor_bottom.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part roll_motor_top -->
+    <visual>
+      <origin xyz="0 -0.035 0.01905" rpy="-2.00691e-30 -3.32801e-31 -7.28307e-33"/>
+      <geometry>
+        <mesh filename="package://meshes/roll_motor_top.stl"/>
+      </geometry>
+      <material name="roll_motor_top_material">
+        <color rgba="0.901961 0.901961 0.901961 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 -0.035 0.01905" rpy="-2.00691e-30 -3.32801e-31 -7.28307e-33"/>
+      <geometry>
+        <mesh filename="package://meshes/roll_motor_top.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part wj_wk00_0123middlecase_56_4 -->
+    <visual>
+      <origin xyz="0.0096 1.68685e-14 -0.020515" rpy="-1.5708 -1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/wj_wk00_0123middlecase_56.stl"/>
+      </geometry>
+      <material name="wj_wk00_0123middlecase_56_4_material">
+        <color rgba="0.247059 0.243137 0.243137 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.0096 1.68685e-14 -0.020515" rpy="-1.5708 -1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/wj_wk00_0123middlecase_56.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part drive_palonier_4 -->
+    <visual>
+      <origin xyz="0.0096 1.68685e-14 -0.020515" rpy="-1.5708 -1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/drive_palonier.stl"/>
+      </geometry>
+      <material name="drive_palonier_4_material">
+        <color rgba="0.623529 0.666667 0.701961 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.0096 1.68685e-14 -0.020515" rpy="-1.5708 -1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/drive_palonier.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part wj_wk00_0124bottomcase_45_4 -->
+    <visual>
+      <origin xyz="0.0096 1.68685e-14 -0.020515" rpy="-1.5708 -1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/wj_wk00_0124bottomcase_45.stl"/>
+      </geometry>
+      <material name="wj_wk00_0124bottomcase_45_4_material">
+        <color rgba="0.247059 0.243137 0.243137 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.0096 1.68685e-14 -0.020515" rpy="-1.5708 -1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/wj_wk00_0124bottomcase_45.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part wj_wk00_0122topcabinetcase_95_4 -->
+    <visual>
+      <origin xyz="0.0096 1.68685e-14 -0.020515" rpy="-1.5708 -1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/wj_wk00_0122topcabinetcase_95.stl"/>
+      </geometry>
+      <material name="wj_wk00_0122topcabinetcase_95_4_material">
+        <color rgba="0.247059 0.243137 0.243137 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.0096 1.68685e-14 -0.020515" rpy="-1.5708 -1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/wj_wk00_0122topcabinetcase_95.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part passive_palonier_4 -->
+    <visual>
+      <origin xyz="0.0125 1.54737e-14 -0.020515" rpy="-1.5708 -1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/passive_palonier.stl"/>
+      </geometry>
+      <material name="passive_palonier_4_material">
+        <color rgba="0.623529 0.666667 0.701961 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.0125 1.54737e-14 -0.020515" rpy="-1.5708 -1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/passive_palonier.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <!-- Link left_roll_to_pitch_assembly -->
+  <link name="left_roll_to_pitch_assembly">
+    <inertial>
+      <origin xyz="0.0507497 -0.000407512 0.0204377" rpy="0 0 0"/>
+      <mass value="0.07516"/>
+      <inertia ixx="2.52682e-05" ixy="1.22744e-07" ixz="-7.32857e-07" iyy="4.15738e-05" iyz="-1.05692e-07" izz="2.82869e-05"/>
+    </inertial>
+    <!-- Part left_roll_to_pitch -->
+    <visual>
+      <origin xyz="-0.035 -0.065 0.01905" rpy="1.5708 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/left_roll_to_pitch.stl"/>
+      </geometry>
+      <material name="left_roll_to_pitch_material">
+        <color rgba="0.909804 0.572549 0.164706 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.035 -0.065 0.01905" rpy="1.5708 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/left_roll_to_pitch.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part wj_wk00_0123middlecase_56_5 -->
+    <visual>
+      <origin xyz="0.0647 7.44034e-18 0.00961" rpy="1.5708 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/wj_wk00_0123middlecase_56.stl"/>
+      </geometry>
+      <material name="wj_wk00_0123middlecase_56_5_material">
+        <color rgba="0.247059 0.243137 0.243137 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.0647 7.44034e-18 0.00961" rpy="1.5708 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/wj_wk00_0123middlecase_56.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part drive_palonier_5 -->
+    <visual>
+      <origin xyz="0.0647 7.44034e-18 0.00961" rpy="1.5708 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/drive_palonier.stl"/>
+      </geometry>
+      <material name="drive_palonier_5_material">
+        <color rgba="0.623529 0.666667 0.701961 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.0647 7.44034e-18 0.00961" rpy="1.5708 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/drive_palonier.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part wj_wk00_0124bottomcase_45_5 -->
+    <visual>
+      <origin xyz="0.0647 7.44034e-18 0.00961" rpy="1.5708 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/wj_wk00_0124bottomcase_45.stl"/>
+      </geometry>
+      <material name="wj_wk00_0124bottomcase_45_5_material">
+        <color rgba="0.247059 0.243137 0.243137 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.0647 7.44034e-18 0.00961" rpy="1.5708 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/wj_wk00_0124bottomcase_45.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part wj_wk00_0122topcabinetcase_95_5 -->
+    <visual>
+      <origin xyz="0.0647 7.44034e-18 0.00961" rpy="1.5708 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/wj_wk00_0122topcabinetcase_95.stl"/>
+      </geometry>
+      <material name="wj_wk00_0122topcabinetcase_95_5_material">
+        <color rgba="0.247059 0.243137 0.243137 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.0647 7.44034e-18 0.00961" rpy="1.5708 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/wj_wk00_0122topcabinetcase_95.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part passive_palonier_5 -->
+    <visual>
+      <origin xyz="0.0676 5.84859e-16 0.00961" rpy="1.5708 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/passive_palonier.stl"/>
+      </geometry>
+      <material name="passive_palonier_5_material">
+        <color rgba="0.623529 0.666667 0.701961 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.0676 5.84859e-16 0.00961" rpy="1.5708 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/passive_palonier.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <!-- Link knee_and_ankle_assembly -->
+  <link name="knee_and_ankle_assembly">
+    <inertial>
+      <origin xyz="0.00253369 -0.0390636 0.0102776" rpy="0 0 0"/>
+      <mass value="0.12407"/>
+      <inertia ixx="0.000211406" ixy="-2.68706e-05" ixz="3.81906e-06" iyy="7.83759e-05" iyz="2.08009e-05" izz="0.000225619"/>
+    </inertial>
+    <!-- Part left_cache -->
+    <visual>
+      <origin xyz="0.01606 0.065 0.10915" rpy="-1.5708 -6.82816e-27 -3.39259e-17"/>
+      <geometry>
+        <mesh filename="package://meshes/left_cache.stl"/>
+      </geometry>
+      <material name="left_cache_material">
+        <color rgba="0.917647 0.917647 0.917647 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.01606 0.065 0.10915" rpy="-1.5708 -6.82816e-27 -3.39259e-17"/>
+      <geometry>
+        <mesh filename="package://meshes/left_cache.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part leg_spacer -->
+    <visual>
+      <origin xyz="0.01606 0.14365 0.10925" rpy="-1.5708 -2.62746e-27 -1.7938e-16"/>
+      <geometry>
+        <mesh filename="package://meshes/leg_spacer.stl"/>
+      </geometry>
+      <material name="leg_spacer_material">
+        <color rgba="0.647059 0.647059 0.647059 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.01606 0.14365 0.10925" rpy="-1.5708 -2.62746e-27 -1.7938e-16"/>
+      <geometry>
+        <mesh filename="package://meshes/leg_spacer.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part left_knee_to_ankle_right_sheet -->
+    <visual>
+      <origin xyz="0.01606 0.14365 0.10915" rpy="-1.5708 1.56325e-27 1.01465e-17"/>
+      <geometry>
+        <mesh filename="package://meshes/left_knee_to_ankle_right_sheet.stl"/>
+      </geometry>
+      <material name="left_knee_to_ankle_right_sheet_material">
+        <color rgba="0.223529 0.219608 0.219608 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.01606 0.14365 0.10915" rpy="-1.5708 1.56325e-27 1.01465e-17"/>
+      <geometry>
+        <mesh filename="package://meshes/left_knee_to_ankle_right_sheet.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part left_knee_to_ankle_left_sheet -->
+    <visual>
+      <origin xyz="0.01606 0.14365 0.10915" rpy="-1.5708 -1.85335e-30 1.01465e-17"/>
+      <geometry>
+        <mesh filename="package://meshes/left_knee_to_ankle_left_sheet.stl"/>
+      </geometry>
+      <material name="left_knee_to_ankle_left_sheet_material">
+        <color rgba="0.223529 0.219608 0.219608 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.01606 0.14365 0.10915" rpy="-1.5708 -1.85335e-30 1.01465e-17"/>
+      <geometry>
+        <mesh filename="package://meshes/left_knee_to_ankle_left_sheet.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part wj_wk00_0123middlecase_56_6 -->
+    <visual>
+      <origin xyz="-2.08167e-17 -0.05315 0.00955" rpy="-1.5708 -2.64138e-16 1.5708"/>
+      <geometry>
+        <mesh filename="package://meshes/wj_wk00_0123middlecase_56.stl"/>
+      </geometry>
+      <material name="wj_wk00_0123middlecase_56_6_material">
+        <color rgba="0.247059 0.243137 0.243137 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-2.08167e-17 -0.05315 0.00955" rpy="-1.5708 -2.64138e-16 1.5708"/>
+      <geometry>
+        <mesh filename="package://meshes/wj_wk00_0123middlecase_56.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part drive_palonier_6 -->
+    <visual>
+      <origin xyz="-2.08167e-17 -0.05315 0.00955" rpy="-1.5708 -2.64138e-16 1.5708"/>
+      <geometry>
+        <mesh filename="package://meshes/drive_palonier.stl"/>
+      </geometry>
+      <material name="drive_palonier_6_material">
+        <color rgba="0.623529 0.666667 0.701961 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-2.08167e-17 -0.05315 0.00955" rpy="-1.5708 -2.64138e-16 1.5708"/>
+      <geometry>
+        <mesh filename="package://meshes/drive_palonier.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part wj_wk00_0124bottomcase_45_6 -->
+    <visual>
+      <origin xyz="-2.08167e-17 -0.05315 0.00955" rpy="-1.5708 -2.64138e-16 1.5708"/>
+      <geometry>
+        <mesh filename="package://meshes/wj_wk00_0124bottomcase_45.stl"/>
+      </geometry>
+      <material name="wj_wk00_0124bottomcase_45_6_material">
+        <color rgba="0.247059 0.243137 0.243137 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-2.08167e-17 -0.05315 0.00955" rpy="-1.5708 -2.64138e-16 1.5708"/>
+      <geometry>
+        <mesh filename="package://meshes/wj_wk00_0124bottomcase_45.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part wj_wk00_0122topcabinetcase_95_6 -->
+    <visual>
+      <origin xyz="-2.08167e-17 -0.05315 0.00955" rpy="-1.5708 -2.64138e-16 1.5708"/>
+      <geometry>
+        <mesh filename="package://meshes/wj_wk00_0122topcabinetcase_95.stl"/>
+      </geometry>
+      <material name="wj_wk00_0122topcabinetcase_95_6_material">
+        <color rgba="0.247059 0.243137 0.243137 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-2.08167e-17 -0.05315 0.00955" rpy="-1.5708 -2.64138e-16 1.5708"/>
+      <geometry>
+        <mesh filename="package://meshes/wj_wk00_0122topcabinetcase_95.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part passive_palonier_6 -->
+    <visual>
+      <origin xyz="2.28983e-16 -0.05315 0.00665" rpy="-1.5708 -2.64138e-16 1.5708"/>
+      <geometry>
+        <mesh filename="package://meshes/passive_palonier.stl"/>
+      </geometry>
+      <material name="passive_palonier_6_material">
+        <color rgba="0.623529 0.666667 0.701961 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="2.28983e-16 -0.05315 0.00665" rpy="-1.5708 -2.64138e-16 1.5708"/>
+      <geometry>
+        <mesh filename="package://meshes/passive_palonier.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <!-- Link knee_and_ankle_assembly_2 -->
+  <link name="knee_and_ankle_assembly_2">
+    <inertial>
+      <origin xyz="5.01859e-06 -0.0577465 0.0181136" rpy="0 0 0"/>
+      <mass value="0.07259"/>
+      <inertia ixx="4.99575e-05" ixy="1.03817e-08" ixz="2.25175e-09" iyy="1.87273e-05" iyz="8.81049e-08" izz="4.23932e-05"/>
+    </inertial>
+    <!-- Part leg_spacer_2 -->
+    <visual>
+      <origin xyz="0.01606 0.14365 0.10925" rpy="-1.5708 3.01376e-27 -1.01465e-17"/>
+      <geometry>
+        <mesh filename="package://meshes/leg_spacer.stl"/>
+      </geometry>
+      <material name="leg_spacer_2_material">
+        <color rgba="0.647059 0.647059 0.647059 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.01606 0.14365 0.10925" rpy="-1.5708 3.01376e-27 -1.01465e-17"/>
+      <geometry>
+        <mesh filename="package://meshes/leg_spacer.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part left_knee_to_ankle_right_sheet_2 -->
+    <visual>
+      <origin xyz="0.01606 0.14365 0.10915" rpy="-1.5708 8.4281e-28 -1.01465e-17"/>
+      <geometry>
+        <mesh filename="package://meshes/left_knee_to_ankle_right_sheet.stl"/>
+      </geometry>
+      <material name="left_knee_to_ankle_right_sheet_2_material">
+        <color rgba="0.223529 0.219608 0.219608 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.01606 0.14365 0.10915" rpy="-1.5708 8.4281e-28 -1.01465e-17"/>
+      <geometry>
+        <mesh filename="package://meshes/left_knee_to_ankle_right_sheet.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part left_knee_to_ankle_left_sheet_2 -->
+    <visual>
+      <origin xyz="0.01606 0.14365 0.10915" rpy="-1.5708 9.77307e-30 -1.01465e-17"/>
+      <geometry>
+        <mesh filename="package://meshes/left_knee_to_ankle_left_sheet.stl"/>
+      </geometry>
+      <material name="left_knee_to_ankle_left_sheet_2_material">
+        <color rgba="0.223529 0.219608 0.219608 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.01606 0.14365 0.10915" rpy="-1.5708 9.77307e-30 -1.01465e-17"/>
+      <geometry>
+        <mesh filename="package://meshes/left_knee_to_ankle_left_sheet.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part wj_wk00_0123middlecase_56_7 -->
+    <visual>
+      <origin xyz="-2.77556e-17 -0.05315 0.00955" rpy="-1.5708 -7.96172e-25 1.5708"/>
+      <geometry>
+        <mesh filename="package://meshes/wj_wk00_0123middlecase_56.stl"/>
+      </geometry>
+      <material name="wj_wk00_0123middlecase_56_7_material">
+        <color rgba="0.247059 0.243137 0.243137 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-2.77556e-17 -0.05315 0.00955" rpy="-1.5708 -7.96172e-25 1.5708"/>
+      <geometry>
+        <mesh filename="package://meshes/wj_wk00_0123middlecase_56.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part drive_palonier_7 -->
+    <visual>
+      <origin xyz="-2.77556e-17 -0.05315 0.00955" rpy="-1.5708 -7.96172e-25 1.5708"/>
+      <geometry>
+        <mesh filename="package://meshes/drive_palonier.stl"/>
+      </geometry>
+      <material name="drive_palonier_7_material">
+        <color rgba="0.623529 0.666667 0.701961 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-2.77556e-17 -0.05315 0.00955" rpy="-1.5708 -7.96172e-25 1.5708"/>
+      <geometry>
+        <mesh filename="package://meshes/drive_palonier.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part wj_wk00_0124bottomcase_45_7 -->
+    <visual>
+      <origin xyz="-2.77556e-17 -0.05315 0.00955" rpy="-1.5708 -7.96172e-25 1.5708"/>
+      <geometry>
+        <mesh filename="package://meshes/wj_wk00_0124bottomcase_45.stl"/>
+      </geometry>
+      <material name="wj_wk00_0124bottomcase_45_7_material">
+        <color rgba="0.247059 0.243137 0.243137 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-2.77556e-17 -0.05315 0.00955" rpy="-1.5708 -7.96172e-25 1.5708"/>
+      <geometry>
+        <mesh filename="package://meshes/wj_wk00_0124bottomcase_45.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part wj_wk00_0122topcabinetcase_95_7 -->
+    <visual>
+      <origin xyz="-2.77556e-17 -0.05315 0.00955" rpy="-1.5708 -7.96172e-25 1.5708"/>
+      <geometry>
+        <mesh filename="package://meshes/wj_wk00_0122topcabinetcase_95.stl"/>
+      </geometry>
+      <material name="wj_wk00_0122topcabinetcase_95_7_material">
+        <color rgba="0.247059 0.243137 0.243137 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-2.77556e-17 -0.05315 0.00955" rpy="-1.5708 -7.96172e-25 1.5708"/>
+      <geometry>
+        <mesh filename="package://meshes/wj_wk00_0122topcabinetcase_95.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part passive_palonier_7 -->
+    <visual>
+      <origin xyz="-7.07767e-16 -0.05315 0.00665" rpy="-1.5708 -7.96172e-25 1.5708"/>
+      <geometry>
+        <mesh filename="package://meshes/passive_palonier.stl"/>
+      </geometry>
+      <material name="passive_palonier_7_material">
+        <color rgba="0.623529 0.666667 0.701961 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-7.07767e-16 -0.05315 0.00665" rpy="-1.5708 -7.96172e-25 1.5708"/>
+      <geometry>
+        <mesh filename="package://meshes/passive_palonier.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <!-- Link foot_assembly -->
+  <link name="foot_assembly">
+    <inertial>
+      <origin xyz="0.0110718 -0.0246608 0.0190626" rpy="0 0 0"/>
+      <mass value="0.07524"/>
+      <inertia ixx="1.87482e-05" ixy="1.58839e-06" ixz="-6.52354e-09" iyy="6.74427e-05" iyz="5.67391e-08" izz="6.061e-05"/>
+    </inertial>
+    <!-- Part foot_side -->
+    <visual>
+      <origin xyz="0.01606 0.2223 0.10905" rpy="-1.5708 5.5694e-30 0"/>
+      <geometry>
+        <mesh filename="package://meshes/foot_side.stl"/>
+      </geometry>
+      <material name="foot_side_material">
+        <color rgba="0.980392 0.713725 0.00392157 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.01606 0.2223 0.10905" rpy="-1.5708 5.5694e-30 0"/>
+      <geometry>
+        <mesh filename="package://meshes/foot_side.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part foot_bottom_tpu -->
+    <visual>
+      <origin xyz="0.01656 0.2228 0.10955" rpy="-1.5708 5.5694e-30 0"/>
+      <geometry>
+        <mesh filename="package://meshes/foot_bottom_tpu.stl"/>
+      </geometry>
+      <material name="foot_bottom_tpu_material">
+        <color rgba="0.305882 0.298039 0.278431 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.01656 0.2228 0.10955" rpy="-1.5708 5.5694e-30 0"/>
+      <geometry>
+        <mesh filename="package://meshes/foot_bottom_tpu.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part foot_bottom_pla -->
+    <visual>
+      <origin xyz="0.01656 0.2228 0.10955" rpy="-1.5708 5.5694e-30 0"/>
+      <geometry>
+        <mesh filename="package://meshes/foot_bottom_pla.stl"/>
+      </geometry>
+      <material name="foot_bottom_pla_material">
+        <color rgba="0.305882 0.298039 0.278431 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.01656 0.2228 0.10955" rpy="-1.5708 5.5694e-30 0"/>
+      <geometry>
+        <mesh filename="package://meshes/foot_bottom_pla.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part foot_top -->
+    <visual>
+      <origin xyz="0.01606 0.2223 0.10905" rpy="-1.5708 5.5694e-30 0"/>
+      <geometry>
+        <mesh filename="package://meshes/foot_top.stl"/>
+      </geometry>
+      <material name="foot_top_material">
+        <color rgba="0.980392 0.713725 0.00392157 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.01606 0.2223 0.10905" rpy="-1.5708 5.5694e-30 0"/>
+      <geometry>
+        <mesh filename="package://meshes/foot_top.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <!-- Frame left_foot (dummy link + fixed joint) -->
+  <link name="left_foot">
+    <origin xyz="0 0 0" rpy="0 -0 0"/>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1e-9"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+    </inertial>
+  </link>
+  <joint name="left_foot_frame" type="fixed">
+    <origin xyz="0.0005 -0.036225 0.01955" rpy="-1.5708 -1.70839e-28 1.11022e-16"/>
+    <parent link="foot_assembly"/>
+    <child link="left_foot"/>
+    <axis xyz="0 0 0"/>
+  </joint>
+  <!-- Joint from knee_and_ankle_assembly_2 to foot_assembly -->
+  <joint name="left_ankle" type="revolute">
+    <origin xyz="-1.38778e-17 -0.07865 0.0001" rpy="-2.3142e-25 -1.75854e-25 -0.785398"/>
+    <parent link="knee_and_ankle_assembly_2"/>
+    <child link="foot_assembly"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10" lower="-0.785398" upper="2.35619"/>
+  </joint>
+  <!-- Joint from knee_and_ankle_assembly to knee_and_ankle_assembly_2 -->
+  <joint name="left_knee" type="revolute">
+    <origin xyz="-1.04083e-17 -0.07865 0.0001" rpy="1.49608e-28 -2.64138e-16 1.5708"/>
+    <parent link="knee_and_ankle_assembly"/>
+    <child link="knee_and_ankle_assembly_2"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10" lower="-3.14159" upper="0"/>
+  </joint>
+  <!-- Joint from left_roll_to_pitch_assembly to knee_and_ankle_assembly -->
+  <joint name="left_hip_pitch" type="revolute">
+    <origin xyz="0.07415 8.93112e-18 0.03511" rpy="-1.5708 0.785398 1.5708"/>
+    <parent link="left_roll_to_pitch_assembly"/>
+    <child link="knee_and_ankle_assembly"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10" lower="-0.436332" upper="1.309"/>
+  </joint>
+  <!-- Joint from hip_roll_assembly to left_roll_to_pitch_assembly -->
+  <joint name="left_hip_roll" type="revolute">
+    <origin xyz="0.01905 1.30104e-14 -0.046015" rpy="-1.5708 1.01532e-13 1.5708"/>
+    <parent link="hip_roll_assembly"/>
+    <child link="left_roll_to_pitch_assembly"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10" lower="-0.436332" upper="0.436332"/>
+  </joint>
+  <!-- Joint from trunk_assembly to hip_roll_assembly -->
+  <joint name="left_hip_yaw" type="revolute">
+    <origin xyz="-0.019 0.035 0.0459409" rpy="-8.8118e-15 -1.33782e-14 8.07549e-17"/>
+    <parent link="trunk_assembly"/>
+    <child link="hip_roll_assembly"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10" lower="-0.523599" upper="0.523599"/>
+  </joint>
+  <!-- Link neck_pitch_assembly -->
+  <link name="neck_pitch_assembly">
+    <inertial>
+      <origin xyz="-5.63137e-06 0.0492968 0.0181786" rpy="0 0 0"/>
+      <mass value="0.06618"/>
+      <inertia ixx="3.49456e-05" ixy="8.75633e-09" ixz="-2.15592e-09" iyy="1.70231e-05" iyz="-1.85188e-08" izz="2.80043e-05"/>
+    </inertial>
+    <!-- Part neck_left_sheet -->
+    <visual>
+      <origin xyz="-0.02 -0.02511 0.01905" rpy="-1.5708 2.18614e-33 -1.01465e-17"/>
+      <geometry>
+        <mesh filename="package://meshes/neck_left_sheet.stl"/>
+      </geometry>
+      <material name="neck_left_sheet_material">
+        <color rgba="0.223529 0.219608 0.219608 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.02 -0.02511 0.01905" rpy="-1.5708 2.18614e-33 -1.01465e-17"/>
+      <geometry>
+        <mesh filename="package://meshes/neck_left_sheet.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part neck_right_sheet -->
+    <visual>
+      <origin xyz="-0.02 -0.02511 0.01905" rpy="-1.5708 4.97898e-17 1.08766e-16"/>
+      <geometry>
+        <mesh filename="package://meshes/neck_right_sheet.stl"/>
+      </geometry>
+      <material name="neck_right_sheet_material">
+        <color rgba="0.223529 0.219608 0.219608 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.02 -0.02511 0.01905" rpy="-1.5708 4.97898e-17 1.08766e-16"/>
+      <geometry>
+        <mesh filename="package://meshes/neck_right_sheet.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part wj_wk00_0123middlecase_56_8 -->
+    <visual>
+      <origin xyz="-2.77556e-17 0.0405 0.00945" rpy="-1.5708 -1.24962e-16 -1.5708"/>
+      <geometry>
+        <mesh filename="package://meshes/wj_wk00_0123middlecase_56.stl"/>
+      </geometry>
+      <material name="wj_wk00_0123middlecase_56_8_material">
+        <color rgba="0.247059 0.243137 0.243137 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-2.77556e-17 0.0405 0.00945" rpy="-1.5708 -1.24962e-16 -1.5708"/>
+      <geometry>
+        <mesh filename="package://meshes/wj_wk00_0123middlecase_56.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part drive_palonier_8 -->
+    <visual>
+      <origin xyz="-2.77556e-17 0.0405 0.00945" rpy="-1.5708 -1.24962e-16 -1.5708"/>
+      <geometry>
+        <mesh filename="package://meshes/drive_palonier.stl"/>
+      </geometry>
+      <material name="drive_palonier_8_material">
+        <color rgba="0.623529 0.666667 0.701961 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-2.77556e-17 0.0405 0.00945" rpy="-1.5708 -1.24962e-16 -1.5708"/>
+      <geometry>
+        <mesh filename="package://meshes/drive_palonier.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part wj_wk00_0124bottomcase_45_8 -->
+    <visual>
+      <origin xyz="-2.77556e-17 0.0405 0.00945" rpy="-1.5708 -1.24962e-16 -1.5708"/>
+      <geometry>
+        <mesh filename="package://meshes/wj_wk00_0124bottomcase_45.stl"/>
+      </geometry>
+      <material name="wj_wk00_0124bottomcase_45_8_material">
+        <color rgba="0.247059 0.243137 0.243137 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-2.77556e-17 0.0405 0.00945" rpy="-1.5708 -1.24962e-16 -1.5708"/>
+      <geometry>
+        <mesh filename="package://meshes/wj_wk00_0124bottomcase_45.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part wj_wk00_0122topcabinetcase_95_8 -->
+    <visual>
+      <origin xyz="-2.77556e-17 0.0405 0.00945" rpy="-1.5708 -1.24962e-16 -1.5708"/>
+      <geometry>
+        <mesh filename="package://meshes/wj_wk00_0122topcabinetcase_95.stl"/>
+      </geometry>
+      <material name="wj_wk00_0122topcabinetcase_95_8_material">
+        <color rgba="0.247059 0.243137 0.243137 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-2.77556e-17 0.0405 0.00945" rpy="-1.5708 -1.24962e-16 -1.5708"/>
+      <geometry>
+        <mesh filename="package://meshes/wj_wk00_0122topcabinetcase_95.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part passive_palonier_8 -->
+    <visual>
+      <origin xyz="-6.93889e-17 0.0405 0.00655" rpy="-1.5708 -1.24962e-16 -1.5708"/>
+      <geometry>
+        <mesh filename="package://meshes/passive_palonier.stl"/>
+      </geometry>
+      <material name="passive_palonier_8_material">
+        <color rgba="0.623529 0.666667 0.701961 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-6.93889e-17 0.0405 0.00655" rpy="-1.5708 -1.24962e-16 -1.5708"/>
+      <geometry>
+        <mesh filename="package://meshes/passive_palonier.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <!-- Link head_pitch_to_yaw -->
+  <link name="head_pitch_to_yaw">
+    <inertial>
+      <origin xyz="-0.00766247 0.026015 0.0186681" rpy="0 0 0"/>
+      <mass value="0.0169378"/>
+      <inertia ixx="9.43036e-06" ixy="1.35195e-06" ixz="3.05899e-08" iyy="4.64763e-06" iyz="-8.42802e-08" izz="8.02915e-06"/>
+    </inertial>
+    <!-- Part head_pitch_to_yaw -->
+    <visual>
+      <origin xyz="-0.02 -0.09111 0.01905" rpy="-1.5708 -3.39537e-33 0"/>
+      <geometry>
+        <mesh filename="package://meshes/head_pitch_to_yaw.stl"/>
+      </geometry>
+      <material name="head_pitch_to_yaw_material">
+        <color rgba="0.4 0.4 0.4 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.02 -0.09111 0.01905" rpy="-1.5708 -3.39537e-33 0"/>
+      <geometry>
+        <mesh filename="package://meshes/head_pitch_to_yaw.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <!-- Link neck_yaw_assembly -->
+  <link name="neck_yaw_assembly">
+    <inertial>
+      <origin xyz="0.00412907 3.95745e-06 -0.0222828" rpy="0 0 0"/>
+      <mass value="0.0918099"/>
+      <inertia ixx="3.11706e-05" ixy="4.29429e-09" ixz="-4.41251e-06" iyy="6.94935e-05" iyz="-3.82028e-09" izz="7.04025e-05"/>
+    </inertial>
+    <!-- Part head_yaw_to_roll -->
+    <visual>
+      <origin xyz="-0.02 6.12574e-18 -0.14821" rpy="3.88328e-26 -3.81809e-28 7.63623e-28"/>
+      <geometry>
+        <mesh filename="package://meshes/head_yaw_to_roll.stl"/>
+      </geometry>
+      <material name="head_yaw_to_roll_material">
+        <color rgba="0.647059 0.647059 0.647059 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.02 6.12574e-18 -0.14821" rpy="3.88328e-26 -3.81809e-28 7.63623e-28"/>
+      <geometry>
+        <mesh filename="package://meshes/head_yaw_to_roll.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part wj_wk00_0123middlecase_56_9 -->
+    <visual>
+      <origin xyz="0.0255 7.31836e-19 -0.00945" rpy="1.5708 -0 5.22625e-33"/>
+      <geometry>
+        <mesh filename="package://meshes/wj_wk00_0123middlecase_56.stl"/>
+      </geometry>
+      <material name="wj_wk00_0123middlecase_56_9_material">
+        <color rgba="0.247059 0.243137 0.243137 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.0255 7.31836e-19 -0.00945" rpy="1.5708 -0 5.22625e-33"/>
+      <geometry>
+        <mesh filename="package://meshes/wj_wk00_0123middlecase_56.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part drive_palonier_9 -->
+    <visual>
+      <origin xyz="0.0255 7.31836e-19 -0.00945" rpy="1.5708 -0 5.22625e-33"/>
+      <geometry>
+        <mesh filename="package://meshes/drive_palonier.stl"/>
+      </geometry>
+      <material name="drive_palonier_9_material">
+        <color rgba="0.623529 0.666667 0.701961 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.0255 7.31836e-19 -0.00945" rpy="1.5708 -0 5.22625e-33"/>
+      <geometry>
+        <mesh filename="package://meshes/drive_palonier.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part wj_wk00_0124bottomcase_45_9 -->
+    <visual>
+      <origin xyz="0.0255 7.31836e-19 -0.00945" rpy="1.5708 -0 5.22625e-33"/>
+      <geometry>
+        <mesh filename="package://meshes/wj_wk00_0124bottomcase_45.stl"/>
+      </geometry>
+      <material name="wj_wk00_0124bottomcase_45_9_material">
+        <color rgba="0.247059 0.243137 0.243137 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.0255 7.31836e-19 -0.00945" rpy="1.5708 -0 5.22625e-33"/>
+      <geometry>
+        <mesh filename="package://meshes/wj_wk00_0124bottomcase_45.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part wj_wk00_0122topcabinetcase_95_9 -->
+    <visual>
+      <origin xyz="0.0255 7.31836e-19 -0.00945" rpy="1.5708 -0 5.22625e-33"/>
+      <geometry>
+        <mesh filename="package://meshes/wj_wk00_0122topcabinetcase_95.stl"/>
+      </geometry>
+      <material name="wj_wk00_0122topcabinetcase_95_9_material">
+        <color rgba="0.247059 0.243137 0.243137 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.0255 7.31836e-19 -0.00945" rpy="1.5708 -0 5.22625e-33"/>
+      <geometry>
+        <mesh filename="package://meshes/wj_wk00_0122topcabinetcase_95.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part passive_palonier_9 -->
+    <visual>
+      <origin xyz="0.0255 3.86681e-16 -0.00655" rpy="1.5708 -0 5.22625e-33"/>
+      <geometry>
+        <mesh filename="package://meshes/passive_palonier.stl"/>
+      </geometry>
+      <material name="passive_palonier_9_material">
+        <color rgba="0.623529 0.666667 0.701961 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.0255 3.86681e-16 -0.00655" rpy="1.5708 -0 5.22625e-33"/>
+      <geometry>
+        <mesh filename="package://meshes/passive_palonier.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <!-- Link head_assembly -->
+  <link name="head_assembly">
+    <inertial>
+      <origin xyz="0.00815617 -0.0039342 0.0227894" rpy="0 0 0"/>
+      <mass value="0.406607"/>
+      <inertia ixx="0.00244582" ixy="-2.00028e-06" ixz="9.23825e-05" iyy="0.00168662" iyz="-1.90734e-05" izz="0.00107943"/>
+    </inertial>
+    <!-- Part right_antenna_holder -->
+    <visual>
+      <origin xyz="-0.12906 -3.15487e-14 0.06095" rpy="-2.74006e-13 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/right_antenna_holder.stl"/>
+      </geometry>
+      <material name="right_antenna_holder_material">
+        <color rgba="0.980392 0.713725 0.00392157 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.12906 -3.15487e-14 0.06095" rpy="-2.74006e-13 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/right_antenna_holder.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part antenna -->
+    <visual>
+      <origin xyz="-0.0830595 0.182212 0.06095" rpy="0.494708 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/antenna.stl"/>
+      </geometry>
+      <material name="antenna_material">
+        <color rgba="0.647059 0.647059 0.647059 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.0830595 0.182212 0.06095" rpy="0.494708 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/antenna.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part antenna_2 -->
+    <visual>
+      <origin xyz="-0.12808 0.000247519 0.06095" rpy="-2.7404e-13 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/antenna.stl"/>
+      </geometry>
+      <material name="antenna_2_material">
+        <color rgba="0.647059 0.647059 0.647059 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.12808 0.000247519 0.06095" rpy="-2.7404e-13 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/antenna.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part left_antenna_holder -->
+    <visual>
+      <origin xyz="-0.12906 -6.42689e-15 0.06095" rpy="-5.05694e-14 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/left_antenna_holder.stl"/>
+      </geometry>
+      <material name="left_antenna_holder_material">
+        <color rgba="0.980392 0.713725 0.00392157 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.12906 -6.42689e-15 0.06095" rpy="-5.05694e-14 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/left_antenna_holder.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part cam -->
+    <visual>
+      <origin xyz="0.02405 -0.0025 -0.0518501" rpy="3.14159 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/cam.stl"/>
+      </geometry>
+      <material name="cam_material">
+        <color rgba="0.627451 0.627451 0.627451 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.02405 -0.0025 -0.0518501" rpy="3.14159 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/cam.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part head_bot_sheet -->
+    <visual>
+      <origin xyz="-0.12906 -2.6941e-14 0.06095" rpy="-1.5335e-13 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/head_bot_sheet.stl"/>
+      </geometry>
+      <material name="head_bot_sheet_material">
+        <color rgba="0.411765 0.411765 0.411765 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.12906 -2.6941e-14 0.06095" rpy="-1.5335e-13 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/head_bot_sheet.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part head_2 -->
+    <visual>
+      <origin xyz="-0.12906 -2.69549e-14 0.06095" rpy="-1.53495e-13 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/head.stl"/>
+      </geometry>
+      <material name="head_2_material">
+        <color rgba="0.917647 0.917647 0.917647 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.12906 -2.69549e-14 0.06095" rpy="-1.53495e-13 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/head.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part flash_reflector_interface -->
+    <visual>
+      <origin xyz="-0.12906 -3.05007e-14 0.06095" rpy="-1.48138e-13 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/flash_reflector_interface.stl"/>
+      </geometry>
+      <material name="flash_reflector_interface_material">
+        <color rgba="0.647059 0.647059 0.647059 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.12906 -3.05007e-14 0.06095" rpy="-1.48138e-13 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/flash_reflector_interface.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part bulb -->
+    <visual>
+      <origin xyz="-0.12906 -2.70173e-14 0.06095" rpy="-1.53919e-13 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/bulb.stl"/>
+      </geometry>
+      <material name="bulb_material">
+        <color rgba="0.972549 0.529412 0.00392157 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.12906 -2.70173e-14 0.06095" rpy="-1.53919e-13 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/bulb.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part glass -->
+    <visual>
+      <origin xyz="-0.12906 -2.72607e-14 0.06115" rpy="-1.53683e-13 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/glass.stl"/>
+      </geometry>
+      <material name="glass_material">
+        <color rgba="0.760784 0.839216 0.92549 0.909804"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.12906 -2.72607e-14 0.06115" rpy="-1.53683e-13 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/glass.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part head_roll_mount -->
+    <visual>
+      <origin xyz="-0.12906 -2.69549e-14 0.06095" rpy="-1.53495e-13 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/head_roll_mount.stl"/>
+      </geometry>
+      <material name="head_roll_mount_material">
+        <color rgba="0.501961 0.501961 0.501961 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.12906 -2.69549e-14 0.06095" rpy="-1.53495e-13 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/head_roll_mount.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part raspberrypizerow -->
+    <visual>
+      <origin xyz="0.03205 0.048 0.00595" rpy="1.5708 -1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/raspberrypizerow.stl"/>
+      </geometry>
+      <material name="raspberrypizerow_material">
+        <color rgba="0.231373 0.380392 0.705882 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.03205 0.048 0.00595" rpy="1.5708 -1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/raspberrypizerow.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part left_eye -->
+    <visual>
+      <origin xyz="-0.12906 -2.72775e-14 0.06095" rpy="-1.53683e-13 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/left_eye.stl"/>
+      </geometry>
+      <material name="left_eye_material">
+        <color rgba="0.498039 0.498039 0.498039 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.12906 -2.72775e-14 0.06095" rpy="-1.53683e-13 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/left_eye.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part flash_light_module -->
+    <visual>
+      <origin xyz="-0.12906 -3.04798e-14 0.06095" rpy="-1.48138e-13 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/flash_light_module.stl"/>
+      </geometry>
+      <material name="flash_light_module_material">
+        <color rgba="0.34902 0.376471 0.4 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.12906 -3.04798e-14 0.06095" rpy="-1.48138e-13 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/flash_light_module.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part full_speaker -->
+    <visual>
+      <origin xyz="0.00522415 -0.0588802 0.0190505" rpy="2.97616e-13 1.30458 -1.32344"/>
+      <geometry>
+        <mesh filename="package://meshes/full_speaker.stl"/>
+      </geometry>
+      <material name="full_speaker_material">
+        <color rgba="0.647059 0.647059 0.647059 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.00522415 -0.0588802 0.0190505" rpy="2.97616e-13 1.30458 -1.32344"/>
+      <geometry>
+        <mesh filename="package://meshes/full_speaker.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part roll_bearing_3 -->
+    <visual>
+      <origin xyz="-2.96985e-15 -0.035 0.167325" rpy="6.74894e-14 -2.59348e-13 2.15479e-13"/>
+      <geometry>
+        <mesh filename="package://meshes/roll_bearing.stl"/>
+      </geometry>
+      <material name="roll_bearing_3_material">
+        <color rgba="0.6 0.6 0.6 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-2.96985e-15 -0.035 0.167325" rpy="6.74894e-14 -2.59348e-13 2.15479e-13"/>
+      <geometry>
+        <mesh filename="package://meshes/roll_bearing.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part sg90 -->
+    <visual>
+      <origin xyz="-0.00624594 0.0331408 0.102812" rpy="5.66545e-13 -1.30458 -1.81815"/>
+      <geometry>
+        <mesh filename="package://meshes/sg90.stl"/>
+      </geometry>
+      <material name="sg90_material">
+        <color rgba="0.435294 0.670588 0.976471 0.827451"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.00624594 0.0331408 0.102812" rpy="5.66545e-13 -1.30458 -1.81815"/>
+      <geometry>
+        <mesh filename="package://meshes/sg90.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part glass_2 -->
+    <visual>
+      <origin xyz="-0.12906 -2.70693e-14 0.063" rpy="-1.53683e-13 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/glass.stl"/>
+      </geometry>
+      <material name="glass_2_material">
+        <color rgba="0.760784 0.839216 0.92549 0.909804"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.12906 -2.70693e-14 0.063" rpy="-1.53683e-13 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/glass.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part sg90_2 -->
+    <visual>
+      <origin xyz="-0.00624594 -0.0331408 0.102812" rpy="-2.9002e-13 -1.30458 1.81815"/>
+      <geometry>
+        <mesh filename="package://meshes/sg90.stl"/>
+      </geometry>
+      <material name="sg90_2_material">
+        <color rgba="0.435294 0.670588 0.976471 0.827451"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.00624594 -0.0331408 0.102812" rpy="-2.9002e-13 -1.30458 1.81815"/>
+      <geometry>
+        <mesh filename="package://meshes/sg90.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part bulb_2 -->
+    <visual>
+      <origin xyz="-0.12906 0.08 0.06095" rpy="-1.53919e-13 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/bulb.stl"/>
+      </geometry>
+      <material name="bulb_2_material">
+        <color rgba="0.972549 0.529412 0.00392157 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.12906 0.08 0.06095" rpy="-1.53919e-13 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/bulb.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part speaker_interface -->
+    <visual>
+      <origin xyz="-0.12906 -2.69132e-14 0.06095" rpy="-1.53454e-13 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/speaker_interface.stl"/>
+      </geometry>
+      <material name="speaker_interface_material">
+        <color rgba="0.615686 0.811765 0.929412 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.12906 -2.69132e-14 0.06095" rpy="-1.53454e-13 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/speaker_interface.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part speaker_stand -->
+    <visual>
+      <origin xyz="-0.12906 -2.70104e-14 0.06095" rpy="-1.53454e-13 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/speaker_stand.stl"/>
+      </geometry>
+      <material name="speaker_stand_material">
+        <color rgba="0.980392 0.713725 0.00392157 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.12906 -2.70104e-14 0.06095" rpy="-1.53454e-13 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/speaker_stand.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part right_eye -->
+    <visual>
+      <origin xyz="-0.12906 -2.72463e-14 0.06095" rpy="-1.53683e-13 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/right_eye.stl"/>
+      </geometry>
+      <material name="right_eye_material">
+        <color rgba="0.34902 0.376471 0.4 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.12906 -2.72463e-14 0.06095" rpy="-1.53683e-13 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/right_eye.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part glass_3 -->
+    <visual>
+      <origin xyz="-0.12906 0.08 0.06515" rpy="-1.53683e-13 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/glass.stl"/>
+      </geometry>
+      <material name="glass_3_material">
+        <color rgba="0.760784 0.839216 0.92549 0.909804"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.12906 0.08 0.06515" rpy="-1.53683e-13 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/glass.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part glass_4 -->
+    <visual>
+      <origin xyz="-0.12906 0.08 0.067" rpy="-1.53683e-13 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/glass.stl"/>
+      </geometry>
+      <material name="glass_4_material">
+        <color rgba="0.760784 0.839216 0.92549 0.909804"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.12906 0.08 0.067" rpy="-1.53683e-13 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/glass.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part wj_wk00_0123middlecase_56_10 -->
+    <visual>
+      <origin xyz="0.0255 7.04731e-19 -0.00945" rpy="1.5708 -0 0"/>
+      <geometry>
+        <mesh filename="package://meshes/wj_wk00_0123middlecase_56.stl"/>
+      </geometry>
+      <material name="wj_wk00_0123middlecase_56_10_material">
+        <color rgba="0.247059 0.243137 0.243137 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.0255 7.04731e-19 -0.00945" rpy="1.5708 -0 0"/>
+      <geometry>
+        <mesh filename="package://meshes/wj_wk00_0123middlecase_56.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part drive_palonier_10 -->
+    <visual>
+      <origin xyz="0.0255 7.04731e-19 -0.00945" rpy="1.5708 -0 0"/>
+      <geometry>
+        <mesh filename="package://meshes/drive_palonier.stl"/>
+      </geometry>
+      <material name="drive_palonier_10_material">
+        <color rgba="0.623529 0.666667 0.701961 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.0255 7.04731e-19 -0.00945" rpy="1.5708 -0 0"/>
+      <geometry>
+        <mesh filename="package://meshes/drive_palonier.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part wj_wk00_0124bottomcase_45_10 -->
+    <visual>
+      <origin xyz="0.0255 7.04731e-19 -0.00945" rpy="1.5708 -0 0"/>
+      <geometry>
+        <mesh filename="package://meshes/wj_wk00_0124bottomcase_45.stl"/>
+      </geometry>
+      <material name="wj_wk00_0124bottomcase_45_10_material">
+        <color rgba="0.247059 0.243137 0.243137 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.0255 7.04731e-19 -0.00945" rpy="1.5708 -0 0"/>
+      <geometry>
+        <mesh filename="package://meshes/wj_wk00_0124bottomcase_45.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part wj_wk00_0122topcabinetcase_95_10 -->
+    <visual>
+      <origin xyz="0.0255 7.04731e-19 -0.00945" rpy="1.5708 -0 0"/>
+      <geometry>
+        <mesh filename="package://meshes/wj_wk00_0122topcabinetcase_95.stl"/>
+      </geometry>
+      <material name="wj_wk00_0122topcabinetcase_95_10_material">
+        <color rgba="0.247059 0.243137 0.243137 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.0255 7.04731e-19 -0.00945" rpy="1.5708 -0 0"/>
+      <geometry>
+        <mesh filename="package://meshes/wj_wk00_0122topcabinetcase_95.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part passive_palonier_10 -->
+    <visual>
+      <origin xyz="0.0255 3.2999e-16 -0.00655" rpy="1.5708 -0 0"/>
+      <geometry>
+        <mesh filename="package://meshes/passive_palonier.stl"/>
+      </geometry>
+      <material name="passive_palonier_10_material">
+        <color rgba="0.623529 0.666667 0.701961 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.0255 3.2999e-16 -0.00655" rpy="1.5708 -0 0"/>
+      <geometry>
+        <mesh filename="package://meshes/passive_palonier.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <!-- Frame head (dummy link + fixed joint) -->
+  <link name="head">
+    <origin xyz="0 0 0" rpy="0 -0 0"/>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1e-9"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+    </inertial>
+  </link>
+  <joint name="head_frame" type="fixed">
+    <origin xyz="0.04245 -7.9079e-17 0.03595" rpy="-1.53495e-13 1.5708 0"/>
+    <parent link="head_assembly"/>
+    <child link="head"/>
+    <axis xyz="0 0 0"/>
+  </joint>
+  <!-- Joint from neck_yaw_assembly to head_assembly -->
+  <joint name="head_roll" type="revolute">
+    <origin xyz="0.04095 6.12574e-18 -0.01915" rpy="-3.52764e-28 -1.5708 0"/>
+    <parent link="neck_yaw_assembly"/>
+    <child link="head_assembly"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10" lower="-0.523599" upper="0.523599"/>
+  </joint>
+  <!-- Joint from head_pitch_to_yaw to neck_yaw_assembly -->
+  <joint name="head_yaw" type="revolute">
+    <origin xyz="0 0.057 0.01905" rpy="-1.5708 2.30632e-23 6.12323e-17"/>
+    <parent link="head_pitch_to_yaw"/>
+    <child link="neck_yaw_assembly"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10" lower="-2.79253" upper="2.79253"/>
+  </joint>
+  <!-- Joint from neck_pitch_assembly to head_pitch_to_yaw -->
+  <joint name="head_pitch" type="revolute">
+    <origin xyz="-1.38778e-17 0.066 -1.38778e-17" rpy="-1.06884e-16 -2.16589e-16 -0.785398"/>
+    <parent link="neck_pitch_assembly"/>
+    <child link="head_pitch_to_yaw"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10" lower="0" upper="1.5708"/>
+  </joint>
+  <!-- Joint from trunk_assembly to neck_pitch_assembly -->
+  <joint name="neck_pitch" type="revolute">
+    <origin xyz="0.001 0.01915 0.0900009" rpy="1.5708 -0.785398 8.65959e-17"/>
+    <parent link="trunk_assembly"/>
+    <child link="neck_pitch_assembly"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10" lower="-1.13446" upper="0.349066"/>
+  </joint>
+  <!-- Link hip_roll_assembly_2 -->
+  <link name="hip_roll_assembly_2">
+    <inertial>
+      <origin xyz="0.000795081 -5.46541e-06 -0.03306" rpy="0 0 0"/>
+      <mass value="0.06648"/>
+      <inertia ixx="2.44411e-05" ixy="2.35658e-09" ixz="-3.81059e-07" iyy="2.81818e-05" iyz="-7.50036e-09" izz="1.42687e-05"/>
+    </inertial>
+    <!-- Part roll_motor_bottom_2 -->
+    <visual>
+      <origin xyz="-3.67761e-16 -0.035 0.01905" rpy="4.41706e-18 -5.55035e-17 -3.05311e-16"/>
+      <geometry>
+        <mesh filename="package://meshes/roll_motor_bottom.stl"/>
+      </geometry>
+      <material name="roll_motor_bottom_2_material">
+        <color rgba="0.647059 0.647059 0.647059 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-3.67761e-16 -0.035 0.01905" rpy="4.41706e-18 -5.55035e-17 -3.05311e-16"/>
+      <geometry>
+        <mesh filename="package://meshes/roll_motor_bottom.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part roll_motor_top_2 -->
+    <visual>
+      <origin xyz="0 -0.035 0.01905" rpy="0 -0 1.09703e-42"/>
+      <geometry>
+        <mesh filename="package://meshes/roll_motor_top.stl"/>
+      </geometry>
+      <material name="roll_motor_top_2_material">
+        <color rgba="0.901961 0.901961 0.901961 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 -0.035 0.01905" rpy="0 -0 1.09703e-42"/>
+      <geometry>
+        <mesh filename="package://meshes/roll_motor_top.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part wj_wk00_0123middlecase_56_11 -->
+    <visual>
+      <origin xyz="0.0096 5.94177e-14 -0.020515" rpy="-1.5708 -1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/wj_wk00_0123middlecase_56.stl"/>
+      </geometry>
+      <material name="wj_wk00_0123middlecase_56_11_material">
+        <color rgba="0.247059 0.243137 0.243137 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.0096 5.94177e-14 -0.020515" rpy="-1.5708 -1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/wj_wk00_0123middlecase_56.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part drive_palonier_11 -->
+    <visual>
+      <origin xyz="0.0096 5.94177e-14 -0.020515" rpy="-1.5708 -1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/drive_palonier.stl"/>
+      </geometry>
+      <material name="drive_palonier_11_material">
+        <color rgba="0.623529 0.666667 0.701961 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.0096 5.94177e-14 -0.020515" rpy="-1.5708 -1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/drive_palonier.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part wj_wk00_0124bottomcase_45_11 -->
+    <visual>
+      <origin xyz="0.0096 5.94177e-14 -0.020515" rpy="-1.5708 -1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/wj_wk00_0124bottomcase_45.stl"/>
+      </geometry>
+      <material name="wj_wk00_0124bottomcase_45_11_material">
+        <color rgba="0.247059 0.243137 0.243137 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.0096 5.94177e-14 -0.020515" rpy="-1.5708 -1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/wj_wk00_0124bottomcase_45.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part wj_wk00_0122topcabinetcase_95_11 -->
+    <visual>
+      <origin xyz="0.0096 5.94177e-14 -0.020515" rpy="-1.5708 -1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/wj_wk00_0122topcabinetcase_95.stl"/>
+      </geometry>
+      <material name="wj_wk00_0122topcabinetcase_95_11_material">
+        <color rgba="0.247059 0.243137 0.243137 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.0096 5.94177e-14 -0.020515" rpy="-1.5708 -1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/wj_wk00_0122topcabinetcase_95.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part passive_palonier_11 -->
+    <visual>
+      <origin xyz="0.0125 5.99312e-14 -0.020515" rpy="-1.5708 -1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/passive_palonier.stl"/>
+      </geometry>
+      <material name="passive_palonier_11_material">
+        <color rgba="0.623529 0.666667 0.701961 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.0125 5.99312e-14 -0.020515" rpy="-1.5708 -1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/passive_palonier.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <!-- Link right_roll_to_pitch_assembly -->
+  <link name="right_roll_to_pitch_assembly">
+    <inertial>
+      <origin xyz="-0.0507497 -0.000417205 0.0204377" rpy="0 0 0"/>
+      <mass value="0.07516"/>
+      <inertia ixx="2.52676e-05" ixy="-1.31172e-07" ixz="7.32857e-07" iyy="4.15738e-05" iyz="-8.94684e-08" izz="2.82863e-05"/>
+    </inertial>
+    <!-- Part right_roll_to_pitch -->
+    <visual>
+      <origin xyz="0.035 -0.065 0.01905" rpy="1.5708 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/right_roll_to_pitch.stl"/>
+      </geometry>
+      <material name="right_roll_to_pitch_material">
+        <color rgba="0.909804 0.572549 0.164706 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.035 -0.065 0.01905" rpy="1.5708 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/right_roll_to_pitch.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part wj_wk00_0123middlecase_56_12 -->
+    <visual>
+      <origin xyz="-0.0647 -9.1344e-18 0.00961" rpy="-1.5708 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/wj_wk00_0123middlecase_56.stl"/>
+      </geometry>
+      <material name="wj_wk00_0123middlecase_56_12_material">
+        <color rgba="0.247059 0.243137 0.243137 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.0647 -9.1344e-18 0.00961" rpy="-1.5708 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/wj_wk00_0123middlecase_56.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part drive_palonier_12 -->
+    <visual>
+      <origin xyz="-0.0647 -9.1344e-18 0.00961" rpy="-1.5708 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/drive_palonier.stl"/>
+      </geometry>
+      <material name="drive_palonier_12_material">
+        <color rgba="0.623529 0.666667 0.701961 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.0647 -9.1344e-18 0.00961" rpy="-1.5708 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/drive_palonier.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part wj_wk00_0124bottomcase_45_12 -->
+    <visual>
+      <origin xyz="-0.0647 -9.1344e-18 0.00961" rpy="-1.5708 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/wj_wk00_0124bottomcase_45.stl"/>
+      </geometry>
+      <material name="wj_wk00_0124bottomcase_45_12_material">
+        <color rgba="0.247059 0.243137 0.243137 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.0647 -9.1344e-18 0.00961" rpy="-1.5708 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/wj_wk00_0124bottomcase_45.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part wj_wk00_0122topcabinetcase_95_12 -->
+    <visual>
+      <origin xyz="-0.0647 -9.1344e-18 0.00961" rpy="-1.5708 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/wj_wk00_0122topcabinetcase_95.stl"/>
+      </geometry>
+      <material name="wj_wk00_0122topcabinetcase_95_12_material">
+        <color rgba="0.247059 0.243137 0.243137 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.0647 -9.1344e-18 0.00961" rpy="-1.5708 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/wj_wk00_0122topcabinetcase_95.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part passive_palonier_12 -->
+    <visual>
+      <origin xyz="-0.0676 7.8957e-17 0.00961" rpy="-1.5708 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/passive_palonier.stl"/>
+      </geometry>
+      <material name="passive_palonier_12_material">
+        <color rgba="0.623529 0.666667 0.701961 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.0676 7.8957e-17 0.00961" rpy="-1.5708 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://meshes/passive_palonier.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <!-- Link knee_and_ankle_assembly_3 -->
+  <link name="knee_and_ankle_assembly_3">
+    <inertial>
+      <origin xyz="0.00253369 0.0390636 0.010809" rpy="0 0 0"/>
+      <mass value="0.12407"/>
+      <inertia ixx="0.000212363" ixy="2.68706e-05" ixz="3.9656e-06" iyy="7.93324e-05" iyz="-2.17407e-05" izz="0.000225619"/>
+    </inertial>
+    <!-- Part right_cache -->
+    <visual>
+      <origin xyz="0.01606 -0.065 0.1092" rpy="1.5708 5.22144e-27 -1.06065e-16"/>
+      <geometry>
+        <mesh filename="package://meshes/right_cache.stl"/>
+      </geometry>
+      <material name="right_cache_material">
+        <color rgba="0.917647 0.917647 0.917647 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.01606 -0.065 0.1092" rpy="1.5708 5.22144e-27 -1.06065e-16"/>
+      <geometry>
+        <mesh filename="package://meshes/right_cache.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part leg_spacer_3 -->
+    <visual>
+      <origin xyz="0.01606 -0.14365 -0.07215" rpy="1.5708 7.04962e-27 5.16206e-17"/>
+      <geometry>
+        <mesh filename="package://meshes/leg_spacer.stl"/>
+      </geometry>
+      <material name="leg_spacer_3_material">
+        <color rgba="0.647059 0.647059 0.647059 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.01606 -0.14365 -0.07215" rpy="1.5708 7.04962e-27 5.16206e-17"/>
+      <geometry>
+        <mesh filename="package://meshes/leg_spacer.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part left_knee_to_ankle_right_sheet_3 -->
+    <visual>
+      <origin xyz="0.01606 -0.14365 -0.07205" rpy="1.5708 2.08025e-29 -2.75609e-17"/>
+      <geometry>
+        <mesh filename="package://meshes/left_knee_to_ankle_right_sheet.stl"/>
+      </geometry>
+      <material name="left_knee_to_ankle_right_sheet_3_material">
+        <color rgba="0.223529 0.219608 0.219608 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.01606 -0.14365 -0.07205" rpy="1.5708 2.08025e-29 -2.75609e-17"/>
+      <geometry>
+        <mesh filename="package://meshes/left_knee_to_ankle_right_sheet.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part left_knee_to_ankle_left_sheet_3 -->
+    <visual>
+      <origin xyz="0.01606 -0.14365 -0.07205" rpy="1.5708 1.46247e-26 -1.06065e-16"/>
+      <geometry>
+        <mesh filename="package://meshes/left_knee_to_ankle_left_sheet.stl"/>
+      </geometry>
+      <material name="left_knee_to_ankle_left_sheet_3_material">
+        <color rgba="0.223529 0.219608 0.219608 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.01606 -0.14365 -0.07205" rpy="1.5708 1.46247e-26 -1.06065e-16"/>
+      <geometry>
+        <mesh filename="package://meshes/left_knee_to_ankle_left_sheet.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part wj_wk00_0123middlecase_56_13 -->
+    <visual>
+      <origin xyz="-6.93889e-17 0.05315 0.02755" rpy="1.5708 -2.53591e-17 -1.5708"/>
+      <geometry>
+        <mesh filename="package://meshes/wj_wk00_0123middlecase_56.stl"/>
+      </geometry>
+      <material name="wj_wk00_0123middlecase_56_13_material">
+        <color rgba="0.247059 0.243137 0.243137 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-6.93889e-17 0.05315 0.02755" rpy="1.5708 -2.53591e-17 -1.5708"/>
+      <geometry>
+        <mesh filename="package://meshes/wj_wk00_0123middlecase_56.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part drive_palonier_13 -->
+    <visual>
+      <origin xyz="-6.93889e-17 0.05315 0.02755" rpy="1.5708 -2.53591e-17 -1.5708"/>
+      <geometry>
+        <mesh filename="package://meshes/drive_palonier.stl"/>
+      </geometry>
+      <material name="drive_palonier_13_material">
+        <color rgba="0.623529 0.666667 0.701961 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-6.93889e-17 0.05315 0.02755" rpy="1.5708 -2.53591e-17 -1.5708"/>
+      <geometry>
+        <mesh filename="package://meshes/drive_palonier.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part wj_wk00_0124bottomcase_45_13 -->
+    <visual>
+      <origin xyz="-6.93889e-17 0.05315 0.02755" rpy="1.5708 -2.53591e-17 -1.5708"/>
+      <geometry>
+        <mesh filename="package://meshes/wj_wk00_0124bottomcase_45.stl"/>
+      </geometry>
+      <material name="wj_wk00_0124bottomcase_45_13_material">
+        <color rgba="0.247059 0.243137 0.243137 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-6.93889e-17 0.05315 0.02755" rpy="1.5708 -2.53591e-17 -1.5708"/>
+      <geometry>
+        <mesh filename="package://meshes/wj_wk00_0124bottomcase_45.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part wj_wk00_0122topcabinetcase_95_13 -->
+    <visual>
+      <origin xyz="-6.93889e-17 0.05315 0.02755" rpy="1.5708 -2.53591e-17 -1.5708"/>
+      <geometry>
+        <mesh filename="package://meshes/wj_wk00_0122topcabinetcase_95.stl"/>
+      </geometry>
+      <material name="wj_wk00_0122topcabinetcase_95_13_material">
+        <color rgba="0.247059 0.243137 0.243137 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-6.93889e-17 0.05315 0.02755" rpy="1.5708 -2.53591e-17 -1.5708"/>
+      <geometry>
+        <mesh filename="package://meshes/wj_wk00_0122topcabinetcase_95.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part passive_palonier_13 -->
+    <visual>
+      <origin xyz="-5.10009e-16 0.05315 0.03045" rpy="1.5708 -2.53591e-17 -1.5708"/>
+      <geometry>
+        <mesh filename="package://meshes/passive_palonier.stl"/>
+      </geometry>
+      <material name="passive_palonier_13_material">
+        <color rgba="0.623529 0.666667 0.701961 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-5.10009e-16 0.05315 0.03045" rpy="1.5708 -2.53591e-17 -1.5708"/>
+      <geometry>
+        <mesh filename="package://meshes/passive_palonier.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <!-- Link knee_and_ankle_assembly_4 -->
+  <link name="knee_and_ankle_assembly_4">
+    <inertial>
+      <origin xyz="5.01859e-06 -0.0577465 0.0181136" rpy="0 0 0"/>
+      <mass value="0.07259"/>
+      <inertia ixx="4.99575e-05" ixy="1.03817e-08" ixz="2.25175e-09" iyy="1.87273e-05" iyz="8.81049e-08" izz="4.23932e-05"/>
+    </inertial>
+    <!-- Part leg_spacer_4 -->
+    <visual>
+      <origin xyz="0.01606 0.14365 0.10925" rpy="-1.5708 -1.75792e-26 -7.16333e-17"/>
+      <geometry>
+        <mesh filename="package://meshes/leg_spacer.stl"/>
+      </geometry>
+      <material name="leg_spacer_4_material">
+        <color rgba="0.647059 0.647059 0.647059 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.01606 0.14365 0.10925" rpy="-1.5708 -1.75792e-26 -7.16333e-17"/>
+      <geometry>
+        <mesh filename="package://meshes/leg_spacer.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part left_knee_to_ankle_right_sheet_4 -->
+    <visual>
+      <origin xyz="0.01606 0.14365 0.10915" rpy="-1.5708 2.36317e-27 -7.16333e-17"/>
+      <geometry>
+        <mesh filename="package://meshes/left_knee_to_ankle_right_sheet.stl"/>
+      </geometry>
+      <material name="left_knee_to_ankle_right_sheet_4_material">
+        <color rgba="0.223529 0.219608 0.219608 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.01606 0.14365 0.10915" rpy="-1.5708 2.36317e-27 -7.16333e-17"/>
+      <geometry>
+        <mesh filename="package://meshes/left_knee_to_ankle_right_sheet.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part left_knee_to_ankle_left_sheet_4 -->
+    <visual>
+      <origin xyz="0.01606 0.14365 0.10915" rpy="-1.5708 2.24541e-29 -1.01465e-17"/>
+      <geometry>
+        <mesh filename="package://meshes/left_knee_to_ankle_left_sheet.stl"/>
+      </geometry>
+      <material name="left_knee_to_ankle_left_sheet_4_material">
+        <color rgba="0.223529 0.219608 0.219608 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.01606 0.14365 0.10915" rpy="-1.5708 2.24541e-29 -1.01465e-17"/>
+      <geometry>
+        <mesh filename="package://meshes/left_knee_to_ankle_left_sheet.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part wj_wk00_0123middlecase_56_14 -->
+    <visual>
+      <origin xyz="1.66533e-16 -0.05315 0.00955" rpy="-1.5708 -4.0587e-17 1.5708"/>
+      <geometry>
+        <mesh filename="package://meshes/wj_wk00_0123middlecase_56.stl"/>
+      </geometry>
+      <material name="wj_wk00_0123middlecase_56_14_material">
+        <color rgba="0.247059 0.243137 0.243137 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="1.66533e-16 -0.05315 0.00955" rpy="-1.5708 -4.0587e-17 1.5708"/>
+      <geometry>
+        <mesh filename="package://meshes/wj_wk00_0123middlecase_56.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part drive_palonier_14 -->
+    <visual>
+      <origin xyz="1.66533e-16 -0.05315 0.00955" rpy="-1.5708 -4.0587e-17 1.5708"/>
+      <geometry>
+        <mesh filename="package://meshes/drive_palonier.stl"/>
+      </geometry>
+      <material name="drive_palonier_14_material">
+        <color rgba="0.623529 0.666667 0.701961 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="1.66533e-16 -0.05315 0.00955" rpy="-1.5708 -4.0587e-17 1.5708"/>
+      <geometry>
+        <mesh filename="package://meshes/drive_palonier.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part wj_wk00_0124bottomcase_45_14 -->
+    <visual>
+      <origin xyz="1.66533e-16 -0.05315 0.00955" rpy="-1.5708 -4.0587e-17 1.5708"/>
+      <geometry>
+        <mesh filename="package://meshes/wj_wk00_0124bottomcase_45.stl"/>
+      </geometry>
+      <material name="wj_wk00_0124bottomcase_45_14_material">
+        <color rgba="0.247059 0.243137 0.243137 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="1.66533e-16 -0.05315 0.00955" rpy="-1.5708 -4.0587e-17 1.5708"/>
+      <geometry>
+        <mesh filename="package://meshes/wj_wk00_0124bottomcase_45.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part wj_wk00_0122topcabinetcase_95_14 -->
+    <visual>
+      <origin xyz="1.66533e-16 -0.05315 0.00955" rpy="-1.5708 -4.0587e-17 1.5708"/>
+      <geometry>
+        <mesh filename="package://meshes/wj_wk00_0122topcabinetcase_95.stl"/>
+      </geometry>
+      <material name="wj_wk00_0122topcabinetcase_95_14_material">
+        <color rgba="0.247059 0.243137 0.243137 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="1.66533e-16 -0.05315 0.00955" rpy="-1.5708 -4.0587e-17 1.5708"/>
+      <geometry>
+        <mesh filename="package://meshes/wj_wk00_0122topcabinetcase_95.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part passive_palonier_14 -->
+    <visual>
+      <origin xyz="3.46945e-16 -0.05315 0.00665" rpy="-1.5708 -4.0587e-17 1.5708"/>
+      <geometry>
+        <mesh filename="package://meshes/passive_palonier.stl"/>
+      </geometry>
+      <material name="passive_palonier_14_material">
+        <color rgba="0.623529 0.666667 0.701961 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="3.46945e-16 -0.05315 0.00665" rpy="-1.5708 -4.0587e-17 1.5708"/>
+      <geometry>
+        <mesh filename="package://meshes/passive_palonier.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <!-- Link foot_assembly_2 -->
+  <link name="foot_assembly_2">
+    <inertial>
+      <origin xyz="0.0110718 -0.0246608 0.0190626" rpy="0 0 0"/>
+      <mass value="0.07524"/>
+      <inertia ixx="1.87482e-05" ixy="1.58839e-06" ixz="-6.52354e-09" iyy="6.74427e-05" iyz="5.67391e-08" izz="6.061e-05"/>
+    </inertial>
+    <!-- Part foot_side_2 -->
+    <visual>
+      <origin xyz="0.01606 0.2223 0.10905" rpy="-1.5708 -1.20284e-29 0"/>
+      <geometry>
+        <mesh filename="package://meshes/foot_side.stl"/>
+      </geometry>
+      <material name="foot_side_2_material">
+        <color rgba="0.980392 0.713725 0.00392157 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.01606 0.2223 0.10905" rpy="-1.5708 -1.20284e-29 0"/>
+      <geometry>
+        <mesh filename="package://meshes/foot_side.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part foot_bottom_tpu_2 -->
+    <visual>
+      <origin xyz="0.01656 0.2228 0.10955" rpy="-1.5708 -1.20284e-29 0"/>
+      <geometry>
+        <mesh filename="package://meshes/foot_bottom_tpu.stl"/>
+      </geometry>
+      <material name="foot_bottom_tpu_2_material">
+        <color rgba="0.305882 0.298039 0.278431 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.01656 0.2228 0.10955" rpy="-1.5708 -1.20284e-29 0"/>
+      <geometry>
+        <mesh filename="package://meshes/foot_bottom_tpu.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part foot_bottom_pla_2 -->
+    <visual>
+      <origin xyz="0.01656 0.2228 0.10955" rpy="-1.5708 -1.20284e-29 0"/>
+      <geometry>
+        <mesh filename="package://meshes/foot_bottom_pla.stl"/>
+      </geometry>
+      <material name="foot_bottom_pla_2_material">
+        <color rgba="0.305882 0.298039 0.278431 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.01656 0.2228 0.10955" rpy="-1.5708 -1.20284e-29 0"/>
+      <geometry>
+        <mesh filename="package://meshes/foot_bottom_pla.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part foot_top_2 -->
+    <visual>
+      <origin xyz="0.01606 0.2223 0.10905" rpy="-1.5708 -1.20284e-29 0"/>
+      <geometry>
+        <mesh filename="package://meshes/foot_top.stl"/>
+      </geometry>
+      <material name="foot_top_2_material">
+        <color rgba="0.980392 0.713725 0.00392157 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.01606 0.2223 0.10905" rpy="-1.5708 -1.20284e-29 0"/>
+      <geometry>
+        <mesh filename="package://meshes/foot_top.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <!-- Frame right_foot (dummy link + fixed joint) -->
+  <link name="right_foot">
+    <origin xyz="0 0 0" rpy="0 -0 0"/>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1e-9"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+    </inertial>
+  </link>
+  <joint name="right_foot_frame" type="fixed">
+    <origin xyz="0.0005 -0.036225 0.01955" rpy="-1.5708 1.8992e-28 -7.57306e-29"/>
+    <parent link="foot_assembly_2"/>
+    <child link="right_foot"/>
+    <axis xyz="0 0 0"/>
+  </joint>
+  <!-- Joint from knee_and_ankle_assembly_4 to foot_assembly_2 -->
+  <joint name="right_ankle" type="revolute">
+    <origin xyz="-9.71445e-17 -0.07865 0.0001" rpy="2.86993e-17 2.86993e-17 -0.785398"/>
+    <parent link="knee_and_ankle_assembly_4"/>
+    <child link="foot_assembly_2"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10" lower="-0.785398" upper="2.35619"/>
+  </joint>
+  <!-- Joint from knee_and_ankle_assembly_3 to knee_and_ankle_assembly_4 -->
+  <joint name="right_knee" type="revolute">
+    <origin xyz="9.4369e-16 0.07865 0.037" rpy="-3.14159 -3.10803e-17 -1.5708"/>
+    <parent link="knee_and_ankle_assembly_3"/>
+    <child link="knee_and_ankle_assembly_4"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10" lower="-3.14159" upper="0"/>
+  </joint>
+  <!-- Joint from right_roll_to_pitch_assembly to knee_and_ankle_assembly_3 -->
+  <joint name="right_hip_pitch" type="revolute">
+    <origin xyz="-0.07415 -2.12775e-17 0.03511" rpy="1.5708 0.785398 1.5708"/>
+    <parent link="right_roll_to_pitch_assembly"/>
+    <child link="knee_and_ankle_assembly_3"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10" lower="-1.309" upper="0.436332"/>
+  </joint>
+  <!-- Joint from hip_roll_assembly_2 to right_roll_to_pitch_assembly -->
+  <joint name="right_hip_roll" type="revolute">
+    <origin xyz="0.01905 5.9841e-14 -0.046015" rpy="-1.5708 -1.09764e-13 1.5708"/>
+    <parent link="hip_roll_assembly_2"/>
+    <child link="right_roll_to_pitch_assembly"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10" lower="-0.436332" upper="0.436332"/>
+  </joint>
+  <!-- Joint from trunk_assembly to hip_roll_assembly_2 -->
+  <joint name="right_hip_yaw" type="revolute">
+    <origin xyz="-0.019 -0.035 0.0459409" rpy="-2.95716e-16 -2.22045e-14 -1.27291e-26"/>
+    <parent link="trunk_assembly"/>
+    <child link="hip_roll_assembly_2"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10" lower="-0.523599" upper="0.523599"/>
+  </joint>
+</robot>
