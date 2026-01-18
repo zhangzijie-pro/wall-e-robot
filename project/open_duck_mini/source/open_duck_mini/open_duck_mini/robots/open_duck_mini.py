@@ -4,9 +4,10 @@ from isaaclab.assets import ArticulationCfg
 from isaaclab.sim import RigidBodyPropertiesCfg, ArticulationRootPropertiesCfg
 from isaaclab.actuators import ImplicitActuatorCfg
 import isaaclab.sim as sim_utils
+from isaaclab.sensors import FrameTransformerCfg, CameraCfg
 
 OPEN_DUCK_MINI_CFG = ArticulationCfg(
-    prim_path="{ENV_REGEX_NS}/Robot",  # 多环境时自动替换
+    prim_path="{ENV_REGEX_NS}/Open_Duck",  # 多环境时自动替换
     spawn=sim_utils.UsdFileCfg(
         usd_path="C:\\Nvidia_Sim\\project\\assets\\Robots\\open_duck_mini\\open_duck_mini.usd",
         activate_contact_sensors=True,
@@ -21,6 +22,13 @@ OPEN_DUCK_MINI_CFG = ArticulationCfg(
             enable_gyroscopic_forces=True,
         ),
         mass_props=sim_utils.MassPropertiesCfg(mass=1.0),
+        articulation_props=sim_utils.ArticulationRootPropertiesCfg(
+            enabled_self_collisions=False,  # 关闭自碰撞（四足机器人必需）
+            solver_position_iteration_count=8,
+            solver_velocity_iteration_count=2,
+            sleep_threshold=0.005,
+            stabilization_threshold=0.001,
+        ),
     ),
     init_state=ArticulationCfg.InitialStateCfg(
         pos=(0.0, 0.0, 0.42),  # 初始高度（Open Duck ~42cm，根据 URDF 调整防塌陷）
@@ -63,11 +71,4 @@ OPEN_DUCK_MINI_CFG = ArticulationCfg(
             damping=20000.0,  # 高阻尼防抖动；如果爆炸，提高到 5e4
         ),
     },
-    # articulation_props=ArticulationRootPropertiesCfg(
-    #     enabled_self_collisions=False,  # 关闭自碰撞（四足机器人必需）
-    #     solver_position_iteration_count=8,
-    #     solver_velocity_iteration_count=2,
-    #     sleep_threshold=0.005,
-    #     stabilization_threshold=0.001,
-    # ),
 )

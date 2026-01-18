@@ -13,7 +13,7 @@ from . import agents
 
 
 gym.register(
-    id="Template-Open-Duck-Mini-Direct-v0",
+    id="Open-Duck-Mini-Walk-Direct-v0",
     entry_point=f"{__name__}.open_duck_mini_env:OpenDuckMiniEnv",
     disable_env_checker=True,
     kwargs={

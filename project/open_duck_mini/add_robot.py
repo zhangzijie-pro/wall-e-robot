@@ -1,8 +1,3 @@
-# Copyright (c) 2022-2026, The Isaac Lab Project Developers (https://github.com/isaac-sim/IsaacLab/blob/main/CONTRIBUTORS.md).
-# All rights reserved.
-#
-# SPDX-License-Identifier: BSD-3-Clause
-
 import argparse
 
 from isaaclab.app import AppLauncher
@@ -31,6 +26,7 @@ from isaaclab.assets.articulation import ArticulationCfg
 from isaaclab.scene import InteractiveScene, InteractiveSceneCfg
 from isaaclab.utils.assets import ISAAC_NUCLEUS_DIR
 from robots.open_duck_mini import OPEN_DUCK_MINI_CFG
+from isaaclab.sensors import CameraCfg, ContactSensorCfg, RayCasterCfg, patterns
 
 class NewRobotsSceneCfg(InteractiveSceneCfg):
     """Designs the scene."""
@@ -45,11 +41,45 @@ class NewRobotsSceneCfg(InteractiveSceneCfg):
 
     # robot
     Open_Duck = OPEN_DUCK_MINI_CFG.replace(prim_path="{ENV_REGEX_NS}/Open_Duck")
+    
+    sensors = {
+        "base_frame": FrameTransformerCfg(
+            prim_path="{ENV_REGEX_NS}/Open_Duck/base_link",  # 假设base_link是根
+            target_prim_path="{ENV_REGEX_NS}/Robot",  # 目标帧
+        ),
+        "camera": CameraCfg(
+            prim_path="{ENV_REGEX_NS}/Open_Duck/head_camera",  # 假设头部有相机挂点
+            offset=CameraCfg.OffsetCfg(pos=(0.1, 0.0, 0.05), rot=(0.5, -0.5, 0.5, -0.5), convention="ros"),
+            update_period=0.1,
+            height=480,
+            width=640,
+            data_types=["rgb", "depth"],
+            width=640, height=480,
+        ),
+        "height_scanner": RayCasterCfg(
+            prim_path="{ENV_REGEX_NS}/Open_Duck/base",
+            update_period=0.02,
+            offset=RayCasterCfg.OffsetCfg(pos=(0.0, 0.0, 20.0)),
+            ray_alignment="yaw",
+            pattern_cfg=patterns.GridPatternCfg(resolution=0.1, size=[1.6, 1.0]),
+            debug_vis=True,
+            mesh_prim_paths=["/World/defaultGroundPlane"],
+        ),
+        "contact_forces":ContactSensorCfg(
+            prim_path="{ENV_REGEX_NS}/Open_Duck/.*_ankle", update_period=0.0, history_length=6, debug_vis=True
+        )
+    }
+    
+    Open_Duck.sensors = sensors
+
 
 def run_simulator(sim: sim_utils.SimulationContext, scene: InteractiveScene):
     sim_dt = sim.get_physics_dt()  # 获取物理时间步长
     sim_time = 0.0  # 初始化仿真时间
     count = 0  # 计数器，用于控制行为逻辑
+    
+    kp = 50.0  # 位置增益
+    kd = 5.0   # 速度增益
 
     while simulation_app.is_running():  # 当仿真运行时持续进行
         # 每500个计数重置一次状态
@@ -76,19 +106,30 @@ def run_simulator(sim: sim_utils.SimulationContext, scene: InteractiveScene):
             print("[INFO]: Resetting Open_Duck state...")
 
         # 控制机器人直行
-        if count % 100 < 75:
-            action = torch.Tensor([[20.0, 15.0]])  # 向前驱动
-        else:
-            # 控制机器人转弯
-            action = torch.Tensor([[5.0, -15.0]])  # 向左转弯
+        # if count % 100 < 75:
+        #     action = torch.Tensor([[20.0, 15.0]])  # 向前驱动
+        # else:
+        #     # 控制机器人转弯
+        #     action = torch.Tensor([[5.0, -15.0]])  # 向左转弯
 
-        # 将动作发送给机器人关节
-        # scene["Open_Duck"].set_joint_velocity_target(action)
-
-        # # 进行波动动作
-        wave_action = scene["Open_Duck"].data.default_joint_pos
-        wave_action[:, 0:4] = 0.25 * np.sin(2 * np.pi * 0.5 * sim_time)  # 基于时间周期变化
-        scene["Open_Duck"].set_joint_position_target(wave_action)
+        # 简单正弦步态（假设双腿简化）
+        phase = 2 * np.pi * 0.5 * sim_time
+        right_leg_pos = torch.tensor([0.0, 0.0, -0.2 + 0.1 * np.sin(phase), -0.5 + 0.1 * np.cos(phase), 0.3])
+        left_leg_pos = torch.tensor([0.0, 0.0, -0.2 + 0.1 * np.sin(phase + np.pi), -0.5 + 0.1 * np.cos(phase + np.pi), 0.3])
+        head_pos = torch.tensor([0.0, 0.3, 0.1 * np.sin(phase), 0.0])  # 头部摆动
+        full_target = torch.cat((right_leg_pos, head_pos, left_leg_pos)).unsqueeze(0)  # 匹配关节顺序
+        # scene["Open_Duck"].set_joint_position_target(full_target)
+        
+        target_pos = full_target
+        current_pos = scene["Open_Duck"].data.joint_pos
+        current_vel = scene["Open_Duck"].data.joint_vel
+        efforts = kp * (target_pos - current_pos) - kd * current_vel
+        scene["Open_Duck"].set_joint_effort_target(efforts)
+        scene["Open_Duck"].set_joint_position_target(target_pos)  # 混合使用
+        # 进行波动动作
+        # wave_action = scene["Open_Duck"].data.default_joint_pos
+        # wave_action[:, 0:4] = 0.25 * np.sin(2 * np.pi * 0.5 * sim_time)  # 基于时间周期变化
+        # scene["Open_Duck"].set_joint_position_target(wave_action)
 
         # 更新场景数据并写入仿真
         scene.write_data_to_sim()
@@ -101,6 +142,17 @@ def run_simulator(sim: sim_utils.SimulationContext, scene: InteractiveScene):
 
         if count % 50 == 0:
             print(f"[INFO]: Sim Time: {sim_time:.2f}, Action: {action.numpy()}")
+            print("-------------------------------")
+            print(scene["Open_Duck"].get_sensor_data("camera"))
+            print("Received shape of rgb   image: ", scene["Open_Duck"].get_sensor_data("camera").data.output["rgb"].shape)
+            print("Received shape of depth image: ", scene["Open_Duck"].get_sensor_data("camera").data.output["depth"].shape)
+            print("-------------------------------")
+            print(scene["Open_Duck"].get_sensor_data("height_scanner"))
+            print("Received max height value: ", torch.max(scene["Open_Duck"].get_sensor_data("height_scanner").data.ray_hits_w[..., -1]).item())
+            print("-------------------------------")
+            print(scene["Open_Duck"].get_sensor_data("contact_forces"))
+            print("Received max contact force of: ", torch.max(scene["Open_Duck"].get_sensor_data("contact_forces").data.net_forces_w).item())
+
 
 
 def main():
