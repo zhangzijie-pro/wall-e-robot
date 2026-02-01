@@ -213,4 +213,5 @@ test/*.py
 test/depth/*.pth
 test/depth/*.pt
 test/dnn*
+test/ECAPA-TDNN/processed/cn_celeb2/fbank_pt/*
 walle_robot.egg-info/
