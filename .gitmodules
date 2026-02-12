@@ -1,0 +1,3 @@
+[submodule "test/Speaker-Verification"]
+	path = test/Speaker-Verification
+	url = https://github.com/zhangzijie-pro/Speaker-Verification.git
